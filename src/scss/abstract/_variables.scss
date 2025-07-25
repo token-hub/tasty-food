@@ -4,48 +4,23 @@ $secondary: #f25b0a;
 $tertiary: #79a33d;
 $default-bg: #f5f5dc;
 
-// $utilities: map-merge(
-//     (
-//         "text-color":
-//             map-merge(
-//                 map-get($utilities, "text-color"),
-//                 (
-//                     "secondary": (
-//                         property: color,
-//                         class: text,
-//                         values: (
-//                             "secondary": $secondary
-//                         )
-//                     ),
-//                     "tertiary": (
-//                         property: color,
-//                         class: text,
-//                         values: (
-//                             "tertiary": $tertiary
-//                         )
-//                     )
-//                 )
-//             )
-//     ),
-//     $utilities
-// );
-
-//  "text-color": (
-//       property: color,
-//       class: text,
-//       values: (
-//   "primary-emphasis": var(--#{$prefix}primary-text-emphasis),
-//   "secondary-emphasis": var(--#{$prefix}secondary-text-emphasis),
-//   "success-emphasis": var(--#{$prefix}success-text-emphasis),
-//   "info-emphasis": var(--#{$prefix}info-text-emphasis),
-//   "warning-emphasis": var(--#{$prefix}warning-text-emphasis),
-//   "danger-emphasis": var(--#{$prefix}danger-text-emphasis),
-//   "light-emphasis": var(--#{$prefix}light-text-emphasis),
-//   "dark-emphasis": var(--#{$prefix}dark-text-emphasis)
-// )
-//     )
-
 $body-bg: $default-bg;
 
 // Font
 $font-family-base: "Sansation", sans-serif;
+
+// SPACES
+$spacer: 1rem !default;
+$spacers: (
+    0: 0,
+    1: $spacer * 0.25,
+    2: $spacer * 0.5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 3,
+    6: $spacer * 4,
+    7: $spacer * 6,
+    8: $spacer * 8,
+    9: $spacer * 12,
+    10: $spacer * 16
+) !default;
