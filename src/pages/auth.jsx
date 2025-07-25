@@ -1,5 +1,4 @@
 import { Link, useSearchParams } from "react-router";
-import Header from "../layout/header";
 import FacebookIcon from "../assets/icons/facebookIcon";
 import GoogleIcon from "../assets/icons/googleIcon";
 import { useEffect } from "react";
@@ -28,7 +27,6 @@ function Auth() {
 
     return (
         <>
-            <Header />
             <div className="auth bg-secondary ">
                 <div className="container h-100">
                     <div className="d-flex justify-content-center align-items-center align-items-sm-baseline h-100 pt-sm-7">
