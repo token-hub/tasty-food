@@ -1,0 +1,6 @@
+$theme-colors: map-merge(
+    (
+        "tertiary": $tertiary
+    ),
+    $theme-colors
+);
