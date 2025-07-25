@@ -1,9 +1,31 @@
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import Header from "../layout/header";
 import FacebookIcon from "../assets/icons/facebookIcon";
 import GoogleIcon from "../assets/icons/googleIcon";
+import { useEffect } from "react";
 
 function Auth() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = searchParams.get("page");
+    useEffect(() => {
+        if (!page) {
+            setSearchParams("?page=login");
+        }
+    }, [page, setSearchParams]);
+
+    let isLoginPage = page === "login";
+    let cardTitle = isLoginPage ? "Log In" : "Sign Up";
+    let linkMessage = isLoginPage ? "Sign Up" : "Log in";
+    let textBeforeLink = isLoginPage ? "New to Tasty Food?" : "Already have an account?";
+
+    function handleLink() {
+        if (isLoginPage) {
+            setSearchParams("?page=signUp");
+            return;
+        }
+        setSearchParams("?page=login");
+    }
+
     return (
         <>
             <Header />
@@ -12,7 +34,7 @@ function Auth() {
                     <div className="d-flex justify-content-center align-items-center align-items-sm-baseline h-100 pt-sm-7">
                         <div className="card" style={{ width: "25rem" }}>
                             <div className="card-body">
-                                <h6 className="card-title mb-4">Log In </h6>
+                                <h6 className="card-title mb-4">{cardTitle} </h6>
 
                                 <form action="">
                                     <div className="mb-4">
@@ -23,15 +45,26 @@ function Auth() {
                                             placeholder="name@example.com"
                                         />
                                     </div>
+
                                     <div className="mb-4">
                                         <input type="password" className="form-control text-muted" placeholder="password" />
                                     </div>
+
+                                    {!isLoginPage && (
+                                        <div className="mb-4">
+                                            <input type="password" className="form-control text-muted" placeholder="confirm password" />
+                                        </div>
+                                    )}
                                     <button className="w-100 btn btn-sm btn-primary mb-2 text-white" disabled>
                                         SUBMIT
                                     </button>
-                                    <Link to="/" className="fs-6 mb-3 link-underline link-underline-opacity-0">
-                                        <small> Forgot password</small>
-                                    </Link>
+
+                                    {isLoginPage && (
+                                        <Link to="/" className="fs-6 mb-3 link-underline link-underline-opacity-0">
+                                            <small> Forgot password</small>
+                                        </Link>
+                                    )}
+
                                     <div className="d-flex justify-content-center">
                                         <div className="my-2 small text-muted">
                                             <small>OR</small>
@@ -45,10 +78,10 @@ function Auth() {
                                             <FacebookIcon /> <span className="ms-1">Facebook</span>
                                         </button>
                                     </div>
-                                    <Link to="/" className="fs-6 d-flex justify-content-center link-underline link-underline-opacity-0">
+                                    <Link onClick={handleLink} className="fs-6 d-flex justify-content-center link-underline link-underline-opacity-0">
                                         <small>
-                                            <span className="text-muted">New to Tasty Food?</span>{" "}
-                                            <span className="ms-2 text-secondary">Sign Up</span>
+                                            <span className="text-muted">{textBeforeLink}</span>
+                                            <span className="ms-2 text-secondary">{linkMessage}</span>
                                         </small>
                                     </Link>
                                 </form>
