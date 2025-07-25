@@ -1,0 +1,12 @@
+.no-btn-outline:focus,
+.no-btn-outline:active,
+.no-btn-outline:focus:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent !important;
+}
+
+.search-btn:hover svg {
+    transition: all 0.3s;
+    filter: brightness(1.05);
+}
