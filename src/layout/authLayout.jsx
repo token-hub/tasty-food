@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
-import Header from "./header";
-function UnAuthenticated() {
+import Header from "./authHeader";
+function AuthLayout() {
     return (
         <>
             <Header />
@@ -9,4 +9,4 @@ function UnAuthenticated() {
     );
 }
 
-export default UnAuthenticated;
+export default AuthLayout;

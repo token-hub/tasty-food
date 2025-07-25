@@ -5,7 +5,7 @@ function Header() {
         <>
             <nav className="navbar navbar-light bg-light">
                 <div className="container">
-                    <Link to="/login" className="navbar-brand text-primary">
+                    <Link to="/" className="navbar-brand text-primary">
                         Tasty Food
                     </Link>
                 </div>
