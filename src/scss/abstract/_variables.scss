@@ -1,3 +1,4 @@
+// Colors
 $primary: #f1ac18;
 $secondary: #f5f5dc;
 $tertiary: #f25b0a;
@@ -8,3 +9,6 @@ $theme-colors: map-merge(
     ),
     $theme-colors
 );
+
+// Font
+$font-family-base: "Sansation", sans-serif;
