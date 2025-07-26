@@ -36,7 +36,7 @@ function BaseHeader() {
                         )}
                     </div>
                     <div className="d-flex d-sm-none w-100 mt-2">
-                        <SearchBar inputWidth="w-100" />
+                        <SearchBar inputWidth="w-100" maxWidth="mw-100" />
                     </div>
                 </div>
             </nav>
