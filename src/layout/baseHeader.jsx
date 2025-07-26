@@ -1,8 +1,9 @@
 import { Link } from "react-router";
 import UserIcon from "../assets/icons/userIcon";
-import SearchBar from "../components/searchBar";
+import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
 import { isAuthenticated } from "../lib/constants";
+import MenuDropDown from "../components/header/menuDropDown";
 
 function BaseHeader() {
     return (
@@ -18,33 +19,16 @@ function BaseHeader() {
                         </div>
 
                         {isAuthenticated ? (
-                            <>
-                                <div className="d-none d-md-block dropdown">
-                                    <div
-                                        className="dropdown-toggle d-flex align-items-center text-white"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                    >
-                                        <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
-                                    </div>
-                                    <ul className="dropdown-menu mt-2 ms-n6">
-                                        <li>
-                                            <Link to="/me" className="dropdown-item">
-                                                My Account
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <hr className="dropdown-divider" />
-                                        </li>
-                                        <li>
-                                            <Link to="/auth" className="dropdown-item">
-                                                Logout
-                                            </Link>
-                                        </li>
-                                    </ul>
+                            <MenuDropDown>
+                                <div
+                                    className="dropdown-toggle d-flex align-items-center text-white"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
                                 </div>
-                            </>
+                            </MenuDropDown>
                         ) : (
                             <>
                                 <span className="text-white fs-6 me-2">Sign In</span> <SignInIcon className="text-white" height="20" width="20" />
