@@ -19,7 +19,7 @@ function BaseHeader() {
 
                         {isAuthenticated ? (
                             <>
-                                <div className="dropdown">
+                                <div className="d-none d-md-block dropdown">
                                     <div
                                         className="dropdown-toggle d-flex align-items-center text-white"
                                         role="button"
