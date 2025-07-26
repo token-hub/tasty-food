@@ -1,4 +1,4 @@
-import SearchIcon from "../assets/icons/searchIcon";
+import SearchIcon from "../../assets/icons/searchIcon";
 
 function SearchBar({ inputWidth = "w-50" }) {
     return (
