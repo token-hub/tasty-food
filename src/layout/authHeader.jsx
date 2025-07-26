@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router";
+import { Link } from "react-router";
 
 function Header() {
     return (
@@ -10,8 +10,6 @@ function Header() {
                     </Link>
                 </div>
             </nav>
-
-            <Outlet />
         </>
     );
 }
