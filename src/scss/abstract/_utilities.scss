@@ -1,0 +1,29 @@
+$utilities: map-merge(
+    $utilities,
+    (
+        "viewport-width": (
+            property: width,
+            class: vw,
+            values: (
+                10: 10vw,
+                20: 20vw,
+                30: 30vw,
+                40: 40vw,
+                50: 50vw,
+                60: 60vw,
+                70: 70vw,
+                80: 80vw,
+                90: 90vw,
+                100: 100vw
+            )
+        ),
+        "max-width": (
+            property: max-width,
+            class: mw,
+            values: (
+                65: 65%,
+                100: 100%
+            )
+        )
+    )
+);
