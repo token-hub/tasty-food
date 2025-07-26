@@ -16,9 +16,34 @@ function BaseHeader() {
                         <div className="d-none d-sm-flex flex-grow-1 ">
                             <SearchBar />
                         </div>
+
                         {isAuthenticated ? (
                             <>
-                                <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
+                                <div className="dropdown">
+                                    <div
+                                        className="dropdown-toggle d-flex align-items-center text-white"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
+                                    </div>
+                                    <ul className="dropdown-menu mt-2 ms-n6">
+                                        <li>
+                                            <Link to="/me" className="dropdown-item">
+                                                My Account
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <hr className="dropdown-divider" />
+                                        </li>
+                                        <li>
+                                            <Link to="/auth" className="dropdown-item">
+                                                Logout
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
                             </>
                         ) : (
                             <>
