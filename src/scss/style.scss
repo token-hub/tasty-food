@@ -10,6 +10,10 @@
 
 @import "/node_modules/bootstrap/scss/maps";
 @import "/node_modules/bootstrap/scss/utilities";
+
+// custom utilities
+@import "./abstract/utilities";
+
 @import "/node_modules/bootstrap/scss/mixins";
 
 // Layout & components
