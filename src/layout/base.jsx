@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
+import MobileFooter from "./mobileFooter";
 
 function Base() {
     return (
@@ -17,6 +18,9 @@ function Base() {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="d-md-none">
+                <MobileFooter />
             </div>
         </>
     );
