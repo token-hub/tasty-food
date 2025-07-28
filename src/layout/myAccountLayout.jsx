@@ -9,16 +9,16 @@ function MyAccountLayout() {
         <>
             <BaseHeader />
             <div className="container">
-                <div className="d-none d-md-block">
-                    <div className="row mt-3 ">
-                        <div className="col-md-3 col-lg-2">
+                <div className="row mt-3 ">
+                    <div className="col-md-3 col-lg-2">
+                        <div className="d-none d-md-block">
                             <Sidebar />
                         </div>
-                        <div className="col-md-9 col-lg-10">
-                            <Main>
-                                <Outlet />
-                            </Main>
-                        </div>
+                    </div>
+                    <div className="col-md-9 col-lg-10">
+                        <Main>
+                            <Outlet />
+                        </Main>
                     </div>
                 </div>
             </div>
