@@ -10,15 +10,11 @@ function MainHeader({ text }) {
                     <h5 className="text-muted fw-bold d-none d-md-block">{text}</h5>
                     <Link to="/me" relative="path" className="link-underline link-underline-opacity-0 d-md-none">
                         <div className="d-flex align-items-center mb-2 w-100 text-muted">
-                            <LeftIcon height="20" width="20" className="me-2" /> <h5 className="text-muted fw-bold mb-0">{text}</h5>
+                            <LeftIcon height="20" width="20" className="me-2 text-tertiary" /> <h5 className=" fw-bold mb-0">{text}</h5>
                         </div>
                     </Link>
                 </>
             )}
-
-            {/* <Link to="/">
-                <LeftIcon />
-            </Link> */}
         </div>
     );
 }
