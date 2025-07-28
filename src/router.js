@@ -5,6 +5,8 @@ import AuthLayout from "./layout/authLayout";
 import BaseLayout from "./layout/base";
 import MyAccountLayout from "./layout/myAccountLayout";
 import { createBrowserRouter } from "react-router";
+import Profile from "./pages/profile";
+import Password from "./pages/password";
 
 const router = createBrowserRouter([
     {
@@ -15,7 +17,17 @@ const router = createBrowserRouter([
     {
         path: "/me",
         Component: MyAccountLayout,
-        children: [{ index: true, Component: Recipes }]
+        children: [
+            { index: true, Component: Recipes },
+            {
+                path: "profile",
+                Component: Profile
+            },
+            {
+                path: "password",
+                Component: Password
+            }
+        ]
     },
     {
         path: "auth",
