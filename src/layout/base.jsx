@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
+import Main from "./main";
 
 function Base() {
     return (
@@ -12,7 +13,9 @@ function Base() {
                     <div className="row mt-3 ">
                         <div className="col-md-3 col-lg-2">{/* <Sidebar /> */}</div>
                         <div className="col-md-9 col-lg-10">
-                            <Outlet />
+                            <Main>
+                                <Outlet />
+                            </Main>
                         </div>
                     </div>
                 </div>
