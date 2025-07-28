@@ -7,6 +7,7 @@ import MyAccountLayout from "./layout/myAccountLayout";
 import { createBrowserRouter } from "react-router";
 import Profile from "./pages/profile";
 import Password from "./pages/password";
+import Me from "./pages/me";
 
 const router = createBrowserRouter([
     {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
         path: "/me",
         Component: MyAccountLayout,
         children: [
-            { index: true, Component: Recipes },
+            { index: true, Component: Me },
             {
                 path: "profile",
                 Component: Profile
