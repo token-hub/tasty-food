@@ -6,7 +6,7 @@ import NotificationIcon from "../../assets/icons/notificationIcon";
 
 function Sidebar() {
     return (
-        <>
+        <aside className="py-2">
             <SidebarGroup>
                 <SidebarItem isHeader={true}>
                     <UserIcon className="text-primary" />
@@ -31,7 +31,7 @@ function Sidebar() {
                     <span className="ms-2">Notifications</span>
                 </SidebarItem>
             </SidebarGroup>
-        </>
+        </aside>
     );
 }
 
