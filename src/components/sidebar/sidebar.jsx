@@ -13,20 +13,20 @@ function Sidebar() {
                     <span className="ms-2"> My account</span>
                 </SidebarItem>
 
-                <SidebarItem isActive={true}>Profile</SidebarItem>
-                <SidebarItem>Password</SidebarItem>
+                <SidebarItem to="/me/profile">Profile</SidebarItem>
+                <SidebarItem to="/me/password">Password</SidebarItem>
             </SidebarGroup>
 
             <SidebarGroup>
-                <SidebarItem isHeader={true}>
+                <SidebarItem isHeader={true} to="/me/myRecipes">
                     <RecipeIcon className="text-primary" />
                     <span className="ms-2">My Recipes</span>
                 </SidebarItem>
 
-                <SidebarItem>Archives</SidebarItem>
+                <SidebarItem to="/me/archives">Archives</SidebarItem>
             </SidebarGroup>
             <SidebarGroup>
-                <SidebarItem isHeader={true}>
+                <SidebarItem isHeader={true} to="/me/notifications">
                     <NotificationIcon className="text-primary" />
                     <span className="ms-2">Notifications</span>
                 </SidebarItem>
