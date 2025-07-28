@@ -7,7 +7,7 @@ import FooterIcon from "../components/footer/footerIcon";
 
 function MobileFooter() {
     return (
-        <nav className="navbar fixed-bottom navbar-light border-top">
+        <nav className="navbar fixed-bottom navbar-light bg-light border-top">
             <div className="container-fluid">
                 <div className="d-flex justify-content-evenly w-100">
                     <FooterIcon to="/" text="Home" Icon={HomeIcon} />
