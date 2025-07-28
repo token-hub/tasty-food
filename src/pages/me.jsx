@@ -1,12 +1,10 @@
+import SubmenuLink from "../components/main/submenuLink";
+
 function Me() {
     return (
         <div className="d-md-none">
-            <h5>
-                Profile <button> -> </button>
-            </h5>
-            <h5>
-                password <button> -> </button>
-            </h5>
+            <SubmenuLink to="profile" text="profile" />
+            <SubmenuLink to="password" text="password" />
         </div>
     );
 }
