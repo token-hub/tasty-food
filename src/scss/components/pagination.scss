@@ -1,0 +1,11 @@
+.rc-pagination {
+    &-item-active {
+        background-color: var(--bs-tertiary) !important;
+        color: white;
+        border: 1px solid var(--bs-tertiary) !important;
+    }
+
+    &-item {
+        min-width: 2rem !important;
+    }
+}
