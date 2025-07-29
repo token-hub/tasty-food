@@ -8,6 +8,7 @@ import { createBrowserRouter } from "react-router";
 import Profile from "./pages/profile";
 import Password from "./pages/password";
 import Me from "./pages/me";
+import MyRecipes from "./pages/myRecipes";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: "profile",
                 Component: Profile
+            },
+            {
+                path: "myRecipes",
+                Component: MyRecipes
             },
             {
                 path: "password",
