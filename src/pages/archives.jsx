@@ -1,0 +1,23 @@
+import Recipe from "../components/main/recipe";
+import Pagination from "../components/main/pagination";
+import { sampleRecipes } from "../lib/constants";
+
+function Archives() {
+    return (
+        <div className="container">
+            <div className="row">
+                {sampleRecipes &&
+                    sampleRecipes.map(({ name, imageSource }) => {
+                        return (
+                            <div key={name} className=" col-md-6 col-xl-4 mb-3">
+                                <Recipe isArchived imgSource={imageSource} name={name} />
+                            </div>
+                        );
+                    })}
+            </div>
+            <Pagination pageSize={6} total={12} />
+        </div>
+    );
+}
+
+export default Archives;
