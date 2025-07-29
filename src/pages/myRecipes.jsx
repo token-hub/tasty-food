@@ -1,5 +1,5 @@
 import Recipe from "../components/main/recipe";
-
+import Pagination from "../components/main/pagination";
 const sampleRecipes = [
     {
         name: "Sinigang na baboy",
@@ -34,12 +34,13 @@ function MyRecipes() {
                 {sampleRecipes &&
                     sampleRecipes.map(({ name, imageSource }) => {
                         return (
-                            <div index={name} className=" col-md-6 col-xl-4 mb-3">
+                            <div key={name} className=" col-md-6 col-xl-4 mb-3">
                                 <Recipe imgSource={imageSource} name={name} />
                             </div>
                         );
                     })}
             </div>
+            <Pagination pageSize={6} total={12} />
         </div>
     );
 }
