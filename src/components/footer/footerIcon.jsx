@@ -4,6 +4,7 @@ function FooterIcon({ text, Icon, to }) {
     return (
         <NavLink
             to={to}
+            end
             className={({ isActive }) => {
                 let classes = "link-underline link-underline-opacity-0 d-flex justify-content-center flex-column align-items-center ";
 
