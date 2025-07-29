@@ -7,7 +7,7 @@ function Main({ children }) {
     let currentHeader = getMainHeaderText(pathname);
 
     return (
-        <main className="py-3 px-4 bg-light">
+        <main className="py-3 mb-6 px-4 bg-light">
             <MainHeader text={currentHeader} />
             {children}
         </main>
