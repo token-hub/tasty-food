@@ -5,6 +5,8 @@ export function getMainHeaderText(pathname) {
         currentHeader = "Password";
     } else if (pathname.includes("profile")) {
         currentHeader = "Profile";
+    } else if (pathname.includes("myRecipes")) {
+        currentHeader = "My Recipes";
     }
 
     return currentHeader;
