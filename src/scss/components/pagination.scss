@@ -7,5 +7,15 @@
 
     &-item {
         min-width: 2rem !important;
+
+        &:focus,
+        &:hover {
+            border-color: var(--bs-tertiary) !important;
+            transition: all 0.3s;
+            a {
+                color: white !important;
+                background-color: var(--bs-tertiary) !important;
+            }
+        }
     }
 }
