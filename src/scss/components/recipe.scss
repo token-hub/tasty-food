@@ -8,3 +8,23 @@
         }
     }
 }
+
+.archived {
+    overflow: hidden;
+    filter: brightness(0.93);
+
+    &::after {
+        content: "Archived";
+        position: absolute;
+        top: 14px;
+        right: -40px;
+        background: #aaa;
+        color: white;
+        width: 9rem;
+        text-align: center;
+        padding: 5px 10px;
+        font-size: 1rem;
+        transform: rotate(45deg);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+}
