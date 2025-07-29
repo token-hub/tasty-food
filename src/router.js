@@ -9,6 +9,7 @@ import Profile from "./pages/profile";
 import Password from "./pages/password";
 import Me from "./pages/me";
 import MyRecipes from "./pages/myRecipes";
+import Archives from "./pages/archives";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: "myRecipes",
                 Component: MyRecipes
+            },
+            {
+                path: "archives",
+                Component: Archives
             },
             {
                 path: "password",
