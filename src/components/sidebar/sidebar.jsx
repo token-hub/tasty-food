@@ -9,7 +9,7 @@ function Sidebar() {
         <aside className="py-2">
             <SidebarGroup>
                 <SidebarItem isHeader={true}>
-                    <UserIcon className="text-primary" />
+                    <UserIcon />
                     <span className="ms-2"> My account</span>
                 </SidebarItem>
 
@@ -19,7 +19,7 @@ function Sidebar() {
 
             <SidebarGroup>
                 <SidebarItem isHeader={true} to="/me/myRecipes">
-                    <RecipeIcon className="text-primary" />
+                    <RecipeIcon />
                     <span className="ms-2">My Recipes</span>
                 </SidebarItem>
 
@@ -27,7 +27,7 @@ function Sidebar() {
             </SidebarGroup>
             <SidebarGroup>
                 <SidebarItem isHeader={true} to="/me/notifications">
-                    <NotificationIcon className="text-primary" />
+                    <NotificationIcon />
                     <span className="ms-2">Notifications</span>
                 </SidebarItem>
             </SidebarGroup>

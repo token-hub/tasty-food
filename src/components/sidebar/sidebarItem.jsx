@@ -1,7 +1,7 @@
 import { NavLink } from "react-router";
 
 function SidebarItem({ children, isHeader, to }) {
-    let className = `list-group-item border-0 text-primary`;
+    let className = `list-group-item border-0 text-muted`;
     let headerClass = " border-bottom fs-6 fw-bold d-flex align-items-center";
 
     if (isHeader) {
@@ -19,6 +19,8 @@ function SidebarItem({ children, isHeader, to }) {
                         let classes = "link-underline link-underline-opacity-0 ";
                         if (isActive) {
                             classes += "text-tertiary";
+                        } else {
+                            classes += "text-muted";
                         }
                         return classes;
                     }}
