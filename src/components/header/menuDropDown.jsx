@@ -6,7 +6,7 @@ function MenuDropDown({ children }) {
             {children}
             <ul className="dropdown-menu mt-2 ms-n6">
                 <li>
-                    <Link to="/me" className="dropdown-item">
+                    <Link to="/me/profile" className="dropdown-item">
                         My Account
                     </Link>
                 </li>
