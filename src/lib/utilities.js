@@ -7,6 +7,8 @@ export function getMainHeaderText(pathname) {
         currentHeader = "Profile";
     } else if (pathname.includes("myRecipes")) {
         currentHeader = "My Recipes";
+    } else if (pathname.includes("archives")) {
+        currentHeader = "Archives";
     }
 
     return currentHeader;
