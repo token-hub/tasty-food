@@ -1,0 +1,10 @@
+.recipe {
+    &_img {
+        height: 15.6rem;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
