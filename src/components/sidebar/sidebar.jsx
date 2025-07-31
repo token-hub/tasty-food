@@ -27,8 +27,13 @@ function Sidebar() {
             </SidebarGroup>
             <SidebarGroup>
                 <SidebarItem isHeader={true} to="/me/notifications">
-                    <NotificationIcon />
-                    <span className="ms-2">Notifications</span>
+                    <div className="d-flex">
+                        <div className="notificationIcon position-relative">
+                            <NotificationIcon />
+                            <span>99</span>
+                        </div>
+                        <span className="ms-2">Notifications</span>
+                    </div>
                 </SidebarItem>
             </SidebarGroup>
         </aside>

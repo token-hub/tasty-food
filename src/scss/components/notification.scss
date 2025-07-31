@@ -1,0 +1,16 @@
+.notificationIcon {
+    span {
+        display: block;
+        font-size: 0.6rem;
+        background: var(--bs-primary);
+        padding: 5px;
+        border-radius: 50%;
+        height: 20px;
+        width: 23px;
+        position: absolute;
+        top: -8px;
+        right: -6px;
+        color: white;
+        text-align: center;
+    }
+}
