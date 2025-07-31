@@ -4,3 +4,12 @@ $theme-colors: map-merge(
     ),
     $theme-colors
 );
+
+$h7-font-size: $font-size-base * 0.9;
+
+$font-sizes: map-merge(
+    (
+        7: $h7-font-size
+    ),
+    $font-sizes
+);
