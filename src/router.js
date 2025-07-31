@@ -10,6 +10,7 @@ import Password from "./pages/password";
 import Me from "./pages/me";
 import MyRecipes from "./pages/myRecipes";
 import Archives from "./pages/archives";
+import Notifications from "./pages/notifications";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: "password",
                 Component: Password
+            },
+            {
+                path: "notifications",
+                Component: Notifications
             }
         ]
     },
