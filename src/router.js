@@ -11,6 +11,7 @@ import Me from "./pages/me";
 import MyRecipes from "./pages/myRecipes";
 import Archives from "./pages/archives";
 import Notifications from "./pages/notifications";
+import Recipe from "./pages/recipe";
 
 const router = createBrowserRouter([
     {
@@ -29,7 +30,10 @@ const router = createBrowserRouter([
             },
             {
                 path: "myRecipes",
-                Component: MyRecipes
+                children: [
+                    { index: true, Component: MyRecipes },
+                    { path: ":recipe", Component: Recipe }
+                ]
             },
             {
                 path: "archives",
