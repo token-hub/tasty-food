@@ -30,7 +30,7 @@ function Sidebar() {
                     <div className="d-flex">
                         <div className="notificationIcon position-relative">
                             <NotificationIcon />
-                            <span>99</span>
+                            <span className="notificationIcon_text">99</span>
                         </div>
                         <span className="ms-2">Notifications</span>
                     </div>
