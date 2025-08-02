@@ -1,19 +1,17 @@
 import { isAuthor } from "../../../../lib/constants";
-function RecipeTabs({ activeTab = "reports" }) {
+function RecipeTabs({ activeTab = "ratings" }) {
     return (
         <div>
             <ul className="nav nav-pills">
                 <li className="nav-item">
-                    <a className={`nav-link ${activeTab === "ratings" && "active"}`} aria-current="page" href="#">
+                    <a className={`nav-link ${activeTab === "ratings" && "active"}`} aria-current="page">
                         Recipe Ratings
                     </a>
                 </li>
 
                 {isAuthor && (
                     <li className="nav-item">
-                        <a className={`nav-link ${activeTab === "reports" && "active"}`} href="#">
-                            Reports
-                        </a>
+                        <a className={`nav-link ${activeTab === "reports" && "active"}`}>Reports</a>
                     </li>
                 )}
             </ul>
