@@ -7,10 +7,10 @@ function MyRecipes() {
         <div className="container">
             <div className="row">
                 {sampleRecipes &&
-                    sampleRecipes.map(({ name, imageSource }) => {
+                    sampleRecipes.map(({ name, imageSource, recipeLink }) => {
                         return (
                             <div key={name} className=" col-md-6 col-xl-4 mb-3">
-                                <Recipe imgSource={imageSource} name={name} />
+                                <Recipe recipeLink={recipeLink} imgSource={imageSource} name={name} />
                             </div>
                         );
                     })}
