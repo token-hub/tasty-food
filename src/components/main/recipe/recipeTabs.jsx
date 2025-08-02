@@ -1,4 +1,4 @@
-import { isAuthor } from "../../../../lib/constants";
+import { isAuthor } from "../../../lib/constants";
 function RecipeTabs({ activeTab = "ratings", handleTabs }) {
     return (
         <div>
