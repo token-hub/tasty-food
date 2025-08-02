@@ -1,6 +1,7 @@
 import RecipeHeaders from "../components/main/recipe/recipeHeaders";
 import RecipeIngredients from "../components/main/recipe/recipeIngredients";
 import RecipeInstructions from "../components/main/recipe/recipeInstructions";
+import RecipeTabs from "../components/main/recipe/tabs/recipeTabs";
 import { sampleRecipes } from "../lib/constants";
 
 function Recipe() {
@@ -14,6 +15,7 @@ function Recipe() {
             <hr />
             <RecipeInstructions recipe={recipe} />
             <hr />
+            <RecipeTabs />
         </div>
     );
 }
