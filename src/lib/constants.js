@@ -4,6 +4,7 @@ export const isAuthor = true;
 export const sampleRecipes = [
     {
         name: "Sinigang na baboy",
+        recipeLink: "/me/myRecipes/sinigang-na-baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
         goodForPeopleCount: 3,
         description:
