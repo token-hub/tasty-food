@@ -1,5 +1,9 @@
 export const isAuthenticated = true;
 export const isAuthor = true;
+export const TABS = {
+    0: "ratings",
+    1: "reports"
+};
 
 export const sampleRecipes = [
     {
