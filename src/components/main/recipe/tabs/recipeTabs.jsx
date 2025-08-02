@@ -1,3 +1,4 @@
+import { isAuthor } from "../../../../lib/constants";
 function RecipeTabs({ activeTab = "reports" }) {
     return (
         <div>
@@ -7,11 +8,14 @@ function RecipeTabs({ activeTab = "reports" }) {
                         Recipe Ratings
                     </a>
                 </li>
-                <li className="nav-item">
-                    <a className={`nav-link ${activeTab === "reports" && "active"}`} href="#">
-                        Reports
-                    </a>
-                </li>
+
+                {isAuthor && (
+                    <li className="nav-item">
+                        <a className={`nav-link ${activeTab === "reports" && "active"}`} href="#">
+                            Reports
+                        </a>
+                    </li>
+                )}
             </ul>
         </div>
     );
