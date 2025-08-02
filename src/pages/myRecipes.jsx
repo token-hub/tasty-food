@@ -1,4 +1,4 @@
-import Recipe from "../components/main/recipe";
+import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
 import { sampleRecipes } from "../lib/constants";
 
