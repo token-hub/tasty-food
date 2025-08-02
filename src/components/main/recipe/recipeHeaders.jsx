@@ -7,14 +7,16 @@ function RecipeHeaders({ recipe }) {
     let { imageSource, goodForPeopleCount, description } = recipe;
     return (
         <div className="row">
-            <div className="col-3">
-                <img src={imageSource} alt="sample" className="img-fluid rounded" />
+            <div className="col-lg-3">
+                <div className="d-flex w-100">
+                    <img src={imageSource} alt="sample" className="img-fluid rounded mb-3 ms-auto me-auto" />
+                </div>
             </div>
-            <div className="col-8">
-                <div className="d-flex">
-                    <h2 className="fw-bold mb-3 flex-grow-1">Sinigang na Baboy</h2>
+            <div className="col-lg-8">
+                <div className="d-flex flex-column flex-md-row">
+                    <h2 className="fw-bold mb-0 mb-md-3  flex-md-grow-1">Sinigang na Baboy</h2>
                     {isAuthor && (
-                        <div>
+                        <div className=" d-md-block">
                             <button className="btn px-2">
                                 <EditIcon className="text-secondary" height="18" width="18" />
                             </button>
@@ -28,7 +30,7 @@ function RecipeHeaders({ recipe }) {
                 <p className="m-0">
                     Good for <span className="fw-bold">{goodForPeopleCount}</span> {goodForPeopleCount > 1 ? "people" : "person"}
                 </p>
-                <div className="timers d-flex">
+                <div className="timers my-2">
                     <p className="m-0 me-2">
                         <span className="fw-bold">Prep: </span> 25 minutes
                     </p>
