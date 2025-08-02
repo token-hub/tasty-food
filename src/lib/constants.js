@@ -1,25 +1,27 @@
-export const isAuthenticated = false;
+export const isAuthenticated = true;
+export const isAuthor = true;
 
 export const sampleRecipes = [
     {
         name: "Sinigang na baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
+        goodForPeopleCount: 3,
         description:
             "Thick mung bean stew with calabaza squash, malunggay, spinach, dried shrimp, and crispy pork rinds. A satisfying and nutritious Filipino comfort food perfect with rice.",
         ingredients: [
-            { name: "mung beans", quantity: "14", unit: "ounce", isMain: true },
-            { name: "calabaza squash cubed", quantity: "1", unit: "lb", isMain: false },
-            { name: "cup salted dried shrimp hibe", quantity: "1/3", unit: "cup", isMain: false },
-            { name: "spinach", quantity: "2", unit: "cup", isMain: false },
-            { name: "tomatoes diced", quantity: "2", unit: "cup", isMain: false },
-            { name: "onion chopped", quantity: "1", unit: "pc", isMain: false },
-            { name: "cloves garlic chopped", quantity: "4", unit: "pc", isMain: false },
-            { name: "pork rinds chicharon", quantity: "1", unit: "cup", isMain: false },
-            { name: "Maggi Magic Sarap", quantity: "8", unit: "grams", isMain: false },
-            { name: "fish sauce", quantity: "3", unit: "tablespoon", isMain: false },
-            { name: "ground black pepper", quantity: "1/3", unit: "teaspoon", isMain: false },
-            { name: "water", quantity: "1 1/3", unit: "quarts", isMain: false },
-            { name: "cooking oil", quantity: "3", unit: "tablespoon", isMain: false }
+            { name: "mung beans", quantity: "14", unit: "ounce/s", isMain: true },
+            { name: "calabaza squash cubed", quantity: " 1", unit: "lb/s", isMain: false },
+            { name: "cup salted dried shrimp hibe", quantity: "1 1/3", unit: "cup/s", isMain: false },
+            { name: "spinach", quantity: "2", unit: "cup/s", isMain: false },
+            { name: "tomatoes diced", quantity: "2", unit: "cup/s", isMain: false },
+            { name: "onion chopped", quantity: "1", unit: "pc/s", isMain: false },
+            { name: "cloves garlic chopped", quantity: "4", unit: "pc/s", isMain: false },
+            { name: "pork rinds chicharon", quantity: "1", unit: "cup/s", isMain: false },
+            { name: "Maggi Magic Sarap", quantity: "8", unit: "gram/s", isMain: false },
+            { name: "fish sauce", quantity: "3", unit: "tablespoon/s", isMain: false },
+            { name: "ground black pepper", quantity: "1/3", unit: "teaspoon/s", isMain: false },
+            { name: "water", quantity: "1 1/3", unit: "quart/s", isMain: false },
+            { name: "cooking oil", quantity: "3", unit: "tablespoon/s", isMain: false }
         ],
         instructions: [
             "Soak the mung beans in ½ quart water overnight. 14 ounces mung beans, 1 ½ quarts water",
