@@ -121,3 +121,24 @@ export const sampleRecipes = [
             "Thick mung bean stew with calabaza squash, malunggay, spinach, dried shrimp, and crispy pork rinds. A satisfying and nutritious Filipino comfort food perfect with rice."
     }
 ];
+
+export const sampleReports = [
+    {
+        id: "0001",
+        subject: "troll recipe",
+        report: "Please remove this troll recipe",
+        reporter: {
+            name: "John Doe"
+        },
+        createdAt: "2025/11/01"
+    },
+    {
+        id: "0002",
+        subject: "troll recipe",
+        report: "Please remove this troll recipe",
+        reporter: {
+            name: "John Doe"
+        },
+        createdAt: "2025/11/01"
+    }
+];
