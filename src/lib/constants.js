@@ -1,5 +1,8 @@
 export const isAuthenticated = true;
 export const isAuthor = true;
+export const currentUser = {
+    id: "001"
+};
 export const TABS = {
     0: "ratings",
     1: "reports"
@@ -39,6 +42,52 @@ export const sampleRecipes = [
             "Season with ground black pepper and Maggi Magic Sarap. Stir well.",
             "Top with crispy chicharon.",
             "Serve hot with fried pork belly and steamed rice."
+        ],
+        topFiveRecentRatings: [
+            {
+                id: "01",
+                comment:
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
+                rating: 3,
+                rater: {
+                    name: "John Doe"
+                },
+                likes: ["001"],
+                createdAt: "2025/11/01"
+            },
+            {
+                id: "02",
+                comment:
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
+                rating: 4,
+                rater: {
+                    name: "John Doe"
+                },
+                likes: [],
+                createdAt: "2025/11/01"
+            },
+            {
+                id: "03",
+                comment:
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
+                rating: 2,
+                rater: {
+                    name: "John Doe"
+                },
+                likes: [],
+                createdAt: "2025/11/01"
+            },
+            {
+                id: "04",
+                comment:
+                    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
+                rating: 4,
+                rater: {
+                    name: "John Doe"
+                },
+                likes: [],
+                createdAt: "2025/11/01"
+            }
         ]
     },
     {
