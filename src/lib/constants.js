@@ -10,6 +10,7 @@ export const TABS = {
 
 export const sampleRecipes = [
     {
+        authorId: "023",
         name: "Sinigang na baboy",
         recipeLink: "/me/myRecipes/sinigang-na-baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
@@ -50,7 +51,8 @@ export const sampleRecipes = [
                     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
                 rating: 3,
                 rater: {
-                    name: "John Doe"
+                    name: "John Doe",
+                    id: "101"
                 },
                 likes: ["001"],
                 createdAt: "2025/11/01"
@@ -61,7 +63,8 @@ export const sampleRecipes = [
                     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
                 rating: 4,
                 rater: {
-                    name: "John Doe"
+                    name: "John Doe",
+                    id: "102"
                 },
                 likes: [],
                 createdAt: "2025/11/01"
@@ -72,7 +75,8 @@ export const sampleRecipes = [
                     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
                 rating: 2,
                 rater: {
-                    name: "John Doe"
+                    name: "John Doe",
+                    id: "103"
                 },
                 likes: [],
                 createdAt: "2025/11/01"
@@ -83,7 +87,8 @@ export const sampleRecipes = [
                     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
                 rating: 4,
                 rater: {
-                    name: "John Doe"
+                    name: "John Doe",
+                    id: "104"
                 },
                 likes: [],
                 createdAt: "2025/11/01"
