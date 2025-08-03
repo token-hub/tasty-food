@@ -1,7 +1,8 @@
-import { isAuthor } from "../../../lib/constants";
+import { currentUser } from "../../../lib/constants";
 import { Link } from "react-router";
 
-function RecipeTabs({ activeTab = "ratings", handleTabs }) {
+function RecipeTabs({ activeTab = "ratings", handleTabs, recipeAuthorId }) {
+    const isAuthor = currentUser.id === recipeAuthorId;
     return (
         <div>
             <ul className="nav nav-pills">

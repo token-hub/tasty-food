@@ -1,9 +1,18 @@
 import RecipeRating from "./recipeRating";
+import RecipeForm from "./recipeForm";
 import Pagination from "../pagination";
-
-function RecipeRatings({ ratings }) {
+import { currentUser } from "../../../lib/constants";
+function RecipeRatings({ ratings, recipeAuthorId }) {
+    const isNotTheAuthor = currentUser.id !== recipeAuthorId;
     return (
         <div className="container">
+            {isNotTheAuthor && (
+                <>
+                    <hr className="mt-3" />
+                    <RecipeForm />
+                </>
+            )}
+
             {ratings.length ? (
                 ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)
             ) : (
