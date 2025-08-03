@@ -1,19 +1,21 @@
 import { isAuthor } from "../../../lib/constants";
+import { Link } from "react-router";
+
 function RecipeTabs({ activeTab = "ratings", handleTabs }) {
     return (
         <div>
             <ul className="nav nav-pills">
                 <li className="nav-item">
-                    <a onClick={handleTabs} className={`nav-link ${activeTab === "ratings" && "active"}`} aria-current="page">
+                    <Link onClick={handleTabs} className={`nav-link ${activeTab === "ratings" && "active"}`} aria-current="page">
                         Recipe Ratings
-                    </a>
+                    </Link>
                 </li>
 
                 {isAuthor && (
                     <li className="nav-item">
-                        <a onClick={handleTabs} className={`nav-link ${activeTab === "reports" && "active"}`}>
+                        <Link onClick={handleTabs} className={`nav-link ${activeTab === "reports" && "active"}`}>
                             Reports
-                        </a>
+                        </Link>
                     </li>
                 )}
             </ul>
