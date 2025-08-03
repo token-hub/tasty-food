@@ -1,4 +1,5 @@
 import RecipeReport from "../recipe/recipeReport";
+import Pagination from "../pagination";
 import { sampleReports } from "../../../lib/constants";
 
 function RecipeReports({ recipe }) {
@@ -15,6 +16,10 @@ function RecipeReports({ recipe }) {
                     No reports found
                 </div>
             )}
+
+            <div className="mt-3">
+                <Pagination pageSize={5} total={10} />
+            </div>
         </div>
     );
 }

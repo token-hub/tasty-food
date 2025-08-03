@@ -1,4 +1,5 @@
 import RecipeRating from "./recipeRating";
+import Pagination from "../pagination";
 
 function RecipeRatings({ ratings }) {
     return (
@@ -10,6 +11,10 @@ function RecipeRatings({ ratings }) {
                     No ratings found
                 </div>
             )}
+
+            <div className="mt-3">
+                <Pagination pageSize={5} total={10} />
+            </div>
         </div>
     );
 }
