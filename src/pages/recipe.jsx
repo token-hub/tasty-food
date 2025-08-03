@@ -2,12 +2,15 @@ import { useState } from "react";
 import RecipeHeaders from "../components/main/recipe/recipeHeaders";
 import RecipeIngredients from "../components/main/recipe/recipeIngredients";
 import RecipeInstructions from "../components/main/recipe/recipeInstructions";
-import RecipeTabs from "../components/main/recipe/tabs/recipeTabs";
+import RecipeTabs from "../components/main/recipe/recipeTabs";
+import RecipeRatings from "../components/main/recipe/recipeRatings";
+import RecipeReports from "../components/main/recipe/recipeReports";
 import { sampleRecipes, TABS } from "../lib/constants";
 
 function Recipe() {
     const recipe = sampleRecipes[0];
     const [activeTab, setActiveTab] = useState("ratings");
+
     function handleActiveTab() {
         if (activeTab === TABS[0]) {
             setActiveTab(TABS[1]);
@@ -24,6 +27,7 @@ function Recipe() {
             <RecipeInstructions recipe={recipe} />
             <hr />
             <RecipeTabs activeTab={activeTab} handleTabs={handleActiveTab} />
+            {activeTab === TABS[0] ? <RecipeRatings ratings={recipe.topFiveRecentRatings} /> : <RecipeReports recipe={recipe} />}
         </div>
     );
 }
