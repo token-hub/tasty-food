@@ -11,12 +11,8 @@ function Recipe() {
     const recipe = sampleRecipes[0];
     const [activeTab, setActiveTab] = useState("ratings");
 
-    function handleActiveTab() {
-        if (activeTab === TABS[0]) {
-            setActiveTab(TABS[1]);
-        } else {
-            setActiveTab(TABS[0]);
-        }
+    function handleActiveTab(tab) {
+        setActiveTab(tab);
     }
     return (
         <div className="container">
