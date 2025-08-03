@@ -1,7 +1,19 @@
 export const isAuthenticated = true;
 export const isAuthor = true;
 export const currentUser = {
-    id: "001"
+    id: "001",
+    rating: {
+        id: "01",
+        comment:
+            "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, odio susci",
+        rating: 3,
+        rater: {
+            name: "John Doe",
+            id: "001"
+        },
+        likes: ["001"],
+        createdAt: "2025/11/01"
+    }
 };
 export const TABS = {
     0: "ratings",
@@ -52,7 +64,7 @@ export const sampleRecipes = [
                 rating: 3,
                 rater: {
                     name: "John Doe",
-                    id: "101"
+                    id: "001"
                 },
                 likes: ["001"],
                 createdAt: "2025/11/01"
