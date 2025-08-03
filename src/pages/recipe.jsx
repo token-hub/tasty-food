@@ -26,8 +26,12 @@ function Recipe() {
             <hr />
             <RecipeInstructions recipe={recipe} />
             <hr />
-            <RecipeTabs activeTab={activeTab} handleTabs={handleActiveTab} />
-            {activeTab === TABS[0] ? <RecipeRatings ratings={recipe.topFiveRecentRatings} /> : <RecipeReports recipe={recipe} />}
+            <RecipeTabs recipeAuthorId={recipe.authorId} activeTab={activeTab} handleTabs={handleActiveTab} />
+            {activeTab === TABS[0] ? (
+                <RecipeRatings ratings={recipe.topFiveRecentRatings} recipeAuthorId={recipe.authorId} />
+            ) : (
+                <RecipeReports recipe={recipe} />
+            )}
         </div>
     );
 }
