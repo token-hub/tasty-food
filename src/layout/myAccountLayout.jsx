@@ -3,6 +3,7 @@ import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
 import Main from "./main";
+import CreateRecipeModal from "../components/modals/createRecipeModal";
 
 function MyAccountLayout() {
     return (
@@ -25,6 +26,7 @@ function MyAccountLayout() {
             <div className="d-md-none">
                 <MobileFooter />
             </div>
+            <CreateRecipeModal />
         </>
     );
 }
