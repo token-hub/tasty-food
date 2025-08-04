@@ -9,7 +9,11 @@ function Main({ children }) {
     let button;
 
     if (pathname.includes(PATHS.myRecipes.name)) {
-        button = <button className="btn btn-primary text-white mb-3">Add</button>;
+        button = (
+            <button className="btn btn-primary text-white mb-3" data-bs-toggle="modal" data-bs-target="#createRecipe">
+                Add
+            </button>
+        );
     }
 
     return (
