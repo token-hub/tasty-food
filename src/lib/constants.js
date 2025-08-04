@@ -20,6 +20,13 @@ export const TABS = {
     1: "reports"
 };
 
+export const PATHS = {
+    password: { name: "password", toDisplay: "Password" },
+    profile: { name: "profile", toDisplay: "Profile" },
+    myRecipes: { name: "myRecipes", toDisplay: "My Recipes" },
+    archives: { name: "archives", toDisplay: "Archives" }
+};
+
 export const sampleRecipes = [
     {
         authorId: "023",
