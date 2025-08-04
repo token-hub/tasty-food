@@ -1,14 +1,16 @@
+import { PATHS } from "./constants";
+
 export function getMainHeaderText(pathname) {
     let currentHeader = "";
 
-    if (pathname.includes("password")) {
-        currentHeader = "Password";
-    } else if (pathname.includes("profile")) {
-        currentHeader = "Profile";
-    } else if (pathname.includes("myRecipes")) {
-        currentHeader = "My Recipes";
-    } else if (pathname.includes("archives")) {
-        currentHeader = "Archives";
+    if (pathname.includes(PATHS.password.name)) {
+        currentHeader = PATHS.password.toDisplay;
+    } else if (pathname.includes(PATHS.profile.name)) {
+        currentHeader = PATHS.profile.toDisplay;
+    } else if (pathname.includes(PATHS.myRecipes.name)) {
+        currentHeader = PATHS.myRecipes.toDisplay;
+    } else if (pathname.includes(PATHS.archives.name)) {
+        currentHeader = PATHS.archives.toDisplay;
     }
 
     return currentHeader;
