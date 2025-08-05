@@ -1,28 +1,71 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import UpArrowIcon from "../../../assets/icons/UpArrowIcon";
+import XIcon from "../../../assets/icons/xIcon";
 
 function CreateModalUploadImage({ imageSrc = "https://placehold.co/200x200?font=roboto&text=Recipe", nameOfRecipe = "image of new recipe" }) {
     const uploadRef = useRef();
+    const [recipeImage, setRecipeImage] = useState(null);
 
-    function handleUpload() {
+    function handleUploadClick() {
         uploadRef.current.click();
     }
+
+    function handleUpload() {
+        const file = uploadRef.current.files[0];
+
+        if (file) {
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+                setRecipeImage(fileReader.result);
+            };
+
+            fileReader.readAsDataURL(file);
+        }
+    }
+
+    function handleReset() {
+        uploadRef.current.value = null;
+        setRecipeImage(null);
+    }
+
+    const imageToUse = recipeImage ?? imageSrc;
 
     return (
         <>
             <div className="mb-3 d-flex justify-content-center">
                 <div className="position-relative d-inline-flex ">
-                    <img height="200" width="200" src={imageSrc} alt={nameOfRecipe} className=" rounded-circle" />
-                    <div className="position-absolute bottom-10 end-10" role="button" onClick={handleUpload}>
-                        <UpArrowIcon height="28" width="28" className="text-muted" />
-                    </div>
+                    <img
+                        height="200"
+                        width="200"
+                        src={imageToUse}
+                        alt={nameOfRecipe}
+                        className=" rounded-circle"
+                        role="button"
+                        onClick={handleUploadClick}
+                    />
+                    {!recipeImage ? (
+                        <div className="position-absolute bottom-10 end-10 bg-light rounded-circle" role="button" onClick={handleUploadClick}>
+                            <UpArrowIcon height="28" width="28" className="text-muted" />
+                        </div>
+                    ) : (
+                        <div className="position-absolute top-10 end-10 bg-light border-dark rounded-circle" role="button" onClick={handleReset}>
+                            <XIcon height="28" width="28" className="text-secondary p-1" />
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="invisible" style={{ height: 0 }}>
                 <label htmlFor="imageFile" className="form-label">
                     Upload Image of the recipe
                 </label>
-                <input ref={uploadRef} className="form-control" type="file" id="imageFile" accept="image/png, image/gif, image/jpeg" />
+                <input
+                    ref={uploadRef}
+                    onChange={handleUpload}
+                    className="form-control"
+                    type="file"
+                    id="imageFile"
+                    accept="image/png, image/gif, image/jpeg"
+                />
             </div>
         </>
     );
