@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 import MainHeader from "../components/main/mainHeader";
 import { getMainHeaderText } from "../lib/utilities";
 import { PATHS } from "../lib/constants";
+import RecipeAddButton from "../components/main/recipe/recipeAddButton";
 
 function Main({ children }) {
     let { pathname } = useLocation();
@@ -9,11 +10,7 @@ function Main({ children }) {
     let button;
 
     if (pathname.includes(PATHS.myRecipes.name)) {
-        button = (
-            <button className="btn btn-primary text-white mb-3" data-bs-toggle="modal" data-bs-target="#createRecipe">
-                Add
-            </button>
-        );
+        button = <RecipeAddButton />;
     }
 
     return (
