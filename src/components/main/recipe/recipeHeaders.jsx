@@ -2,9 +2,17 @@ import ChatIcon from "../../../assets/icons/chatIcon";
 import ArchiveIcon from "../../../assets/icons/archiveIcon";
 import EditIcon from "../../../assets/icons/editIcon";
 import { isAuthor } from "../../../lib/constants";
+import { useModalContext } from "../../../providers/modalProvider";
+import { MODAL_MODES } from "../../../lib/constants";
 
 function RecipeHeaders({ recipe }) {
     let { imageSource, goodForPeopleCount, description } = recipe;
+    const { setCurrentModal } = useModalContext();
+
+    function handleEdit() {
+        setCurrentModal("recipe", MODAL_MODES[1]);
+    }
+
     return (
         <div className="row">
             <div className="col-lg-3">
@@ -17,10 +25,10 @@ function RecipeHeaders({ recipe }) {
                     <h2 className="fw-bold mb-0 mb-md-3  flex-md-grow-1">Sinigang na Baboy</h2>
                     {isAuthor && (
                         <div className=" d-md-block">
-                            <button className="btn px-2">
+                            <button className="btn px-2 border-0" onClick={handleEdit} data-bs-toggle="modal" data-bs-target="#createRecipe">
                                 <EditIcon className="text-secondary" height="18" width="18" />
                             </button>
-                            <button className="btn px-2">
+                            <button className="btn px-2 border-0">
                                 <ArchiveIcon className="text-secondary" height="18" width="18" />
                             </button>
                         </div>
