@@ -20,6 +20,11 @@ export const TABS = {
     1: "reports"
 };
 
+export const MODAL_MODES = {
+    0: "create",
+    1: "edit"
+};
+
 export const PATHS = {
     password: { name: "password", toDisplay: "Password" },
     profile: { name: "profile", toDisplay: "Profile" },
