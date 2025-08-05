@@ -14,7 +14,8 @@ import { MODAL_MODES } from "../../../lib/constants";
 function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
     const {
-        modal: { name, mode }
+        modal: { name, mode, show },
+        reset
     } = useModalContext();
     let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
 
@@ -25,23 +26,25 @@ function CreateRecipeModal() {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                Create new Recipe {dataToUse.name}
+                                Create new Recipe
                             </h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                            <button type="button" onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
                         <div className="modal-body">
-                            <form className="form-floating">
-                                <UploadImage />
-                                <NameAndDiscription />
-                                <Timers />
-                                <Categories />
-                                <Ingredients />
-                                <Instructions />
-                                <UploadVideo />
-                            </form>
+                            {show && (
+                                <form className="form-floating">
+                                    <UploadImage recipe={dataToUse} />
+                                    <NameAndDiscription recipe={dataToUse} />
+                                    <Timers recipe={dataToUse} />
+                                    <Categories recipe={dataToUse} />
+                                    <Ingredients recipe={dataToUse} />
+                                    <Instructions recipe={dataToUse} />
+                                    <UploadVideo />
+                                </form>
+                            )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                            <button type="button" onClick={reset} className="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
                             <button type="button" className="btn btn-primary">

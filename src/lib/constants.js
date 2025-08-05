@@ -25,6 +25,15 @@ export const MODAL_MODES = {
     1: "edit"
 };
 
+export const RECIPE_CATEGORIES = {
+    0: "fish",
+    1: "pork",
+    2: "beef",
+    3: "chicken",
+    4: "vegetable",
+    5: "dessert"
+};
+
 export const PATHS = {
     password: { name: "password", toDisplay: "Password" },
     profile: { name: "profile", toDisplay: "Profile" },
@@ -39,6 +48,9 @@ export const sampleRecipes = [
         recipeLink: "/me/myRecipes/sinigang-na-baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
         goodForPeopleCount: 3,
+        prepTime: { hours: 1, minutes: 40 },
+        cookTime: { hours: 1, minutes: 0 },
+        categories: [RECIPE_CATEGORIES[0], RECIPE_CATEGORIES[1]],
         description:
             "Thick mung bean stew with calabaza squash, malunggay, spinach, dried shrimp, and crispy pork rinds. A satisfying and nutritious Filipino comfort food perfect with rice.",
         ingredients: [

@@ -2,14 +2,16 @@ import { useRef, useState } from "react";
 import UpArrowIcon from "../../../assets/icons/UpArrowIcon";
 import XIcon from "../../../assets/icons/xIcon";
 
-function CreateModalUploadImage({ imageSrc = "https://placehold.co/200x200?font=roboto&text=Recipe", nameOfRecipe = "image of new recipe" }) {
+function CreateModalUploadImage({ recipe }) {
+    const defaultImage = "https://placehold.co/200x200?font=roboto&text=Recipe";
+
     const uploadRef = useRef();
-    const [recipeImage, setRecipeImage] = useState(null);
+    const [recipeImage, setRecipeImage] = useState(recipe.imageSource ?? defaultImage);
 
     function handleUploadClick() {
         uploadRef.current.click();
     }
-
+    console.log(recipe.imageSource);
     function handleUpload() {
         const file = uploadRef.current.files[0];
 
@@ -28,21 +30,21 @@ function CreateModalUploadImage({ imageSrc = "https://placehold.co/200x200?font=
         setRecipeImage(null);
     }
 
-    const imageToUse = recipeImage ?? imageSrc;
-
     return (
         <>
             <div className="mb-3 d-flex justify-content-center">
                 <div className="position-relative d-inline-flex ">
                     <img
+                        key={recipeImage}
                         height="200"
                         width="200"
-                        src={imageToUse}
-                        alt={nameOfRecipe}
+                        src={recipeImage}
+                        alt={recipe.name ?? "image of new recipe"}
                         className=" rounded-circle"
                         role="button"
                         onClick={handleUploadClick}
                     />
+
                     {!recipeImage ? (
                         <div className="position-absolute bottom-10 end-10 bg-light rounded-circle" role="button" onClick={handleUploadClick}>
                             <UpArrowIcon height="28" width="28" className="text-muted" />

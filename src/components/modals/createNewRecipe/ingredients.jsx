@@ -1,46 +1,64 @@
 import { useState, Fragment } from "react";
 import IngredientsInputs from "./ingredientsInputs";
 
-function Ingredients() {
-    const [count, setCount] = useState(0);
+function Ingredients({ recipe }) {
+    function generateInitialInputs(ingredients) {
+        const newId = new Date().toISOString();
 
-    const initialInputs = [
-        {
-            id: count,
-            component: IngredientsInputs
+        if (ingredients?.length) {
+            return ingredients.map((ingredient) => {
+                const toPass = {
+                    id: ingredient.name,
+                    removeIngredient
+                };
+                return {
+                    id: ingredient.name,
+                    ingredient,
+                    toPass
+                };
+            });
         }
-    ];
 
+        return [
+            {
+                id: newId,
+                ingredient: {},
+                toPass: { id: newId, removeIngredient }
+            }
+        ];
+    }
+
+    const initialInputs = generateInitialInputs(recipe.ingredients);
     const [inputs, setInputs] = useState(initialInputs);
 
     function addIngredient() {
-        setInputs([
-            ...inputs,
-            {
-                id: count + 1,
-                component: IngredientsInputs
-            }
-        ]);
-        setCount((count) => count + 1);
+        const newId = new Date().toISOString();
+        setInputs((inputs) => {
+            return [
+                ...inputs,
+                {
+                    id: newId,
+                    ingredient: {},
+                    toPass: { id: newId, removeIngredient }
+                }
+            ];
+        });
     }
 
     function removeIngredient(id) {
-        if (count > 0) {
-            setCount((count) => count - 1);
-            const filteredIngredients = inputs.filter((input) => input.id !== id);
-            setInputs(filteredIngredients);
-        }
+        setInputs((inputs) => {
+            return inputs.filter((input) => input.id !== id);
+        });
     }
 
     return (
         <>
             <span className="d-block mb-3 mt-4">Ingredients:</span>
 
-            {inputs.map(({ id, component }) => {
-                let Component = component;
+            {inputs.map(({ id, ingredient, toPass }) => {
                 return (
                     <Fragment key={id}>
-                        <Component id={id} count={count} removeIngredient={removeIngredient} />
+                        <IngredientsInputs {...ingredient} {...toPass} />
                     </Fragment>
                 );
             })}

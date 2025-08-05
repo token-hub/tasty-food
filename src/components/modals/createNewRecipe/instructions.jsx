@@ -2,45 +2,64 @@ import { useState, Fragment } from "react";
 
 import InstructionInput from "./instructionInput";
 
-function Instructions() {
-    const [count, setCount] = useState(0);
+function Instructions({ recipe }) {
+    function generateInitialInputs(instructions) {
+        const newId = new Date().toISOString();
 
-    const initialInputs = [
-        {
-            id: count,
-            component: InstructionInput
+        if (instructions?.length) {
+            return instructions.map((instruction) => {
+                const id = instruction.slice(0, 10);
+                const toPass = {
+                    id,
+                    instruction,
+                    removeInstruction
+                };
+                return {
+                    id,
+                    toPass
+                };
+            });
         }
-    ];
+
+        return [
+            {
+                id: newId,
+                instruction: "",
+                toPass: { id: newId, removeInstruction }
+            }
+        ];
+    }
+
+    const initialInputs = generateInitialInputs(recipe.instructions);
 
     const [inputs, setInputs] = useState(initialInputs);
 
     function addInstruction() {
-        setInputs([
-            ...inputs,
-            {
-                id: count + 1,
-                component: InstructionInput
-            }
-        ]);
-        setCount((count) => count + 1);
+        const newId = new Date().toISOString();
+        setInputs((inputs) => {
+            return [
+                ...inputs,
+                {
+                    id: newId,
+                    toPass: { instruction: "", id: newId, removeInstruction }
+                }
+            ];
+        });
     }
 
     function removeInstruction(id) {
-        if (count > 0) {
-            setCount((count) => count - 1);
-            const filteredInstructions = inputs.filter((input) => input.id !== id);
-            setInputs(filteredInstructions);
-        }
+        setInputs((inputs) => {
+            return inputs.filter((input) => input.id !== id);
+        });
     }
 
     return (
         <>
             <span className="d-block mb-3 mt-4">Instructions:</span>
-            {inputs.map(({ id, component }, index) => {
-                let Component = component;
+            {inputs.map(({ id, toPass }, index) => {
                 return (
                     <Fragment key={id}>
-                        <Component id={id} index={index} count={count} removeInstruction={removeInstruction} />
+                        <InstructionInput index={index} {...toPass} />
                     </Fragment>
                 );
             })}
