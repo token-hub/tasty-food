@@ -2,27 +2,37 @@ function Categories() {
     return (
         <>
             <span>Categories:</span>
-            <div className="btn-group ms-2 d-inline-flex" role="group" aria-label="Basic checkbox toggle button group">
-                <input type="checkbox" className="btn-check" id="btncheck1" autoComplete="off" />
-                <label className="btn btn-outline-primary" htmlFor="btncheck1">
-                    Chicken
-                </label>
-                <input type="checkbox" className="btn-check" id="btncheck2" autoComplete="off" />
-                <label className="btn btn-outline-primary" htmlFor="btncheck2">
-                    Pork
-                </label>
-                <input type="checkbox" className="btn-check" id="btncheck3" autoComplete="off" />
-                <label className="btn btn-outline-primary" htmlFor="btncheck3">
-                    Beef
-                </label>
-                <input type="checkbox" className="btn-check" id="btncheck4" autoComplete="off" />
-                <label className="btn btn-outline-primary" htmlFor="btncheck4">
-                    Fish
-                </label>
-                <input type="checkbox" className="btn-check" id="btncheck5" autoComplete="off" />
-                <label className="btn btn-outline-primary" htmlFor="btncheck5">
-                    Vegetable
-                </label>
+            <div className="d-flex flex-wrap">
+                <div className="my-2 mx-1">
+                    <input type="checkbox" className="btn-check" id="chicken" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="chicken">
+                        Chicken
+                    </label>
+                </div>
+                <div className="my-2 mx-1">
+                    <input type="checkbox" className="btn-check" id="Pork" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="Pork">
+                        Pork
+                    </label>
+                </div>
+                <div className="my-2 mx-1">
+                    <input type="checkbox" className="btn-check" id="fish" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="fish">
+                        Fish
+                    </label>
+                </div>
+                <div className="my-2 mx-1">
+                    <input type="checkbox" className="btn-check" id="beef" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="beef">
+                        Beef
+                    </label>
+                </div>
+                <div className="my-2 mx-1">
+                    <input type="checkbox" className="btn-check" id="vegetable" autoComplete="off" />
+                    <label className="btn btn-outline-primary" htmlFor="vegetable">
+                        Vegetable
+                    </label>
+                </div>
             </div>
         </>
     );
