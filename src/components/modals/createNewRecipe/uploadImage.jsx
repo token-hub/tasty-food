@@ -11,7 +11,7 @@ function CreateModalUploadImage({ recipe }) {
     function handleUploadClick() {
         uploadRef.current.click();
     }
-    console.log(recipe.imageSource);
+
     function handleUpload() {
         const file = uploadRef.current.files[0];
 
@@ -45,7 +45,7 @@ function CreateModalUploadImage({ recipe }) {
                         onClick={handleUploadClick}
                     />
 
-                    {!recipeImage ? (
+                    {recipeImage == defaultImage ? (
                         <div className="position-absolute bottom-10 end-10 bg-light rounded-circle" role="button" onClick={handleUploadClick}>
                             <UpArrowIcon height="28" width="28" className="text-muted" />
                         </div>
