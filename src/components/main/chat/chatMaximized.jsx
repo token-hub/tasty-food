@@ -2,12 +2,12 @@ import ChatConvo from "./ChatConvo";
 import ChatMaximizedHeader from "./chatMaximizedHeader";
 import ChatMaximizedBody from "./chatMaximizedBody";
 
-function ChatMaximized({ chatCount }) {
+function ChatMaximized({ chatCount, isOpen, onClick }) {
     let hasSelectedConvo = true;
 
     return (
-        <div className="chat-maximized position-fixed bottom-0 end-0 bg-light rounded-top shadow">
-            <ChatMaximizedHeader chatCount={chatCount} />
+        <div className={`chat-maximized position-fixed bottom-0 end-0 bg-light rounded-top shadow ${isOpen ? "chat-maximized-open" : ""} `}>
+            <ChatMaximizedHeader onClick={onClick} chatCount={chatCount} />
             <div className="chat-body">
                 <div className="row h-100">
                     <div className="col-4 h-100 border-end pe-0 overflow-auto">

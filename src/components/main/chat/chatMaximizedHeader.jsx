@@ -1,5 +1,5 @@
 import DownArrowIcon from "../../../assets/icons/downArrowIcon";
-function ChatMaximizedHeader({ chatCount }) {
+function ChatMaximizedHeader({ chatCount, onClick }) {
     return (
         <>
             <div className="mb-2">
@@ -7,7 +7,7 @@ function ChatMaximizedHeader({ chatCount }) {
                     <h6 className="text-secondary py-2 px-3 m-0 fw-bold flex-grow-1">
                         Chat <span className="fs-7">( {chatCount} )</span>
                     </h6>
-                    <button className="btn text-muted">
+                    <button className="btn text-muted" onClick={onClick}>
                         <DownArrowIcon height="15" width="15" />
                     </button>
                 </div>
