@@ -1,6 +1,13 @@
+.chat-minimized {
+    height: 0;
+    width: 0;
+    transition: all 0.4s !important;
+}
+
 .chat-maximized {
-    height: 32rem;
-    width: 35rem;
+    height: 0;
+    width: 0;
+    transition: all 0.3s;
 
     .chat-body {
         height: 90%;
@@ -36,4 +43,19 @@
             font-size: 0.8rem;
         }
     }
+}
+
+.chat-maximized-open {
+    height: 32rem !important;
+    width: 35rem !important;
+}
+
+.chat-minimized-open {
+    height: 2.5rem !important;
+    width: 6rem !important;
+}
+
+.chat-close {
+    height: 0 !important;
+    width: 0 !important;
 }
