@@ -1,0 +1,13 @@
+.chat-maximized {
+    height: 32rem;
+    width: 35rem;
+
+    .chat-body {
+        height: 90%;
+
+        .convo-count {
+            padding: 2px;
+            font-size: 0.6rem;
+        }
+    }
+}
