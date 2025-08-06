@@ -15,3 +15,31 @@ export function getMainHeaderText(pathname) {
 
     return currentHeader;
 }
+
+export function getDayAndMonthFromDate(date) {
+    if (!date) return;
+    const newDate = new Date(date);
+
+    return newDate.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric"
+    });
+}
+
+export function getTimeFromDate(date) {
+    if (!date) return;
+    return date.toLocaleTimeString("en-us", { hour: "2-digit", minute: "2-digit" });
+}
+
+export function trimTextAddEllipsis(text, index) {
+    if (!text || !index) return;
+    let trimText = text.slice(0, index);
+    trimText += "...";
+    return trimText;
+}
+
+export function capitalizeFirstLetter(text) {
+    if (!text) return;
+    let firstLetter = text.slice(0)[0].toUpperCase();
+    return [firstLetter, ...text.slice(1)].join("");
+}
