@@ -6,7 +6,7 @@ import Main from "./main";
 import RecipeProvider from "../providers/recipeProvider";
 import ModalProvider from "../providers/modalProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
-import Chat from "../components/main/chat/Chat";
+import Chat from "../components/main/chat/chat";
 
 function MyAccountLayout() {
     return (
