@@ -1,5 +1,6 @@
 $theme-colors: map-merge(
     (
+        "primary-light": $primary-light,
         "tertiary": $tertiary,
         "gray": $gray-200
     ),
