@@ -6,6 +6,7 @@ import Main from "./main";
 import RecipeProvider from "../providers/recipeProvider";
 import ModalProvider from "../providers/modalProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
+import Chat from "../components/main/chat/Chat";
 
 function MyAccountLayout() {
     return (
@@ -25,6 +26,7 @@ function MyAccountLayout() {
                             </Main>
                         </div>
                     </div>
+                    <Chat />
                 </div>
                 <div className="d-md-none">
                     <MobileFooter />
