@@ -13,8 +13,10 @@
 
 // custom utilities
 @import "./abstract/utilities";
-
 @import "/node_modules/bootstrap/scss/mixins";
+
+// custom base
+@import "./base//reset";
 
 // Layout & components
 @import "/node_modules/bootstrap/scss/root";
@@ -56,3 +58,4 @@
 @import "./components/pagination";
 @import "./components/notification";
 @import "./components/chat";
+@import "./components/slide";
