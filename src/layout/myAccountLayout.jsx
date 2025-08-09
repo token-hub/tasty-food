@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Outlet } from "react-router";
 
 // Providers
@@ -16,14 +15,12 @@ import MobileFooter from "./mobileFooter";
 import Main from "./main";
 
 function MyAccountLayout() {
-    const [isSlideOpen, setIsSlideOpen] = useState(false);
-
     return (
         <div className="position-relative">
             <RecipeProvider>
                 <ModalProvider>
                     <SlideProvider>
-                        <MobileSlide isSlideOpen={isSlideOpen} setIsSlideOpen={setIsSlideOpen} />
+                        <MobileSlide />
                         <BaseHeader />
                         <div className="container">
                             <div className="row mt-3 ">
