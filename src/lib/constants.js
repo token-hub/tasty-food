@@ -41,6 +41,11 @@ export const PATHS = {
     archives: { name: "archives", toDisplay: "Archives" }
 };
 
+export const SUBMENU_HEADERS = {
+    0: "profile",
+    1: "password"
+};
+
 export const sampleRecipes = [
     {
         authorId: "023",
