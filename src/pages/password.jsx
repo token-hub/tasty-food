@@ -1,23 +1,40 @@
 function Password() {
     return (
-        <form action="" method="POST">
-            <div className="mb-3">
-                <label htmlFor="oldPassword" className="form-label">
-                    Old Password
-                </label>
-                <input type="password" required autofocus className="form-control" placeholder="..." id="oldPassword" />
+        <form className="form-floating p-3 p-md-0" action="" method="POST">
+            <div className="form-floating w-100">
+                <input
+                    type="password"
+                    required
+                    className="form-control bg-light mb-3"
+                    id="oldPassword"
+                    defaultValue={"********"}
+                    placeholder="********"
+                />
+                <label htmlFor="oldPassword">Old password</label>
             </div>
-            <div className="mb-3">
-                <label htmlFor="newPassword" className="form-label">
-                    New password
-                </label>
-                <input type="password" required className="form-control" placeholder="..." id="newPassword" />
+
+            <div className="form-floating w-100">
+                <input
+                    type="password"
+                    required
+                    className="form-control bg-light mb-3"
+                    id="newPassword"
+                    defaultValue={"********"}
+                    placeholder="********"
+                />
+                <label htmlFor="newPassword">New password</label>
             </div>
-            <div className="mb-3">
-                <label htmlFor="confirmPassword" className="form-label">
-                    Confirm password
-                </label>
-                <input type="password" required className="form-control" placeholder="..." id="confirmPassword" />
+
+            <div className="form-floating w-100">
+                <input
+                    type="password"
+                    required
+                    className="form-control bg-light mb-3"
+                    id="confirmPassword"
+                    defaultValue={"********"}
+                    placeholder="********"
+                />
+                <label htmlFor="confirmPassword">Confirm password</label>
             </div>
 
             <div className="d-flex justify-content-end">
