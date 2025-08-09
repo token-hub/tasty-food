@@ -1,23 +1,27 @@
 function Profile() {
     return (
-        <form action="" method="POST">
-            <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                    Email
-                </label>
-                <input type="password" required className="form-control" placeholder="johndoe@gmail.com" id="email" />
+        <form className="form-floating p-3 p-md-0" action="" method="POST">
+            <div className="form-floating w-100">
+                <input
+                    type="text"
+                    required
+                    className="form-control bg-light mb-3"
+                    id="email"
+                    defaultValue={"johndoe@gmail.com"}
+                    placeholder="johndoe@gmail.com"
+                    autoFocus
+                />
+                <label htmlFor="email">Email</label>
             </div>
-            <div className="mb-3">
-                <label htmlFor="firstName" className="form-label">
-                    First name
-                </label>
-                <input type="text" required className="form-control" placeholder="John" id="firstName" />
+
+            <div className="form-floating w-100">
+                <input type="text" required className="form-control bg-light mb-3" id="firstName" defaultValue={"john"} placeholder="John" />
+                <label htmlFor="firstName">First name</label>
             </div>
-            <div className="mb-3">
-                <label htmlFor="lastName" className="form-label">
-                    Last Name
-                </label>
-                <input type="text" required className="form-control" placeholder="Doe" id="lastName" />
+
+            <div className="form-floating w-100">
+                <input type="text" required className="form-control bg-light mb-3" id="lastName" defaultValue={"doe"} placeholder="Doe" />
+                <label htmlFor="lastName">Last name</label>
             </div>
 
             <div className="d-flex justify-content-end">
