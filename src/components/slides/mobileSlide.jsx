@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useSlideContext } from "../../providers/slideProvider";
 
-function MobileSlide({ children, isSlideOpen, setIsSlideOpen }) {
+function MobileSlide({ children }) {
+    const { isSlideOpen, handleSlide } = useSlideContext();
+
     useEffect(() => {
         const slide = document.querySelector(".slide");
         const html = document.querySelector("html");
@@ -18,7 +21,7 @@ function MobileSlide({ children, isSlideOpen, setIsSlideOpen }) {
 
     return (
         <div className="slide hidden-from-left-to-right d-md-none">
-            <span onClick={() => setIsSlideOpen(false)}>{`<--`}</span>
+            <span onClick={() => handleSlide(false)}>{`<--`}</span>
             {children}
         </div>
     );
