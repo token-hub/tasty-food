@@ -1,7 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
 const SlideContext = createContext({
-    isSlideOpen: false,
+    slide: {
+        open: false,
+        header: ""
+    },
     handleSlide: () => {}
 });
 
@@ -10,14 +13,20 @@ export function useSlideContext() {
 }
 
 function SlideProvider({ children }) {
-    const [isSlideOpen, setIsSlideOpen] = useState(false);
+    const [slide, setSlide] = useState({
+        open: false,
+        header: ""
+    });
 
-    function handleSlide(isOpen) {
-        setIsSlideOpen(isOpen);
+    function handleSlide(data) {
+        setSlide((slide) => ({
+            ...slide,
+            ...data
+        }));
     }
 
     const values = {
-        isSlideOpen,
+        slide,
         handleSlide
     };
 
