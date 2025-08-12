@@ -1,11 +1,12 @@
 import { Link } from "react-router";
 import UserIcon from "../assets/icons/userIcon";
+import ChatDotsIcon from "../assets/icons/chatDotsIcon";
 import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
 import { isAuthenticated } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
 
-function BaseHeader() {
+function BaseHeader({ chatCount = 20 }) {
     return (
         <>
             <nav className="navbar navbar-light bg-primary">
@@ -14,6 +15,15 @@ function BaseHeader() {
                         <Link to="/" className="navbar-brand text-white fs-4 flex-grow-1 flex-sm-grow-0">
                             Tasty Food
                         </Link>
+                        <div className="d-sm-none position-relative">
+                            <ChatDotsIcon className="text-white me-2" height="20" width="20" />
+                            <span
+                                className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
+                                style={{ width: "17px" }}
+                            >
+                                {chatCount}
+                            </span>
+                        </div>
                         <div className="d-none d-sm-flex flex-grow-1 ">
                             <SearchBar />
                         </div>
