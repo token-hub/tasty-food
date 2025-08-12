@@ -3,19 +3,26 @@ import UserIcon from "../assets/icons/userIcon";
 import ChatDotsIcon from "../assets/icons/chatDotsIcon";
 import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
-import { isAuthenticated } from "../lib/constants";
+import { isAuthenticated, SUBMENU_HEADERS } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
+import { useSlideContext } from "../providers/slideProvider";
 
 function BaseHeader({ chatCount = 20 }) {
+    const { handleSlide, slide } = useSlideContext();
+
     return (
         <>
             <nav className="navbar navbar-light bg-primary">
                 <div className="container my-1">
                     <div className="d-flex align-items-center w-100">
                         <Link to="/" className="navbar-brand text-white fs-4 flex-grow-1 flex-sm-grow-0">
-                            Tasty Food
+                            Tasty Food {slide.header}
                         </Link>
-                        <div className="d-sm-none position-relative">
+                        <div
+                            className="d-sm-none position-relative"
+                            role="button"
+                            onClick={() => handleSlide({ open: true, header: SUBMENU_HEADERS[2] })}
+                        >
                             <ChatDotsIcon className="text-white me-2" height="20" width="20" />
                             <span
                                 className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
