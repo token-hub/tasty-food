@@ -1,7 +1,7 @@
 import UserIcon from "../../../assets/icons/userIcon";
 import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from "../../../lib/utilities";
 
-function ChatConvo({ name, date, text, convoCount = 0, mobileView = true }) {
+function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
     let trimNameLength = mobileView ? 27 : 8;
     let trimTextLength = mobileView ? 35 : 13;
     const convoDate = getDayAndMonthFromDate(date);
