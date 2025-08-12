@@ -8,7 +8,7 @@ import MenuDropDown from "../components/header/menuDropDown";
 import { useSlideContext } from "../providers/slideProvider";
 
 function BaseHeader({ chatCount = 20 }) {
-    const { handleSlide, slide } = useSlideContext();
+    const { handleSlide } = useSlideContext();
 
     return (
         <>
@@ -16,7 +16,7 @@ function BaseHeader({ chatCount = 20 }) {
                 <div className="container my-1">
                     <div className="d-flex align-items-center w-100">
                         <Link to="/" className="navbar-brand text-white fs-4 flex-grow-1 flex-sm-grow-0">
-                            Tasty Food {slide.header}
+                            Tasty Food
                         </Link>
                         <div
                             className="d-sm-none position-relative"
