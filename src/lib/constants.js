@@ -43,7 +43,8 @@ export const PATHS = {
 
 export const SUBMENU_HEADERS = {
     0: "profile",
-    1: "password"
+    1: "password",
+    2: "chats"
 };
 
 export const sampleRecipes = [
