@@ -9,7 +9,7 @@ function ChatArea() {
                 name=""
                 id=""
             ></textarea>
-            <div className="position-absolute bottom-0 end-0" role="button">
+            <div className="position-absolute top-50 start-95 translate-middle me-2" role="button">
                 <SendIcon className="send-icon text-primary" height="20" width="20" />
             </div>
         </div>
