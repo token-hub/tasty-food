@@ -1,11 +1,15 @@
 import { createContext, useContext, useState } from "react";
+import MobileSlide from "../components/slides/mobileSlide";
+
+export const slide = {
+    open: false,
+    header: ""
+};
 
 const SlideContext = createContext({
-    slide: {
-        open: false,
-        header: ""
-    },
-    handleSlide: () => {}
+    slides: [],
+    openSlide: () => {},
+    closeSlide: () => {}
 });
 
 export function useSlideContext() {
@@ -13,24 +17,45 @@ export function useSlideContext() {
 }
 
 function SlideProvider({ children }) {
-    const [slide, setSlide] = useState({
-        open: false,
-        header: ""
-    });
+    const [slides, setSlides] = useState([]);
 
-    function handleSlide(data) {
-        setSlide((slide) => ({
-            ...slide,
-            ...data
-        }));
+    function openSlide(data) {
+        if (!data) return;
+        setSlides((slides) => [...slides, data]);
+    }
+
+    function closeSlide() {
+        // to start the closing animation
+        const targetIndex = slides.length - 1;
+
+        setSlides((slides) => {
+            return slides.map((slide, index) => {
+                if (index === targetIndex) {
+                    return { ...slide, open: false };
+                } else {
+                    return slide;
+                }
+            });
+        });
+
+        // wrap with setTimeout to let the animation finished first before unmounting the component
+        setTimeout(() => {
+            setSlides((slides) => slides.filter((slide, index) => index != slides.length - 1));
+        }, 400);
     }
 
     const values = {
-        slide,
-        handleSlide
+        slides,
+        openSlide,
+        closeSlide
     };
 
-    return <SlideContext value={values}>{children}</SlideContext>;
+    return (
+        <SlideContext value={values}>
+            {slides.length > 0 && slides.map((slide, index) => <MobileSlide index={index} key={slide.header} />)}
+            {children}
+        </SlideContext>
+    );
 }
 
 export default SlideProvider;
