@@ -29,7 +29,7 @@ function MyAccountLayout() {
                                     </div>
                                 </div>
                                 <div className="col-md-9 col-lg-10">
-                                    <div className="vh-100">
+                                    <div className="vh-90">
                                         <Main>
                                             <Outlet />
                                         </Main>
