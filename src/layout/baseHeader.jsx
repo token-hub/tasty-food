@@ -8,7 +8,7 @@ import MenuDropDown from "../components/header/menuDropDown";
 import { useSlideContext } from "../providers/slideProvider";
 
 function BaseHeader({ chatCount = 20 }) {
-    const { handleSlide } = useSlideContext();
+    const { openSlide } = useSlideContext();
 
     return (
         <>
@@ -21,7 +21,7 @@ function BaseHeader({ chatCount = 20 }) {
                         <div
                             className="d-sm-none position-relative"
                             role="button"
-                            onClick={() => handleSlide({ open: true, header: SUBMENU_HEADERS[2] })}
+                            onClick={() => openSlide({ open: true, header: SUBMENU_HEADERS[2] })}
                         >
                             <ChatDotsIcon className="text-white me-2" height="20" width="20" />
                             <span
