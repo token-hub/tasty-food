@@ -9,7 +9,6 @@ function Profile() {
                     id="email"
                     defaultValue={"johndoe@gmail.com"}
                     placeholder="johndoe@gmail.com"
-                    autoFocus
                 />
                 <label htmlFor="email">Email</label>
             </div>
