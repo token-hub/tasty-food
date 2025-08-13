@@ -44,10 +44,6 @@ function MobileSlide({ index, children }) {
                 <h5 className="m-0 text-capitalize">{currentSlide.header}</h5>
                 <ChatDotsIcon className="text-secondary" height="22" width="22" />
             </div>
-            {/* <ChatConversation />
-             */}
-            <ChatConvo name="john doe doe doe" date="2022/11/17" text="very important message" convoCount={5} mobileView />
-            {/* <ChatMaximizedBody convoWith={"John Doe"} mobileView /> */}
             {children}
         </div>
     );
