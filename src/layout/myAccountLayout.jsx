@@ -20,7 +20,6 @@ function MyAccountLayout() {
             <RecipeProvider>
                 <ModalProvider>
                     <SlideProvider>
-                        <MobileSlide />
                         <BaseHeader />
                         <div className="container">
                             <div className="row mt-3 ">
