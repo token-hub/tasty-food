@@ -1,6 +1,7 @@
 import UserIcon from "../../../assets/icons/userIcon";
 import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from "../../../lib/utilities";
 import { useSlideContext } from "../../../providers/slideProvider";
+import ChatMaximizedBody from "./chatMaximizedBody";
 
 function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount) {
     return (
@@ -40,19 +41,18 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
 
     const { openSlide } = useSlideContext();
 
+    function handleSelectedConvo() {
+        openSlide({
+            open: true,
+            header: trimName,
+            component: <ChatMaximizedBody convoWith="John Doe" mobileView />
+        });
+    }
+
     return (
         <>
             {/* Add open slide click event on small screen */}
-            <div
-                className="d-flex align-items-center p-2 d-block d-sm-none"
-                onClick={() =>
-                    openSlide({
-                        open: true,
-                        header: trimName
-                    })
-                }
-                role="button"
-            >
+            <div className="d-flex align-items-center p-2 d-block d-sm-none" onClick={handleSelectedConvo} role="button">
                 {chatConvoContent(...toPass)}
             </div>
             {/* Add change convo click event on large screen */}
