@@ -38,7 +38,7 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
     trimText = capitalizeFirstLetter(trimText);
     let toPass = [mobileView, trimName, trimText, convoDate, convoCount];
 
-    const { openSlide, slides } = useSlideContext();
+    const { openSlide } = useSlideContext();
 
     return (
         <>
