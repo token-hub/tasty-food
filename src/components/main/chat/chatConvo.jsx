@@ -1,16 +1,10 @@
 import UserIcon from "../../../assets/icons/userIcon";
 import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from "../../../lib/utilities";
+import { useSlideContext } from "../../../providers/slideProvider";
 
-function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
-    let trimNameLength = mobileView ? 27 : 8;
-    let trimTextLength = mobileView ? 35 : 13;
-    const convoDate = getDayAndMonthFromDate(date);
-    let trimName = trimTextAddEllipsis(name, trimNameLength);
-    let trimText = trimTextAddEllipsis(text, trimTextLength);
-    trimText = capitalizeFirstLetter(trimText);
-
+function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount) {
     return (
-        <div className="d-flex align-items-center p-2 " role="button">
+        <>
             <div className={`border rounded-circle ${mobileView ? "me-2" : ""}`}>
                 <UserIcon height="28" width="28" />
             </div>
@@ -31,7 +25,41 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
                     )}
                 </p>
             </div>
-        </div>
+        </>
+    );
+}
+
+function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
+    let trimNameLength = mobileView ? 27 : 8;
+    let trimTextLength = mobileView ? 35 : 13;
+    const convoDate = getDayAndMonthFromDate(date);
+    let trimName = trimTextAddEllipsis(name, trimNameLength);
+    let trimText = trimTextAddEllipsis(text, trimTextLength);
+    trimText = capitalizeFirstLetter(trimText);
+    let toPass = [mobileView, trimName, trimText, convoDate, convoCount];
+
+    const { openSlide, slides } = useSlideContext();
+
+    return (
+        <>
+            {/* Add open slide click event on small screen */}
+            <div
+                className="d-flex align-items-center p-2 d-block d-sm-none"
+                onClick={() =>
+                    openSlide({
+                        open: true,
+                        header: trimName
+                    })
+                }
+                role="button"
+            >
+                {chatConvoContent(...toPass)}
+            </div>
+            {/* Add change convo click event on large screen */}
+            <div className="d-flex align-items-center p-2 d-none d-sm-block" role="button">
+                {chatConvoContent(...toPass)}
+            </div>
+        </>
     );
 }
 
