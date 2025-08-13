@@ -1,0 +1,33 @@
+@function generate-position-values($unit: "%") {
+    $values: ();
+
+    @for $i from 0 through 20 {
+        $key: $i * 5;
+
+        @if $key == 0 {
+            $values: map-merge(
+                $values,
+                (
+                    $key: 0
+                )
+            );
+        } @else {
+            $values: map-merge(
+                $values,
+                (
+                    $key: #{$key}#{$unit}
+                )
+            );
+        }
+    }
+
+    // Add "auto" at the end
+    $values: map-merge(
+        $values,
+        (
+            auto: auto
+        )
+    );
+
+    @return $values;
+}
