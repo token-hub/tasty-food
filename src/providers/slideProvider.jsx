@@ -3,7 +3,8 @@ import MobileSlide from "../components/slides/mobileSlide";
 
 export const slide = {
     open: false,
-    header: ""
+    header: "",
+    component: ""
 };
 
 const SlideContext = createContext({
@@ -52,7 +53,12 @@ function SlideProvider({ children }) {
 
     return (
         <SlideContext value={values}>
-            {slides.length > 0 && slides.map((slide, index) => <MobileSlide index={index} key={slide.header} />)}
+            {slides.length > 0 &&
+                slides.map(({ header, component }, index) => (
+                    <MobileSlide index={index} key={header}>
+                        {component}
+                    </MobileSlide>
+                ))}
             {children}
         </SlideContext>
     );
