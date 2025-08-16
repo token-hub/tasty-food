@@ -7,6 +7,7 @@ import Instructions from "./instructions";
 import Categories from "./categories";
 import Timers from "./timers";
 import NameAndDiscription from "./nameAndDiscription";
+import ProgressBar from "./progressBar";
 import { useRecipeContext } from "../../../providers/recipeProvider";
 import { useModalContext } from "../../../providers/modalProvider";
 import { MODAL_MODES } from "../../../lib/constants";
@@ -33,6 +34,7 @@ function CreateRecipeModal() {
                         <div className="modal-body">
                             {show && (
                                 <form className="form-floating">
+                                    <ProgressBar now={25} />
                                     <UploadImage recipe={dataToUse} />
                                     <NameAndDiscription recipe={dataToUse} />
                                     <Timers recipe={dataToUse} />
