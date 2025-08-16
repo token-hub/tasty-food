@@ -7,10 +7,10 @@ function Archives() {
         <div className="container">
             <div className="row">
                 {sampleRecipes &&
-                    sampleRecipes.map(({ name, imageSource }) => {
+                    sampleRecipes.map((recipe) => {
                         return (
-                            <div key={name} className=" col-md-6 col-xl-4 mb-3">
-                                <Recipe isArchived imgSource={imageSource} name={name} />
+                            <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
+                                <Recipe recipe={recipe} isArchived />
                             </div>
                         );
                     })}
