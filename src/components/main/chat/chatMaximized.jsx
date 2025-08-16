@@ -1,4 +1,4 @@
-import ChatConvo from "./ChatConvo";
+import ChatConvo from "./chatConvo";
 import ChatMaximizedHeader from "./chatMaximizedHeader";
 import ChatMaximizedBody from "./chatMaximizedBody";
 
