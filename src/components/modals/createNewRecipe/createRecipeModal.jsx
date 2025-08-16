@@ -20,6 +20,7 @@ function CreateRecipeModal() {
         reset
     } = useModalContext();
     let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
+    const showPrevButton = progress !== progressStep;
 
     function handleNext() {
         setProgress((prev) => prev + progressStep);
@@ -51,9 +52,12 @@ function CreateRecipeModal() {
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" onClick={reset} disabled className="btn btn-gray-dark text-white" data-bs-dismiss="modal">
-                                Previous
-                            </button>
+                            {showPrevButton && (
+                                <button type="button" onClick={reset} className="btn btn-gray-dark text-white" data-bs-dismiss="modal">
+                                    Previous
+                                </button>
+                            )}
+
                             <button type="button" className="btn btn-primary text-white" onClick={handleNext}>
                                 Next
                             </button>
