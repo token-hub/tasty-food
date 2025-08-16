@@ -12,7 +12,7 @@ import MyRecipes from "./pages/myRecipes";
 import Archives from "./pages/archives";
 import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
-
+import NotFound from "./pages/notFound";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -47,12 +47,17 @@ const router = createBrowserRouter([
                 path: "notifications",
                 Component: Notifications
             }
-        ]
+        ],
+        errorElement: NotFound
     },
     {
         path: "auth",
         Component: AuthLayout,
         children: [{ index: true, Component: Auth }]
+    },
+    {
+        path: "*",
+        Component: NotFound
     }
 ]);
 export default router;
