@@ -16,7 +16,7 @@ import Main from "./main";
 
 function MyAccountLayout() {
     return (
-        <div className="position-relative">
+        <div className="position-relative vh-100">
             <RecipeProvider>
                 <ModalProvider>
                     <SlideProvider>
@@ -29,11 +29,9 @@ function MyAccountLayout() {
                                     </div>
                                 </div>
                                 <div className="col-md-9 col-lg-10">
-                                    <div className="vh-90">
-                                        <Main>
-                                            <Outlet />
-                                        </Main>
-                                    </div>
+                                    <Main>
+                                        <Outlet />
+                                    </Main>
                                 </div>
                             </div>
 
