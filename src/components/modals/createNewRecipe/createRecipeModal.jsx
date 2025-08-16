@@ -26,6 +26,7 @@ function CreateRecipeModal() {
     const firstPart = progress === progressStep;
     const secondPart = progress === progressStep * 2;
     const thirdPart = progress === progressStep * 3;
+    const fourthPart = progress === progressStep * 4;
 
     function handleNext() {
         setProgress((prev) => prev + progressStep);
@@ -60,7 +61,6 @@ function CreateRecipeModal() {
                                             <Categories recipe={dataToUse} />
                                         </>
                                     )}
-
                                     {secondPart && (
                                         <>
                                             <Ingredients recipe={dataToUse} />
@@ -71,10 +71,11 @@ function CreateRecipeModal() {
                                             <Instructions recipe={dataToUse} />
                                         </>
                                     )}
-
-                                    {/* <Ingredients recipe={dataToUse} />
-                                    <Instructions recipe={dataToUse} />
-                                    <UploadVideo /> */}
+                                    {fourthPart && (
+                                        <>
+                                            <UploadVideo />
+                                        </>
+                                    )}
                                 </form>
                             )}
                         </div>
