@@ -30,30 +30,33 @@ function BaseHeader({ chatCount = 20 }) {
                         <Link to="/" className="navbar-brand text-white fs-4 flex-grow-1 flex-sm-grow-0">
                             Tasty Food
                         </Link>
-                        <div className="d-sm-none position-relative" role="button" onClick={handleChatClick}>
-                            <ChatDotsIcon className="text-white me-2" height="20" width="20" />
-                            <span
-                                className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
-                                style={{ width: "17px" }}
-                            >
-                                {chatCount}
-                            </span>
-                        </div>
+
                         <div className="d-none d-sm-flex flex-grow-1 ">
                             <SearchBar />
                         </div>
 
                         {isAuthenticated ? (
-                            <MenuDropDown>
-                                <div
-                                    className="dropdown-toggle d-flex align-items-center text-white"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
+                            <>
+                                <div className="d-sm-none position-relative" role="button" onClick={handleChatClick}>
+                                    <ChatDotsIcon className="text-white me-2" height="20" width="20" />
+                                    <span
+                                        className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
+                                        style={{ width: "17px" }}
+                                    >
+                                        {chatCount}
+                                    </span>
                                 </div>
-                            </MenuDropDown>
+                                <MenuDropDown>
+                                    <div
+                                        className="dropdown-toggle d-flex align-items-center text-white"
+                                        role="button"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
+                                    </div>
+                                </MenuDropDown>
+                            </>
                         ) : (
                             <>
                                 <span className="text-white fs-6 me-2">Sign In</span> <SignInIcon className="text-white" height="20" width="20" />
