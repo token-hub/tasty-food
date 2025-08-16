@@ -52,11 +52,11 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
     return (
         <>
             {/* Add open slide click event on small screen */}
-            <div className="d-flex align-items-center p-2 d-block d-sm-none" onClick={handleSelectedConvo} role="button">
+            <div className="d-flex align-items-center p-2 d-sm-none" onClick={handleSelectedConvo} role="button">
                 {chatConvoContent(...toPass)}
             </div>
             {/* Add change convo click event on large screen */}
-            <div className="d-flex align-items-center p-2 d-none d-sm-block" role="button">
+            <div className="d-flex align-items-center p-2 d-none d-sm-flex" role="button">
                 {chatConvoContent(...toPass)}
             </div>
         </>
