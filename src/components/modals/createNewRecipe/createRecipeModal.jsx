@@ -49,7 +49,7 @@ function CreateRecipeModal() {
                             </h1>
                             <button type="button" onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
-                        <div className="modal-body">
+                        <div className="modal-body min-vh-70">
                             {show && (
                                 <form className="form-floating">
                                     <ProgressBar now={progress} />
