@@ -21,9 +21,22 @@ $utilities: map-merge(
             class: vh,
             values: $position-values-vh
         ),
+        "top": (
+            property: top,
+            values: $position-values-percent
+        ),
+        "bottom": (
+            property: bottom,
+            values: $position-values-percent
+        ),
         "start": (
             property: left,
             class: start,
+            values: $position-values-percent
+        ),
+        "end": (
+            property: right,
+            class: end,
             values: $position-values-percent
         )
     )
