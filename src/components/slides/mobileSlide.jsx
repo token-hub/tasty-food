@@ -42,7 +42,7 @@ function MobileSlide({ index, children }) {
                     <LeftIcon className="text-secondary" height="26" width="26" />
                 </button>
                 <h5 className="m-0 text-capitalize">{currentSlide.header}</h5>
-                <ChatDotsIcon className="text-secondary" height="22" width="22" />
+                <ChatDotsIcon className="text-secondary invisible" height="22" width="22" />
             </div>
             {children}
         </div>
