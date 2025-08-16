@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UploadImage from "./uploadImage";
 import UploadVideo from "./uploadVideo";
 import Ingredients from "./ingredients";
@@ -28,6 +28,12 @@ function CreateRecipeModal() {
     const secondPart = progress === progressStep * 2;
     const thirdPart = progress === progressStep * 3;
     const fourthPart = progress === progressStep * 4;
+
+    useEffect(() => {
+        if (!show && progress !== progressStep) {
+            setProgress(progressStep);
+        }
+    }, [show, progress]);
 
     function handleNext() {
         setProgress((prev) => prev + progressStep);
