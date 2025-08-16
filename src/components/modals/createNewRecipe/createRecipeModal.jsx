@@ -25,6 +25,7 @@ function CreateRecipeModal() {
     const hideNextButton = progress === progressMax;
     const firstPart = progress === progressStep;
     const secondPart = progress === progressStep * 2;
+    const thirdPart = progress === progressStep * 3;
 
     function handleNext() {
         setProgress((prev) => prev + progressStep);
@@ -63,6 +64,11 @@ function CreateRecipeModal() {
                                     {secondPart && (
                                         <>
                                             <Ingredients recipe={dataToUse} />
+                                        </>
+                                    )}
+                                    {thirdPart && (
+                                        <>
+                                            <Instructions recipe={dataToUse} />
                                         </>
                                     )}
 
