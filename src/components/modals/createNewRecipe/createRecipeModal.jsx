@@ -21,6 +21,7 @@ function CreateRecipeModal() {
         reset
     } = useModalContext();
     let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
+    const isEditting = mode === MODAL_MODES[1];
     const showPrevButton = progress !== progressStep;
     const hideNextButton = progress === progressMax;
     const firstPart = progress === progressStep;
@@ -45,7 +46,7 @@ function CreateRecipeModal() {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                Create new Recipe
+                                {isEditting ? "Edit recipe" : "Create new recipe"}
                             </h1>
                             <button type="button" onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
