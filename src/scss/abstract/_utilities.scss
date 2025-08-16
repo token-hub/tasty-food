@@ -21,6 +21,11 @@ $utilities: map-merge(
             class: vh,
             values: $position-values-vh
         ),
+        "min-viewport-height": (
+            property: min-height,
+            class: min-vh,
+            values: $position-values-vh
+        ),
         "top": (
             property: top,
             values: $position-values-percent
