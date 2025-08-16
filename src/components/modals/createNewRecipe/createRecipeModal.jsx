@@ -37,18 +37,18 @@ function CreateRecipeModal() {
                                     <NameAndDiscription recipe={dataToUse} />
                                     <Timers recipe={dataToUse} />
                                     <Categories recipe={dataToUse} />
-                                    <Ingredients recipe={dataToUse} />
+                                    {/* <Ingredients recipe={dataToUse} />
                                     <Instructions recipe={dataToUse} />
-                                    <UploadVideo />
+                                    <UploadVideo /> */}
                                 </form>
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button type="button" onClick={reset} className="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
+                            <button type="button" onClick={reset} disabled className="btn btn-gray-dark text-white" data-bs-dismiss="modal">
+                                Previous
                             </button>
-                            <button type="button" className="btn btn-primary">
-                                Save changes
+                            <button type="button" className="btn btn-primary text-white">
+                                Next
                             </button>
                         </div>
                     </div>
