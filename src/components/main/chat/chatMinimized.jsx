@@ -1,8 +1,8 @@
-import ChatDotsIcon from "../../../assets/icons/ChatDotsIcon";
+import ChatDotsIcon from "../../../assets/icons/chatDotsIcon";
 function ChatMinimized({ chatCount, onClick, isMaxChatOpen }) {
     return (
         <div
-            className={`chat-minimized position-fixed bottom-0 end-0 me-3 bg-primary py-2 px-3 rounded-top text-white position-relative ${
+            className={`chat-minimized d-none d-sm-block position-fixed bottom-0 end-0 me-3 bg-primary py-2 px-3 rounded-top text-white position-relative ${
                 !isMaxChatOpen ? "chat-minimized-open" : ""
             } `}
             onClick={onClick}
