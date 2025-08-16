@@ -31,6 +31,8 @@ function CreateRecipeModal() {
         setProgress((prev) => prev - progressStep);
     }
 
+    function handleSubmit() {}
+
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -63,9 +65,13 @@ function CreateRecipeModal() {
                                 </button>
                             )}
 
-                            {!hideNextButton && (
+                            {!hideNextButton ? (
                                 <button type="button" className="btn btn-primary text-white" onClick={handleNext}>
                                     Next
+                                </button>
+                            ) : (
+                                <button type="submit" className="btn btn-primary text-white" onClick={handleSubmit}>
+                                    Submit
                                 </button>
                             )}
                         </div>
