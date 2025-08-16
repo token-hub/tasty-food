@@ -13,6 +13,7 @@ import { MODAL_MODES } from "../../../lib/constants";
 
 function CreateRecipeModal() {
     const progressStep = 25; // for 4 parts of the modal that will sum to 100
+    const progressMax = 100;
     const [progress, setProgress] = useState(progressStep);
     const { recipe } = useRecipeContext();
     const {
@@ -21,7 +22,8 @@ function CreateRecipeModal() {
     } = useModalContext();
     let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
     const showPrevButton = progress !== progressStep;
-    const hideNextButton = progress === 100;
+    const hideNextButton = progress === progressMax;
+    const firstPart = progress === progressStep;
 
     function handleNext() {
         setProgress((prev) => prev + progressStep);
@@ -48,10 +50,15 @@ function CreateRecipeModal() {
                             {show && (
                                 <form className="form-floating">
                                     <ProgressBar now={progress} />
-                                    <UploadImage recipe={dataToUse} />
-                                    <NameAndDiscription recipe={dataToUse} />
-                                    <Timers recipe={dataToUse} />
-                                    <Categories recipe={dataToUse} />
+                                    {firstPart && (
+                                        <>
+                                            <UploadImage recipe={dataToUse} />
+                                            <NameAndDiscription recipe={dataToUse} />
+                                            <Timers recipe={dataToUse} />
+                                            <Categories recipe={dataToUse} />
+                                        </>
+                                    )}
+
                                     {/* <Ingredients recipe={dataToUse} />
                                     <Instructions recipe={dataToUse} />
                                     <UploadVideo /> */}
