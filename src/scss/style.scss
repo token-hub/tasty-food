@@ -42,6 +42,7 @@
 @import "/node_modules/bootstrap/scss/list-group";
 @import "/node_modules/bootstrap/scss/images";
 @import "/node_modules/bootstrap/scss/progress";
+@import "/node_modules/bootstrap/scss/transitions";
 
 // helpers
 @import "/node_modules/bootstrap/scss/helpers";
@@ -61,3 +62,4 @@
 @import "./components/notification";
 @import "./components/chat";
 @import "./components/slide";
+@import "./components/filter";
