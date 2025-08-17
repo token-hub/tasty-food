@@ -1,8 +1,27 @@
+import { useState } from "react";
 import DownChevronIcon from "../../assets/icons/downChevronIcon";
 import { RECIPE_CATEGORIES } from "../../lib/constants";
 
 function FilterMobile() {
-    const categories = Object.values(RECIPE_CATEGORIES);
+    const recipeCatogories = Object.values(RECIPE_CATEGORIES).map((category) => {
+        return {
+            name: category,
+            isChecked: true
+        };
+    });
+    const [categories, setCategories] = useState(recipeCatogories);
+
+    function handleReset() {
+        setCategories((categories) => {
+            return categories.map((category) => {
+                return {
+                    ...category,
+                    isChecked: false
+                };
+            });
+        });
+    }
+
     return (
         <aside className="d-block d-md-none position-relative">
             <button
@@ -19,16 +38,18 @@ function FilterMobile() {
             <div className="collapse mt-2" id="categories">
                 <div className="card card-body">
                     <div className="row">
-                        {categories.map((category) => (
-                            <div className="col-6 p-1" key={category}>
-                                <input type="checkbox" className="btn-check" id={category} autoComplete="off" />
-                                <label className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize" htmlFor={category}>
-                                    {category}
+                        {categories.map(({ name, isChecked }) => (
+                            <div className="col-6 p-1" key={name}>
+                                <input type="checkbox" checked={isChecked} className="btn-check" id={name} autoComplete="off" />
+                                <label className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize" htmlFor={name}>
+                                    {name}
                                 </label>
                             </div>
                         ))}
                         <div className="col-6 p-1">
-                            <button className="btn w-100 btn-sm btn-gray-dark text-white">Reset</button>
+                            <button className="btn w-100 btn-sm btn-gray-dark text-white" onClick={handleReset}>
+                                Reset
+                            </button>
                         </div>
                         <div className="col-6 p-1">
                             <button className="btn w-100 btn-sm btn-gray-dark text-white">Apply</button>
