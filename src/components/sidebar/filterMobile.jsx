@@ -46,7 +46,7 @@ function FilterMobile() {
         <aside className="d-block d-md-none position-relative">
             <button
                 ref={categoriesRef}
-                className="btn btn-primary text-white"
+                className="btn btn-primary text-white mb-3"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#categories"
@@ -56,7 +56,7 @@ function FilterMobile() {
                 <span className="me-2">Categories</span>
                 <DownChevronIcon width="14" />
             </button>
-            <div className="collapse mt-2" id="categories">
+            <div className="collapse" id="categories">
                 <div className="card card-body">
                     <div className="row">
                         {categories.map(({ name, isChecked }) => (
