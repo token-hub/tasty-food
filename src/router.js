@@ -1,6 +1,4 @@
 import Auth from "./pages/auth";
-import Recipes from "./pages/recipes";
-
 import AuthLayout from "./layout/authLayout";
 import BaseLayout from "./layout/base";
 import MyAccountLayout from "./layout/myAccountLayout";
@@ -8,7 +6,7 @@ import { createBrowserRouter } from "react-router";
 import Profile from "./pages/profile";
 import Password from "./pages/password";
 import Me from "./pages/me";
-import MyRecipes from "./pages/myRecipes";
+import Recipes from "./pages/recipes";
 import Archives from "./pages/archives";
 import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
@@ -31,7 +29,7 @@ const router = createBrowserRouter([
             {
                 path: "myRecipes",
                 children: [
-                    { index: true, Component: MyRecipes },
+                    { index: true, Component: Recipes },
                     { path: ":recipe", Component: Recipe }
                 ]
             },
