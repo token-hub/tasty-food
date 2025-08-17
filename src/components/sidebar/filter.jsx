@@ -4,7 +4,7 @@ import { RECIPE_CATEGORIES } from "../../lib/constants";
 function Filter() {
     const categories = Object.values(RECIPE_CATEGORIES);
     return (
-        <aside>
+        <aside className="d-none d-md-block">
             <div className="d-flex align-items-center py-2">
                 <FilterIcon />
                 <h6 className="m-0 ms-1 fw-semibold">Search Filter</h6>
