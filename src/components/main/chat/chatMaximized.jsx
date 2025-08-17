@@ -15,7 +15,7 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
                     </div>
                     <div className="col-8 h-100 ps-0 ">
                         {!hasSelectedConvo && (
-                            <div className="h-100 d-flex flex-column align-items-center justify-content-center bg-gray">
+                            <div className="h-100 d-flex flex-column align-items-center justify-content-center bg-gray-light">
                                 <h6 className="fw-bold">Welcome to Recipe Chat</h6>
                                 <h6 className="text-muted">Start a conversations</h6>
                             </div>
