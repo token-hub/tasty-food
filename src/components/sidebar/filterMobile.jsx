@@ -12,6 +12,18 @@ function FilterMobile() {
     });
     const [categories, setCategories] = useState(recipeCatogories);
 
+    function handleCategoryClick(selectedCategory) {
+        setCategories((categories) => {
+            return categories.map((category) => {
+                if (category.name === selectedCategory) {
+                    return { ...category, isChecked: true };
+                } else {
+                    return category;
+                }
+            });
+        });
+    }
+
     function handleReset() {
         setCategories((categories) => {
             return categories.map((category) => {
@@ -25,6 +37,7 @@ function FilterMobile() {
 
     function handleApply() {
         // do something here
+        // add selected filter to the localstorage and fetch it by default
 
         categoriesRef.current.click();
     }
@@ -48,7 +61,14 @@ function FilterMobile() {
                     <div className="row">
                         {categories.map(({ name, isChecked }) => (
                             <div className="col-6 p-1" key={name}>
-                                <input type="checkbox" checked={isChecked} className="btn-check" id={name} autoComplete="off" />
+                                <input
+                                    type="checkbox"
+                                    onChange={() => handleCategoryClick(name)}
+                                    checked={isChecked}
+                                    className="btn-check"
+                                    id={name}
+                                    autoComplete="off"
+                                />
                                 <label className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize" htmlFor={name}>
                                     {name}
                                 </label>
