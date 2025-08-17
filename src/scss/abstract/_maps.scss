@@ -2,8 +2,9 @@ $theme-colors: map-merge(
     (
         "primary-light": $primary-light,
         "tertiary": $tertiary,
-        "gray": $gray-200,
-        "gray-dark": $gray-500
+        "gray": $gray-400,
+        "gray-dark": $gray-500,
+        "gray-light": $gray-200
     ),
     $theme-colors
 );
