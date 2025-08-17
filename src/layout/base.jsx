@@ -3,10 +3,10 @@ import BaseHeader from "./baseHeader";
 import Main from "./main";
 import Chat from "../components/main/chat/chat";
 import { isAuthenticated } from "../lib/constants";
-
+import SlideProvider from "../providers/slideProvider";
 function Base() {
     return (
-        <>
+        <SlideProvider>
             <BaseHeader />
             <div className="container">
                 <div className="d-none d-md-block">
@@ -21,7 +21,7 @@ function Base() {
                 </div>
             </div>
             {isAuthenticated && <Chat />}
-        </>
+        </SlideProvider>
     );
 }
 
