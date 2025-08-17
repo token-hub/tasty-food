@@ -1,6 +1,8 @@
 import { Outlet } from "react-router";
 import BaseHeader from "./baseHeader";
 import Main from "./main";
+import Chat from "../components/main/chat/chat";
+import { isAuthenticated } from "../lib/constants";
 
 function Base() {
     return (
@@ -18,6 +20,7 @@ function Base() {
                     </div>
                 </div>
             </div>
+            {isAuthenticated && <Chat />}
         </>
     );
 }
