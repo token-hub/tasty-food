@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import DownChevronIcon from "../../assets/icons/downChevronIcon";
 import { RECIPE_CATEGORIES } from "../../lib/constants";
 
 function FilterMobile() {
+    const categoriesRef = useRef();
     const recipeCatogories = Object.values(RECIPE_CATEGORIES).map((category) => {
         return {
             name: category,
-            isChecked: true
+            isChecked: false
         };
     });
     const [categories, setCategories] = useState(recipeCatogories);
@@ -22,9 +23,16 @@ function FilterMobile() {
         });
     }
 
+    function handleApply() {
+        // do something here
+
+        categoriesRef.current.click();
+    }
+
     return (
         <aside className="d-block d-md-none position-relative">
             <button
+                ref={categoriesRef}
                 className="btn btn-primary text-white"
                 type="button"
                 data-bs-toggle="collapse"
@@ -52,7 +60,9 @@ function FilterMobile() {
                             </button>
                         </div>
                         <div className="col-6 p-1">
-                            <button className="btn w-100 btn-sm btn-gray-dark text-white">Apply</button>
+                            <button className="btn w-100 btn-sm btn-gray-dark text-white" onClick={handleApply}>
+                                Apply
+                            </button>
                         </div>
                     </div>
                 </div>
