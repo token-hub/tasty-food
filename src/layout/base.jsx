@@ -11,7 +11,8 @@ import ChatProvider from "../providers/chatProvider";
 
 function Base() {
     const params = useParams();
-
+    const leftSideClasses = params?.recipe ? "col-md-1" : "col-md-3 col-lg-2";
+    const rightSideClasses = params?.recipe ? "col-md-10" : "col-md-9 col-lg-10";
     return (
         <SlideProvider>
             <RecipeProvider>
@@ -19,7 +20,7 @@ function Base() {
                     <BaseHeader />
                     <div className="container">
                         <div className="row mt-3 ">
-                            <div className="col-md-3 col-lg-2">
+                            <div className={leftSideClasses}>
                                 {!params?.recipe && (
                                     <>
                                         <Filter />
@@ -27,7 +28,7 @@ function Base() {
                                     </>
                                 )}
                             </div>
-                            <div className="col-md-9 col-lg-10">
+                            <div className={rightSideClasses}>
                                 <Main>
                                     <Outlet />
                                 </Main>
