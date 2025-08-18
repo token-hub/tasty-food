@@ -53,12 +53,14 @@ function SlideProvider({ children }) {
 
     return (
         <SlideContext value={values}>
-            {slides.length > 0 &&
-                slides.map(({ header, component }, index) => (
-                    <MobileSlide index={index} key={header}>
-                        {component}
-                    </MobileSlide>
-                ))}
+            <div className="position-fixed vh-100 z-3">
+                {slides.length > 0 &&
+                    slides.map(({ header, component }, index) => (
+                        <MobileSlide index={index} key={header}>
+                            {component}
+                        </MobileSlide>
+                    ))}
+            </div>
             {children}
         </SlideContext>
     );
