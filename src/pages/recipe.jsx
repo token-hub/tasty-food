@@ -35,9 +35,9 @@ function Recipe() {
             <hr />
             <RecipeInstructions recipe={selectedRecipe} />
             <hr />
-            <RecipeTabs recipeAuthorId={selectedRecipe.authorId} activeTab={activeTab} handleTabs={handleActiveTab} />
+            <RecipeTabs recipeAuthorId={selectedRecipe.author.authorId} activeTab={activeTab} handleTabs={handleActiveTab} />
             {activeTab === TABS[0] ? (
-                <RecipeRatings ratings={selectedRecipe.topFiveRecentRatings} recipeAuthorId={selectedRecipe.authorId} />
+                <RecipeRatings ratings={selectedRecipe.topFiveRecentRatings} recipeAuthorId={selectedRecipe.author.authorId} />
             ) : (
                 <RecipeReports recipe={selectedRecipe} />
             )}
