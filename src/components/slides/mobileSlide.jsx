@@ -14,6 +14,7 @@ function MobileSlide({ index, children }) {
     useEffect(() => {
         const slideElem = document.querySelector(`.slide-${index + 1}`);
         const html = document.querySelector("html");
+        const body = document.querySelector("body");
 
         // need to wrap with setTimeout because the component is
         // being mounted as the slide is being added in the state,
@@ -23,8 +24,10 @@ function MobileSlide({ index, children }) {
                 slideElem.classList.remove("hidden-from-left-to-right");
                 slideElem.classList.add("show-from-right-to-left");
                 html.classList.add("overflow-y-hidden");
+                body.classList.add("overflow-y-hidden");
             } else {
                 html.classList.remove("overflow-y-hidden");
+                body.classList.remove("overflow-y-hidden");
                 slideElem.classList.add("hidden-from-left-to-right");
                 slideElem.classList.remove("show-from-right-to-left");
             }
