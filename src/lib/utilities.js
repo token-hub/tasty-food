@@ -43,3 +43,8 @@ export function capitalizeFirstLetter(text) {
     let firstLetter = text.slice(0)[0].toUpperCase();
     return [firstLetter, ...text.slice(1)].join("");
 }
+
+export function removeSpacesFromText(text) {
+    if (!text) return;
+    return text.replaceAll(" ", "");
+}
