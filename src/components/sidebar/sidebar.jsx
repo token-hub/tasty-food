@@ -18,7 +18,7 @@ function Sidebar() {
             </SidebarGroup>
 
             <SidebarGroup>
-                <SidebarItem isHeader={true} to="/me/myRecipes">
+                <SidebarItem isHeader={true} to="/me/recipes">
                     <RecipeIcon />
                     <span className="ms-2">My Recipes</span>
                 </SidebarItem>
