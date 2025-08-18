@@ -41,7 +41,7 @@ const router = createBrowserRouter([
                 Component: Profile
             },
             {
-                path: "myRecipes",
+                path: "recipes",
                 children: [
                     { index: true, Component: Recipes },
                     { path: ":recipe", Component: Recipe }
