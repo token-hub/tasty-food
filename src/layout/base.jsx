@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useParams } from "react-router";
 import BaseHeader from "./baseHeader";
 import Main from "./main";
 import Chat from "../components/main/chat/chat";
@@ -10,6 +10,8 @@ import RecipeProvider from "../providers/recipeProvider";
 import ChatProvider from "../providers/chatProvider";
 
 function Base() {
+    const params = useParams();
+
     return (
         <SlideProvider>
             <RecipeProvider>
@@ -18,12 +20,12 @@ function Base() {
                     <div className="container">
                         <div className="row mt-3 ">
                             <div className="col-md-3 col-lg-2">
-                                {
+                                {!params?.recipe && (
                                     <>
                                         <Filter />
                                         <FilterMobile />
                                     </>
-                                }
+                                )}
                             </div>
                             <div className="col-md-9 col-lg-10">
                                 <Main>
