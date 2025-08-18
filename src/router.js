@@ -15,7 +15,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         Component: BaseLayout,
-        children: [{ index: true, Component: Recipes }]
+        children: [
+            { index: true, Component: Recipes },
+            { path: ":author/recipes", Component: Recipes }
+        ]
     },
     {
         path: "/me",
