@@ -3,11 +3,13 @@ import ArchiveIcon from "../../../assets/icons/archiveIcon";
 import EditIcon from "../../../assets/icons/editIcon";
 import { isAuthor } from "../../../lib/constants";
 import { useModalContext } from "../../../providers/modalProvider";
+import { useChatContext } from "../../../providers/chatProvider";
 import { MODAL_MODES } from "../../../lib/constants";
 
 function RecipeHeaders({ recipe }) {
     let { imageSource, goodForPeopleCount, description } = recipe;
     const { setCurrentModal } = useModalContext();
+    const { handleOpenChat } = useChatContext();
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);
@@ -54,7 +56,9 @@ function RecipeHeaders({ recipe }) {
                     <p className="me-1 m-0">
                         <span className="fw-bold">Author:</span> John Doe
                     </p>
-                    <ChatIcon className="mt-n1 text-secondary" />
+                    <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleOpenChat}>
+                        <ChatIcon className="mt-n1 text-secondary" />
+                    </button>
                 </div>
             </div>
         </div>
