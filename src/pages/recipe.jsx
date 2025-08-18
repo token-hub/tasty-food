@@ -11,37 +11,39 @@ import { useLocation } from "react-router";
 
 function Recipe() {
     const { pathname } = useLocation();
-    const selectedRecipe = sampleRecipes.find((res) => res.recipeLink === pathname);
-    const [activeTab, setActiveTab] = useState("ratings");
-    const {
-        recipe: { currentRecipe },
-        setCurrentRecipe
-    } = useRecipeContext();
 
+    const [activeTab, setActiveTab] = useState("ratings");
+    const { recipe: currentRecipe, setCurrentRecipe } = useRecipeContext();
     useEffect(() => {
-        if (!currentRecipe) {
+        if (!Object.values(currentRecipe).length) {
+            const noFirstChar = pathname.slice(1);
+            const recipeLink = noFirstChar.slice(noFirstChar.indexOf("/"));
+            const selectedRecipe = sampleRecipes.find((res) => res.recipeLink === recipeLink);
             setCurrentRecipe(selectedRecipe);
         }
-    }, [currentRecipe, selectedRecipe, setCurrentRecipe]);
+    }, [pathname, currentRecipe, setCurrentRecipe]);
 
     function handleActiveTab(tab) {
         setActiveTab(tab);
     }
+
     return (
-        <div className="container">
-            <RecipeHeaders recipe={selectedRecipe} />
-            <hr />
-            <RecipeIngredients recipe={selectedRecipe} />
-            <hr />
-            <RecipeInstructions recipe={selectedRecipe} />
-            <hr />
-            <RecipeTabs recipeAuthorId={selectedRecipe.author.authorId} activeTab={activeTab} handleTabs={handleActiveTab} />
-            {activeTab === TABS[0] ? (
-                <RecipeRatings ratings={selectedRecipe.topFiveRecentRatings} recipeAuthorId={selectedRecipe.author.authorId} />
-            ) : (
-                <RecipeReports recipe={selectedRecipe} />
-            )}
-        </div>
+        Object.values(currentRecipe).length > 0 && (
+            <div className="container">
+                <RecipeHeaders recipe={currentRecipe} />
+                <hr />
+                <RecipeIngredients recipe={currentRecipe} />
+                <hr />
+                <RecipeInstructions recipe={currentRecipe} />
+                <hr />
+                <RecipeTabs recipeAuthorId={currentRecipe.author.authorId} activeTab={activeTab} handleTabs={handleActiveTab} />
+                {activeTab === TABS[0] ? (
+                    <RecipeRatings ratings={currentRecipe.topFiveRecentRatings} recipeAuthorId={currentRecipe.author.authorId} />
+                ) : (
+                    <RecipeReports recipe={currentRecipe} />
+                )}
+            </div>
+        )
     );
 }
 
