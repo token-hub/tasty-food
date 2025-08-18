@@ -5,6 +5,7 @@ import Chat from "../components/main/chat/chat";
 import { isAuthenticated } from "../lib/constants";
 import SlideProvider from "../providers/slideProvider";
 import Filter from "../components/sidebar/filter";
+import FilterMobile from "../components/sidebar/filterMobile";
 import RecipeProvider from "../providers/recipeProvider";
 import ChatProvider from "../providers/chatProvider";
 
@@ -15,14 +16,19 @@ function Base() {
                 <ChatProvider>
                     <BaseHeader />
                     <div className="container">
-                        <div className="d-none d-md-block">
-                            <div className="row mt-3 ">
-                                <div className="col-md-3 col-lg-2">{<Filter />}</div>
-                                <div className="col-md-9 col-lg-10">
-                                    <Main>
-                                        <Outlet />
-                                    </Main>
-                                </div>
+                        <div className="row mt-3 ">
+                            <div className="col-md-3 col-lg-2">
+                                {
+                                    <>
+                                        <Filter />
+                                        <FilterMobile />
+                                    </>
+                                }
+                            </div>
+                            <div className="col-md-9 col-lg-10">
+                                <Main>
+                                    <Outlet />
+                                </Main>
                             </div>
                         </div>
                     </div>
