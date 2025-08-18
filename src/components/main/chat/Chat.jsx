@@ -1,25 +1,18 @@
-import { useState } from "react";
 import ChatMinimized from "./chatMinimized";
 import ChatMaximized from "./chatMaximized";
+import { useChatContext } from "../../../providers/chatProvider";
 
 function Chat() {
-    const [openMaxChat, setOpenMaxChat] = useState(false);
+    const { openChat, handleMaxChat, handleCloseChat } = useChatContext();
     let chatCount = 99;
-
-    function handleOpenMaxChat() {
-        setOpenMaxChat(true);
-    }
-    function handleCloseMaxChat() {
-        setOpenMaxChat(false);
-    }
 
     return (
         <>
             {/* minimized */}
-            <ChatMinimized isMaxChatOpen={openMaxChat} chatCount={chatCount} onClick={handleOpenMaxChat} />
+            <ChatMinimized isMaxChatOpen={openChat} chatCount={chatCount} onClick={handleMaxChat} />
 
             {/* maximized */}
-            <ChatMaximized isOpen={openMaxChat} onClick={handleCloseMaxChat} chatCount={chatCount} />
+            <ChatMaximized isOpen={openChat} onClick={handleCloseChat} chatCount={chatCount} />
         </>
     );
 }
