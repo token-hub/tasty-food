@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import RecipeProvider from "../providers/recipeProvider";
 import ModalProvider from "../providers/modalProvider";
 import SlideProvider from "../providers/slideProvider";
+import ChatProvider from "../providers/chatProvider";
 
 // Components
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
@@ -16,10 +17,10 @@ import Main from "./main";
 
 function MyAccountLayout() {
     return (
-        <div className="position-relative vh-100">
-            <RecipeProvider>
-                <ModalProvider>
-                    <SlideProvider>
+        <RecipeProvider>
+            <ModalProvider>
+                <SlideProvider>
+                    <ChatProvider>
                         <BaseHeader />
                         <div className="container">
                             <div className="row mt-3 ">
@@ -34,18 +35,18 @@ function MyAccountLayout() {
                                     </Main>
                                 </div>
                             </div>
-
                             <Chat />
                         </div>
+
                         <div className="d-md-none ">
                             <MobileFooter />
                         </div>
 
                         <CreateRecipeModal />
-                    </SlideProvider>
-                </ModalProvider>
-            </RecipeProvider>
-        </div>
+                    </ChatProvider>
+                </SlideProvider>
+            </ModalProvider>
+        </RecipeProvider>
     );
 }
 
