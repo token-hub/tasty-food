@@ -51,7 +51,7 @@ export const sampleRecipes = [
     {
         authorId: "023",
         name: "Sinigang na baboy",
-        recipeLink: "/me/myRecipes/sinigang-na-baboy",
+        recipeLink: "/johndoe/recipes/sinigang-na-baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
         goodForPeopleCount: 3,
         prepTime: { hours: 1, minutes: 40 },
