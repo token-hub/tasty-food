@@ -49,7 +49,10 @@ export const SUBMENU_HEADERS = {
 
 export const sampleRecipes = [
     {
-        authorId: "023",
+        author: {
+            authorId: "023",
+            name: "john doe"
+        },
         name: "Sinigang na baboy",
         recipeLink: "/recipes/sinigang-na-baboy",
         imageSource: "https://panlasangpinoy.com/wp-content/uploads/2025/07/Ginisang-munggo-with-squash-in-a-pot-257x257.jpg",
