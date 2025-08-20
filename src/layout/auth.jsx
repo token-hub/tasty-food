@@ -15,7 +15,7 @@ import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
 import Main from "./main";
 
-function MyAccountLayout() {
+function AuthLayout() {
     return (
         <RecipeProvider>
             <ModalProvider>
@@ -50,4 +50,4 @@ function MyAccountLayout() {
     );
 }
 
-export default MyAccountLayout;
+export default AuthLayout;

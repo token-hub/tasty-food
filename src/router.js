@@ -1,7 +1,7 @@
 import Auth from "./pages/auth";
-import AuthLayout from "./layout/authLayout";
+import SignUpLogin from "./layout/signUpLogin";
 import BaseLayout from "./layout/base";
-import MyAccountLayout from "./layout/myAccountLayout";
+import AuthLayout from "./layout/auth";
 import { createBrowserRouter } from "react-router";
 import Profile from "./pages/profile";
 import Password from "./pages/password";
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/me",
-        Component: MyAccountLayout,
+        Component: AuthLayout,
         children: [
             { index: true, Component: Me },
             {
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
     },
     {
         path: "auth",
-        Component: AuthLayout,
+        Component: SignUpLogin,
         children: [{ index: true, Component: Auth }]
     },
     {

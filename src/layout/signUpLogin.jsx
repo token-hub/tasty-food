@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Header from "./authHeader";
-function AuthLayout() {
+function SignUpLogin() {
     return (
         <>
             <Header />
@@ -9,4 +9,4 @@ function AuthLayout() {
     );
 }
 
-export default AuthLayout;
+export default SignUpLogin;
