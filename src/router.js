@@ -10,21 +10,27 @@ import Recipes from "./pages/recipes";
 import Archives from "./pages/archives";
 import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
+import Public from "./layout/public";
 import NotFound from "./pages/notFound";
 const router = createBrowserRouter([
     {
-        path: "/",
         Component: BaseLayout,
         children: [
-            { index: true, Component: Recipes },
             {
-                path: ":author",
+                path: "/",
+                Component: Public,
                 children: [
+                    { index: true, Component: Recipes },
                     {
-                        path: "recipes",
+                        path: ":author",
                         children: [
-                            { index: true, Component: Recipes },
-                            { path: ":recipe", Component: Recipe }
+                            {
+                                path: "recipes",
+                                children: [
+                                    { index: true, Component: Recipes },
+                                    { path: ":recipe", Component: Recipe }
+                                ]
+                            }
                         ]
                     }
                 ]
@@ -61,7 +67,7 @@ const router = createBrowserRouter([
                 errorElement: NotFound
             },
             {
-                path: "auth",
+                path: "/auth",
                 Component: SignUpLogin,
                 children: [{ index: true, Component: AuthPage }]
             }
