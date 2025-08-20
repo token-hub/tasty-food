@@ -4,6 +4,7 @@ import RecipeProvider from "../providers/recipeProvider";
 import ChatProvider from "../providers/chatProvider";
 import ModalProvider from "../providers/modalProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
+import DefaultMetaData from "../components/header/defaultMetaData";
 
 function Base() {
     return (
@@ -11,6 +12,7 @@ function Base() {
             <ModalProvider>
                 <SlideProvider>
                     <ChatProvider>
+                        <DefaultMetaData />
                         <Outlet />
                         <CreateRecipeModal />
                     </ChatProvider>
