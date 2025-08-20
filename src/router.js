@@ -1,4 +1,4 @@
-import Auth from "./pages/auth";
+import AuthPage from "./pages/auth";
 import SignUpLogin from "./layout/signUpLogin";
 import BaseLayout from "./layout/base";
 import AuthLayout from "./layout/auth";
@@ -28,44 +28,44 @@ const router = createBrowserRouter([
                         ]
                     }
                 ]
+            },
+            {
+                path: "/me",
+                Component: AuthLayout,
+                children: [
+                    { index: true, Component: Me },
+                    {
+                        path: "profile",
+                        Component: Profile
+                    },
+                    {
+                        path: "recipes",
+                        children: [
+                            { index: true, Component: Recipes },
+                            { path: ":recipe", Component: Recipe }
+                        ]
+                    },
+                    {
+                        path: "archives",
+                        Component: Archives
+                    },
+                    {
+                        path: "password",
+                        Component: Password
+                    },
+                    {
+                        path: "notifications",
+                        Component: Notifications
+                    }
+                ],
+                errorElement: NotFound
+            },
+            {
+                path: "auth",
+                Component: SignUpLogin,
+                children: [{ index: true, Component: AuthPage }]
             }
         ]
-    },
-    {
-        path: "/me",
-        Component: AuthLayout,
-        children: [
-            { index: true, Component: Me },
-            {
-                path: "profile",
-                Component: Profile
-            },
-            {
-                path: "recipes",
-                children: [
-                    { index: true, Component: Recipes },
-                    { path: ":recipe", Component: Recipe }
-                ]
-            },
-            {
-                path: "archives",
-                Component: Archives
-            },
-            {
-                path: "password",
-                Component: Password
-            },
-            {
-                path: "notifications",
-                Component: Notifications
-            }
-        ],
-        errorElement: NotFound
-    },
-    {
-        path: "auth",
-        Component: SignUpLogin,
-        children: [{ index: true, Component: Auth }]
     },
     {
         path: "*",
