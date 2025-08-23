@@ -34,6 +34,7 @@ function RecipeForm() {
                     )}
                 </label>
                 <Rating readonly={isDisabled} onClick={handleRating} initialValue={rating ? rating.rating : 0} />
+                <p className="m-0 text-muted fs-7 ms-2">{rating ? rating.createdAt : null}</p>
             </div>
             <div className="form-floating">
                 <textarea
