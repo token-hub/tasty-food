@@ -35,22 +35,48 @@ function Auth() {
                                 <h6 className="card-title mb-4">{cardTitle} </h6>
 
                                 <form action="">
-                                    <div className="mb-4">
+                                    {!isLoginPage && (
+                                        <div className="form-floating w-100">
+                                            <input type="text" className="form-control mb-3" id="name" name="email" placeholder="joe doe" required />
+                                            <label htmlFor="name">Name</label>
+                                        </div>
+                                    )}
+
+                                    <div className="form-floating w-100">
                                         <input
                                             type="email"
-                                            className="form-control text-muted"
-                                            id="exampleFormControlInput1"
+                                            className="form-control mb-3"
+                                            id="email"
+                                            name="email"
                                             placeholder="name@example.com"
+                                            required
                                         />
+                                        <label htmlFor="email">Email</label>
                                     </div>
 
-                                    <div className="mb-4">
-                                        <input type="password" className="form-control text-muted" placeholder="password" />
+                                    <div className="form-floating w-100">
+                                        <input
+                                            type="password"
+                                            className="form-control text-muted mb-3"
+                                            id="password"
+                                            name="password"
+                                            placeholder="*******"
+                                            required
+                                        />
+                                        <label htmlFor="password">Password</label>
                                     </div>
 
                                     {!isLoginPage && (
-                                        <div className="mb-4">
-                                            <input type="password" className="form-control text-muted" placeholder="confirm password" />
+                                        <div className="form-floating w-100">
+                                            <input
+                                                type="password"
+                                                className="form-control text-muted mb-3"
+                                                id="confirmPassword"
+                                                name="confirmPassword"
+                                                placeholder="*******"
+                                                required
+                                            />
+                                            <label htmlFor="confirmPassword">Confirm Password</label>
                                         </div>
                                     )}
                                     <button className="w-100 btn btn-sm btn-primary mb-2 text-white" disabled>
