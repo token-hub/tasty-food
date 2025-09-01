@@ -2,6 +2,7 @@ import { Link, useSearchParams } from "react-router";
 import FacebookIcon from "../assets/icons/facebookIcon";
 import GoogleIcon from "../assets/icons/googleIcon";
 import { useEffect } from "react";
+import { Form } from "react-router";
 
 function Auth() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -34,7 +35,7 @@ function Auth() {
                             <div className="card-body">
                                 <h6 className="card-title mb-4">{cardTitle} </h6>
 
-                                <form action="">
+                                <Form method="POST">
                                     {!isLoginPage && (
                                         <div className="form-floating w-100">
                                             <input type="text" className="form-control mb-3" id="name" name="email" placeholder="joe doe" required />
@@ -79,9 +80,7 @@ function Auth() {
                                             <label htmlFor="confirmPassword">Confirm Password</label>
                                         </div>
                                     )}
-                                    <button className="w-100 btn btn-sm btn-primary mb-2 text-white" disabled>
-                                        SUBMIT
-                                    </button>
+                                    <button className="w-100 btn btn-sm btn-primary mb-2 text-white">SUBMIT</button>
 
                                     {isLoginPage && (
                                         <Link to="/" className="fs-6 mb-3 link-underline link-underline-opacity-0">
@@ -108,7 +107,7 @@ function Auth() {
                                             <span className="ms-2 text-secondary">{linkMessage}</span>
                                         </small>
                                     </Link>
-                                </form>
+                                </Form>
                             </div>
                         </div>
                     </div>
