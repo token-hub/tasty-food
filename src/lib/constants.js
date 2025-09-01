@@ -15,6 +15,7 @@ export const currentUser = {
         createdAt: "2025/11/01"
     }
 };
+export const SERVER_API_URL = "http://127.0.0.1:3001/api";
 export const TABS = {
     0: "ratings",
     1: "reports"
