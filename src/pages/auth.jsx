@@ -1,6 +1,7 @@
 import { Link, useSearchParams } from "react-router";
 import FacebookIcon from "../assets/icons/facebookIcon";
 import GoogleIcon from "../assets/icons/googleIcon";
+import AuthSubmitButton from "../components/auth/authSubmitButton";
 import { useEffect } from "react";
 import { Form } from "react-router";
 
@@ -80,7 +81,8 @@ function Auth() {
                                             <label htmlFor="confirmPassword">Confirm Password</label>
                                         </div>
                                     )}
-                                    <button className="w-100 btn btn-sm btn-primary mb-2 text-white">SUBMIT</button>
+
+                                    <AuthSubmitButton />
 
                                     {isLoginPage && (
                                         <Link to="/" className="fs-6 mb-3 link-underline link-underline-opacity-0">
