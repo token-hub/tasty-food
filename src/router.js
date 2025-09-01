@@ -12,6 +12,10 @@ import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
 import Public from "./layout/public";
 import NotFound from "./pages/notFound";
+
+// actions
+import AuthAction from "./actions/auth";
+
 const router = createBrowserRouter([
     {
         Component: BaseLayout,
@@ -69,7 +73,7 @@ const router = createBrowserRouter([
             {
                 path: "/auth",
                 Component: SignUpLogin,
-                children: [{ index: true, Component: AuthPage }]
+                children: [{ index: true, Component: AuthPage, action: AuthAction }]
             }
         ]
     },
