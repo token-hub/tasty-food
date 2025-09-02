@@ -14,7 +14,8 @@ import Public from "./layout/public";
 import NotFound from "./pages/notFound";
 
 // actions
-import AuthAction from "./actions/auth";
+import { authAction } from "./actions/auth";
+import { signOutAction } from "./actions/signOut";
 
 const router = createBrowserRouter([
     {
@@ -73,9 +74,13 @@ const router = createBrowserRouter([
             {
                 path: "/auth",
                 Component: SignUpLogin,
-                children: [{ index: true, Component: AuthPage, action: AuthAction }]
+                children: [{ index: true, Component: AuthPage, action: authAction }]
             }
         ]
+    },
+    {
+        path: "/signOut",
+        action: signOutAction
     },
     {
         path: "*",
