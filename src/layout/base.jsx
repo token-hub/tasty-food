@@ -3,6 +3,7 @@ import SlideProvider from "../providers/slideProvider";
 import RecipeProvider from "../providers/recipeProvider";
 import ChatProvider from "../providers/chatProvider";
 import ModalProvider from "../providers/modalProvider";
+import ToastProvider from "../providers/toastProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
 import DefaultMetaData from "../components/header/defaultMetaData";
 import { createAuthClient } from "better-auth/react";
@@ -17,9 +18,11 @@ function Base() {
             <ModalProvider>
                 <SlideProvider>
                     <ChatProvider>
-                        <DefaultMetaData />
-                        <Outlet />
-                        <CreateRecipeModal />
+                        <ToastProvider>
+                            <DefaultMetaData />
+                            <Outlet />
+                            <CreateRecipeModal />
+                        </ToastProvider>
                     </ChatProvider>
                 </SlideProvider>
             </ModalProvider>
