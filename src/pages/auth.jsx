@@ -11,8 +11,6 @@ function Auth() {
     const { createToast } = useToastContext();
     const [searchParams, setSearchParams] = useSearchParams();
     const data = useActionData();
-    const error = data?.error;
-    const result = data?.result;
 
     const page = searchParams.get("page");
     let isLoginPage = page === "login";
@@ -21,18 +19,18 @@ function Auth() {
     let textBeforeLink = isLoginPage ? "New to Tasty Food?" : "Already have an account?";
 
     useEffect(() => {
-        if (error) {
-            createToast({ headerText: "Server Error", bodyText: error, isSuccess: false });
+        if (data?.error) {
+            createToast({ headerText: "Server Error", bodyText: data.error, isSuccess: false });
         }
 
-        if (result) {
-            let name = result?.details?.user?.name;
+        if (data?.result) {
+            let name = data?.result?.details?.user?.name;
             if (name) {
                 name = name[0].toUpperCase() + name.slice(1);
             }
             createToast({ headerText: "Authentication Success", bodyText: `Welcome ${name}` });
         }
-    }, [error, result, createToast]);
+    }, [data, createToast]);
 
     useEffect(() => {
         if (!page) {
