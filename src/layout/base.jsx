@@ -6,6 +6,7 @@ import ModalProvider from "../providers/modalProvider";
 import ToastProvider from "../providers/toastProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
 import DefaultMetaData from "../components/header/defaultMetaData";
+import UserProvider from "../providers/userProvider";
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
@@ -19,9 +20,11 @@ function Base() {
                 <SlideProvider>
                     <ChatProvider>
                         <ToastProvider>
-                            <DefaultMetaData />
-                            <Outlet />
-                            <CreateRecipeModal />
+                            <UserProvider>
+                                <DefaultMetaData />
+                                <Outlet />
+                                <CreateRecipeModal />
+                            </UserProvider>
                         </ToastProvider>
                     </ChatProvider>
                 </SlideProvider>
