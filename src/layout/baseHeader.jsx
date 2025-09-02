@@ -1,15 +1,22 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import UserIcon from "../assets/icons/userIcon";
 import ChatDotsIcon from "../assets/icons/chatDotsIcon";
 import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
-import { isAuthenticated, SUBMENU_HEADERS } from "../lib/constants";
+import { SUBMENU_HEADERS } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
 import { useSlideContext } from "../providers/slideProvider";
 import ChatConvo from "../components/main/chat/chatConvo";
+import { useUserContext } from "../providers/userProvider";
 
 function BaseHeader({ chatCount = 20 }) {
     const { openSlide } = useSlideContext();
+    const { user } = useUserContext();
+    const navigate = useNavigate();
+
+    function handleSignIn() {
+        navigate("/auth");
+    }
 
     function handleChatClick() {
         openSlide({
@@ -35,7 +42,7 @@ function BaseHeader({ chatCount = 20 }) {
                             <SearchBar />
                         </div>
 
-                        {isAuthenticated ? (
+                        {user?.name ? (
                             <>
                                 <div className="d-sm-none position-relative" role="button" onClick={handleChatClick}>
                                     <ChatDotsIcon className="text-white me-2" height="20" width="20" />
@@ -53,14 +60,15 @@ function BaseHeader({ chatCount = 20 }) {
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                     >
-                                        <span className="text-white fs-6 me-2">John</span> <UserIcon className="text-white" height="20" width="20" />
+                                        <span className="text-white fs-6 me-2 text-capitalize">{user ? user?.name : "no name"}</span>{" "}
+                                        <UserIcon className="text-white" height="20" width="20" />
                                     </div>
                                 </MenuDropDown>
                             </>
                         ) : (
-                            <>
+                            <button className="btn d-flex align-items-center border-0" onClick={handleSignIn}>
                                 <span className="text-white fs-6 me-2">Sign In</span> <SignInIcon className="text-white" height="20" width="20" />
-                            </>
+                            </button>
                         )}
                     </div>
                     <div className="d-flex d-sm-none w-100 mt-2">
