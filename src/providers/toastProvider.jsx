@@ -66,7 +66,7 @@ function ToastProvider(data) {
         <ToastContext value={values}>
             <>
                 <div aria-live="polite" aria-atomic="true" className="position-relative">
-                    <div class="toast-container top-0 end-0 mt-4 me-3">
+                    <div className="toast-container top-0 end-0 mt-4 me-3">
                         {toasts.length > 0 &&
                             toasts.map((toast) => {
                                 return <Toast key={toast.id} toast={toast} />;
