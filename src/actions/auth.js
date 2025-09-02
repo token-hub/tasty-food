@@ -22,8 +22,6 @@ async function AuthAction({ request, params }) {
 
         if (result.ok) {
             return { result: responseData };
-            // set the current user in the authProvider
-            // add a toast
         } else {
             return reponseData(
                 {
