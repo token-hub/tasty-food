@@ -1,12 +1,12 @@
 import { SERVER_API_URL } from "../lib/constants";
 import { data as reponseData } from "react-router";
 
-async function AuthAction({ request, params }) {
+export async function authAction({ request, params }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
     const isSignUp = data.confirmPassword;
-    const urlPostFix = isSignUp ? "signUp" : "login";
+    const urlPostFix = isSignUp ? "signUp" : "signIn";
 
     try {
         const result = await fetch(`${SERVER_API_URL}/auth/${urlPostFix}`, {
@@ -39,5 +39,3 @@ async function AuthAction({ request, params }) {
         );
     }
 }
-
-export default AuthAction;
