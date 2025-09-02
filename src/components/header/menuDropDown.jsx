@@ -1,6 +1,12 @@
-import { Link } from "react-router";
+import { Link, useSubmit } from "react-router";
 
 function MenuDropDown({ children }) {
+    const submit = useSubmit();
+
+    async function handleLogout() {
+        submit(null, { action: "/signOut", method: "POST" });
+    }
+
     return (
         <div className="d-none d-md-block dropdown">
             {children}
@@ -14,7 +20,7 @@ function MenuDropDown({ children }) {
                     <hr className="dropdown-divider" />
                 </li>
                 <li>
-                    <Link to="/auth" className="dropdown-item">
+                    <Link to="#" onClick={handleLogout} className="dropdown-item">
                         Logout
                     </Link>
                 </li>
