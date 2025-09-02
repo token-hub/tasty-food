@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback } from "react";
+import { createContext, useContext, useState, useCallback, useMemo } from "react";
 import Toast from "../components/toast/toast";
 
 const ToastContext = createContext({
@@ -52,11 +52,14 @@ function ToastProvider(data) {
         [toasts]
     );
 
-    const values = {
-        updateToast,
-        removeToast,
-        createToast
-    };
+    const values = useMemo(
+        () => ({
+            updateToast,
+            removeToast,
+            createToast
+        }),
+        []
+    );
 
     return (
         <ToastContext value={values}>
@@ -67,6 +70,7 @@ function ToastProvider(data) {
                             toasts.map((toast) => {
                                 return <Toast key={toast.id} toast={toast} />;
                             })}
+                        {toasts.length}
                     </div>
                 </div>
                 {data?.children}
