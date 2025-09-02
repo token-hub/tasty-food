@@ -5,7 +5,7 @@ import { Toast as bootstrapToast } from "bootstrap";
 function Toast({ toast, delay = 3000 }) {
     const { updateToast, removeToast } = useToastContext();
     const [shouldRender, setShouldRender] = useState(true);
-    const { id, headerText, bodyText, shouldClose } = toast;
+    const { id, headerText, bodyText, shouldClose, isSuccess } = toast;
     const toastRef = useRef();
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function Toast({ toast, delay = 3000 }) {
         shouldRender && (
             <div className="toast" ref={toastRef} data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
                 <div className="toast-header">
-                    <strong className="me-auto text-danger">{headerText}</strong>
+                    <strong className={`me-auto ${isSuccess ? "text-success" : "text-danger"}`}>{headerText}</strong>
                     <button type="button" onClick={() => updateToast(id)} className="btn-close" aria-label="Close" />
                 </div>
                 <div className="toast-body">{bodyText}</div>
