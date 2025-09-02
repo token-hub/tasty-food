@@ -21,7 +21,7 @@ async function AuthAction({ request, params }) {
         const responseData = await result.json();
 
         if (result.ok) {
-            return { user: responseData };
+            return { result: responseData };
             // set the current user in the authProvider
             // add a toast
         } else {
