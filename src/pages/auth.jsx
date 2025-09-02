@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Link, useActionData, useSearchParams } from "react-router";
+import { Link, useActionData, useNavigate, useSearchParams } from "react-router";
 import FacebookIcon from "../assets/icons/facebookIcon";
 import GoogleIcon from "../assets/icons/googleIcon";
 import AuthSubmitButton from "../components/auth/authSubmitButton";
@@ -11,6 +11,7 @@ import { useUserContext } from "../providers/userProvider";
 function Auth() {
     const { createToast } = useToastContext();
     const { setUser } = useUserContext();
+    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const data = useActionData();
 
@@ -32,8 +33,9 @@ function Auth() {
             }
             createToast({ headerText: "Authentication Success", bodyText: `Welcome ${name}` });
             setUser(data?.result?.details?.user);
+            navigate("/");
         }
-    }, [data, createToast, setUser]);
+    }, [data, createToast, setUser, navigate]);
 
     useEffect(() => {
         if (!page) {
