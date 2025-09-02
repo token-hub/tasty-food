@@ -33,7 +33,7 @@ function ToastProvider(data) {
     }, []);
 
     const createToast = useCallback(
-        ({ headerText, bodyText }) => {
+        ({ headerText, bodyText, isSuccess = true }) => {
             const isExist = toasts.some((toast) => toast.headerText === headerText && toast.bodyText);
 
             if (!isExist) {
@@ -43,7 +43,8 @@ function ToastProvider(data) {
                         {
                             id: toasts.length,
                             headerText,
-                            bodyText
+                            bodyText,
+                            isSuccess
                         }
                     ];
                 });
@@ -70,7 +71,6 @@ function ToastProvider(data) {
                             toasts.map((toast) => {
                                 return <Toast key={toast.id} toast={toast} />;
                             })}
-                        {toasts.length}
                     </div>
                 </div>
                 {data?.children}
