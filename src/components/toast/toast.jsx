@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useToastContext } from "../../providers/toastProvider";
 import { Toast as bootstrapToast } from "bootstrap";
 
@@ -8,12 +8,28 @@ function Toast({ toast, delay = 3000 }) {
     const { id, headerText, bodyText, shouldClose, isSuccess } = toast;
     const toastRef = useRef();
 
+    const handleClose = useCallback(
+        (id) => {
+            removeToast(id);
+            setShouldRender(false);
+        },
+        [removeToast]
+    );
+
     useEffect(() => {
+        let timer;
         if (toastRef.current) {
             const targetToast = bootstrapToast.getOrCreateInstance(toastRef.current);
             targetToast.show();
+
+            timer = setTimeout(() => {
+                handleClose(id);
+            }, delay);
         }
-    }, []);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [delay, id, handleClose]);
 
     useEffect(() => {
         let timer;
@@ -21,15 +37,14 @@ function Toast({ toast, delay = 3000 }) {
             const targetToast = bootstrapToast.getOrCreateInstance(toastRef.current);
             targetToast.hide();
             timer = setTimeout(() => {
-                removeToast(id);
-                setShouldRender(false);
+                handleClose(id);
             }, delay);
         }
 
         return () => {
             clearTimeout(timer);
         };
-    }, [shouldClose, delay, removeToast, id]);
+    }, [shouldClose, delay, handleClose, id]);
 
     return (
         shouldRender && (
