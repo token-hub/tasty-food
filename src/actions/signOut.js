@@ -4,7 +4,7 @@ import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 export function signOutAction() {
     return customTryCatchWrapper(
         () => {
-            customFetch({
+            return customFetch({
                 url: "auth/signOut"
             });
         },

@@ -10,7 +10,7 @@ export async function authAction({ request }) {
 
     return customTryCatchWrapper(
         () => {
-            customFetch({
+            return customFetch({
                 url: `auth/${urlPostFix}`,
                 data
             });

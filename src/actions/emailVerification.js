@@ -8,7 +8,7 @@ export async function emailVerification({ request }) {
 
     return customTryCatchWrapper(
         () => {
-            customFetch({
+            return customFetch({
                 url: "auth/sendEmailVerification",
                 data: fields
             });
