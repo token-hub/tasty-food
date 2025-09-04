@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, Navigate } from "react-router";
 
 // Components
 import Chat from "../components/main/chat/chat";
@@ -6,9 +6,12 @@ import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
 import Main from "./main";
+import { useUserContext } from "../providers/userProvider";
 
 function AuthLayout() {
-    return (
+    const { user } = useUserContext();
+
+    return user ? (
         <>
             <BaseHeader />
             <div className="container">
@@ -31,6 +34,8 @@ function AuthLayout() {
                 <MobileFooter />
             </div>
         </>
+    ) : (
+        <Navigate to="/auth" replace />
     );
 }
 
