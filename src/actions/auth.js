@@ -8,7 +8,7 @@ export async function authAction({ request }) {
     const isSignUp = data.confirmPassword;
     const urlPostFix = isSignUp ? "signUp" : "signIn";
 
-    return customTryCatchWrapper(
+    return await customTryCatchWrapper(
         () => {
             return customFetch({
                 url: `auth/${urlPostFix}`,
