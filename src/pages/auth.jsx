@@ -6,11 +6,9 @@ import AuthSubmitButton from "../components/auth/authSubmitButton";
 import { useToastContext } from "../providers/toastProvider";
 import { useEffect } from "react";
 import { Form } from "react-router";
-import { useUserContext } from "../providers/userProvider";
 
 function Auth() {
     const { createToast } = useToastContext();
-    const { setUser } = useUserContext();
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const data = useActionData();
@@ -32,10 +30,9 @@ function Auth() {
                 name = name[0].toUpperCase() + name.slice(1);
             }
             createToast({ headerText: "Authentication Success", bodyText: `Welcome ${name}` });
-            setUser(data?.result?.details?.user);
             navigate("/");
         }
-    }, [data, createToast, setUser, navigate]);
+    }, [data, createToast, navigate]);
 
     useEffect(() => {
         if (!page) {
