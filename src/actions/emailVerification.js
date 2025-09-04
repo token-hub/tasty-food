@@ -1,5 +1,6 @@
 import { data } from "react-router";
 import { SERVER_API_URL } from "../lib/constants";
+import { queryClient } from "../lib/queryClient";
 
 export async function emailVerification({ request }) {
     try {
@@ -15,7 +16,7 @@ export async function emailVerification({ request }) {
             credentials: "include",
             body: JSON.stringify(fields)
         });
-
+        await queryClient.invalidateQueries({ queryKey: ["session"] });
         await result.json();
     } catch (error) {
         return data(
