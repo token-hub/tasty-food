@@ -20,9 +20,9 @@ function MenuDropDown({ children }) {
                     <hr className="dropdown-divider" />
                 </li>
                 <li>
-                    <Link to="#" onClick={handleLogout} className="dropdown-item">
+                    <button className="btn" onClick={handleLogout}>
                         Logout
-                    </Link>
+                    </button>
                 </li>
             </ul>
         </div>
