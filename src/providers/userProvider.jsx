@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { getSession } from "../queries/getSession";
 
 const UserContext = createContext();
@@ -9,15 +9,17 @@ export function useUserContext() {
 }
 
 function UserProvider({ children }) {
-    const query = useQuery({ queryKey: ["session"], queryFn: ({ signal }) => getSession(signal), staleTime: 1 * 60 * 1000 * 60, retry: false });
-    const [user, setUser] = useState(query?.data?.details?.user);
+    const { data: session } = useQuery({
+        queryKey: ["session"],
+        queryFn: ({ signal }) => getSession(signal),
+        staleTime: 1 * 60 * 1000 * 60
+    });
 
     const values = useMemo(
         () => ({
-            user,
-            setUser
+            user: session?.details?.user
         }),
-        [user]
+        [session]
     );
 
     return <UserContext value={values}>{children}</UserContext>;
