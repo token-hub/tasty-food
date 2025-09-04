@@ -7,14 +7,8 @@ import ToastProvider from "../providers/toastProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
 import DefaultMetaData from "../components/header/defaultMetaData";
 import UserProvider from "../providers/userProvider";
-import { createAuthClient } from "better-auth/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-export const authClient = createAuthClient({
-    baseURL: "http://127.0.0.1:3001"
-});
-
-export const queryClient = new QueryClient();
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "../lib/queryClient";
 
 function Base() {
     return (
