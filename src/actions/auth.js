@@ -1,5 +1,6 @@
 import { SERVER_API_URL } from "../lib/constants";
 import { data as reponseData } from "react-router";
+import { queryClient } from "../lib/queryClient";
 
 export async function authAction({ request, params }) {
     const formData = await request.formData();
@@ -21,6 +22,7 @@ export async function authAction({ request, params }) {
         const responseData = await result.json();
 
         if (result.ok) {
+            await queryClient.invalidateQueries({ queryKey: ["session"] });
             return { result: responseData };
         } else {
             return reponseData(
