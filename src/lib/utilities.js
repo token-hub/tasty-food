@@ -1,5 +1,5 @@
 import { PATHS, SERVER_API_URL } from "./constants";
-import { data as reponseData } from "react-router";
+import { data as responseData } from "react-router";
 
 export function getMainHeaderText(pathname) {
     let currentHeader = "";
@@ -64,15 +64,15 @@ export function customFetch({ url, data, method = "POST" }) {
 export async function customTryCatchWrapper(fetchCB, successCB) {
     try {
         const result = await fetchCB();
-        const responseData = await result.json();
+        const data = await result.json();
 
         if (result.ok) {
             if (successCB) {
                 await successCB();
             }
-            return { result: responseData };
+            return responseData({ result: data });
         } else {
-            return reponseData(
+            return responseData(
                 {
                     error: responseData.error || "Something went wrong"
                 },
@@ -80,7 +80,7 @@ export async function customTryCatchWrapper(fetchCB, successCB) {
             );
         }
     } catch (error) {
-        return reponseData(
+        return responseData(
             {
                 error: error?.message || "Something went wrong"
             },
