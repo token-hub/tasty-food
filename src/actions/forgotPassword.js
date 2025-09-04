@@ -4,7 +4,7 @@ export async function forgotPasswordAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
-    return customTryCatchWrapper(() => {
+    return await customTryCatchWrapper(() => {
         return customFetch({
             url: "auth/reset-password",
             data

@@ -1,8 +1,8 @@
 import { queryClient } from "../lib/queryClient";
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 
-export function signOutAction() {
-    return customTryCatchWrapper(
+export async function signOutAction() {
+    return await customTryCatchWrapper(
         () => {
             return customFetch({
                 url: "auth/signOut"
@@ -10,6 +10,7 @@ export function signOutAction() {
         },
         () => {
             queryClient.invalidateQueries({ queryKey: ["session"] });
-        }
+        },
+        "/auth"
     );
 }
