@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/forgotPassword";
 // actions
 import { authAction } from "./actions/auth";
 import { signOutAction } from "./actions/signOut";
+import { forgotPasswordAction } from "./actions/forgotPassword";
 
 const router = createBrowserRouter([
     {
@@ -79,7 +80,8 @@ const router = createBrowserRouter([
                     { index: true, Component: AuthPage, action: authAction },
                     {
                         path: "forgot-password",
-                        Component: ForgotPassword
+                        Component: ForgotPassword,
+                        action: forgotPasswordAction
                     }
                 ]
             }
