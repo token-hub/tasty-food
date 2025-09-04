@@ -1,4 +1,5 @@
-import { PATHS } from "./constants";
+import { PATHS, SERVER_API_URL } from "./constants";
+import { data as reponseData } from "react-router";
 
 export function getMainHeaderText(pathname) {
     let currentHeader = "";
@@ -47,4 +48,43 @@ export function capitalizeFirstLetter(text) {
 export function removeSpacesFromText(text) {
     if (!text) return;
     return text.replaceAll(" ", "");
+}
+
+export function customFetch({ url, data, method = "POST" }) {
+    return fetch(`${SERVER_API_URL}/${url}`, {
+        method: method,
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
+    });
+}
+
+export async function customTryCatchWrapper(fetchCB, successCB) {
+    try {
+        const result = await fetchCB();
+        const responseData = await result.json();
+
+        if (result.ok) {
+            if (successCB) {
+                await successCB();
+            }
+            return { result: responseData };
+        } else {
+            return reponseData(
+                {
+                    error: responseData.error || "Something went wrong"
+                },
+                { status: result.status }
+            );
+        }
+    } catch (error) {
+        return reponseData(
+            {
+                error: error?.message || "Something went wrong"
+            },
+            { status: 500 }
+        );
+    }
 }
