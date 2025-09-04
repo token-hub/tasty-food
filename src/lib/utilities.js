@@ -77,7 +77,7 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
         } else {
             return responseData(
                 {
-                    error: responseData.error || "Something went wrong"
+                    error: data.error || "Something went wrong"
                 },
                 { status: result.status }
             );
