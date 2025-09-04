@@ -1,5 +1,6 @@
 import { data, redirect } from "react-router";
 import { SERVER_API_URL } from "../lib/constants";
+import { queryClient } from "../lib/queryClient";
 
 export async function signOutAction({ request }) {
     try {
@@ -15,6 +16,7 @@ export async function signOutAction({ request }) {
         const responseData = await result.json();
 
         if (result.ok) {
+            await queryClient.invalidateQueries({ queryKey: ["session"] });
             return redirect("/auth");
         } else {
             return data(
