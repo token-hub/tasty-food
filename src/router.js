@@ -17,6 +17,7 @@ import ForgotPassword from "./pages/forgotPassword";
 // actions
 import { authAction } from "./actions/auth";
 import { signOutAction } from "./actions/signOut";
+import { emailVerificationAction } from "./actions/emailVerification";
 import { forgotPasswordAction } from "./actions/forgotPassword";
 
 const router = createBrowserRouter([
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
     {
         path: "/signOut",
         action: signOutAction
+    },
+    {
+        path: "/emailVerification",
+        action: emailVerificationAction
     },
     {
         path: "*",
