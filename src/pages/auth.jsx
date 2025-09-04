@@ -105,7 +105,7 @@ function Auth() {
                                 <AuthSubmitButton />
 
                                 {isLoginPage && (
-                                    <Link to="/forgot-password" className="fs-6 mb-3 link-underline link-underline-opacity-0">
+                                    <Link to="/auth/forgot-password" className="fs-6 mb-3 link-underline link-underline-opacity-0">
                                         <small> Forgot password</small>
                                     </Link>
                                 )}
