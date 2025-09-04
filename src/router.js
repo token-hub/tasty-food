@@ -12,6 +12,7 @@ import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
 import Public from "./layout/public";
 import NotFound from "./pages/notFound";
+import ForgotPassword from "./pages/forgotPassword";
 
 // actions
 import { authAction } from "./actions/auth";
@@ -74,7 +75,13 @@ const router = createBrowserRouter([
             {
                 path: "/auth",
                 Component: SignUpLogin,
-                children: [{ index: true, Component: AuthPage, action: authAction }]
+                children: [
+                    { index: true, Component: AuthPage, action: authAction },
+                    {
+                        path: "forgot-password",
+                        Component: ForgotPassword
+                    }
+                ]
             }
         ]
     },
