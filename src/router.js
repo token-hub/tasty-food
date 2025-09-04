@@ -13,12 +13,14 @@ import Recipe from "./pages/recipe";
 import Public from "./layout/public";
 import NotFound from "./pages/notFound";
 import ForgotPassword from "./pages/forgotPassword";
+import ResetPassword from "./pages/resetPassword";
 
 // actions
 import { authAction } from "./actions/auth";
 import { signOutAction } from "./actions/signOut";
 import { emailVerificationAction } from "./actions/emailVerification";
 import { forgotPasswordAction } from "./actions/forgotPassword";
+import { resetPasswordAction } from "./actions/resetPassword";
 
 const router = createBrowserRouter([
     {
@@ -83,6 +85,11 @@ const router = createBrowserRouter([
                         path: "forgot-password",
                         Component: ForgotPassword,
                         action: forgotPasswordAction
+                    },
+                    {
+                        path: "reset-password",
+                        Component: ResetPassword,
+                        action: resetPasswordAction
                     }
                 ]
             }
