@@ -1,43 +1,22 @@
-import { SERVER_API_URL } from "../lib/constants";
-import { data as reponseData } from "react-router";
 import { queryClient } from "../lib/queryClient";
+import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 
-export async function authAction({ request, params }) {
+export async function authAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
     const isSignUp = data.confirmPassword;
     const urlPostFix = isSignUp ? "signUp" : "signIn";
 
-    try {
-        const result = await fetch(`${SERVER_API_URL}/auth/${urlPostFix}`, {
-            method: request.method,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify(data)
-        });
-
-        const responseData = await result.json();
-
-        if (result.ok) {
-            await queryClient.invalidateQueries({ queryKey: ["session"] });
-            return { result: responseData };
-        } else {
-            return reponseData(
-                {
-                    error: responseData.error || "Something went wrong"
-                },
-                { status: result.status }
-            );
+    return customTryCatchWrapper(
+        () => {
+            customFetch({
+                url: `auth/${urlPostFix}`,
+                data
+            });
+        },
+        () => {
+            queryClient.invalidateQueries({ queryKey: ["session"] });
         }
-    } catch (error) {
-        return reponseData(
-            {
-                error: "Something went wrong"
-            },
-            { status: 500 }
-        );
-    }
+    );
 }
