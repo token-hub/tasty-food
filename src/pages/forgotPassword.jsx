@@ -1,7 +1,24 @@
-import { Form } from "react-router";
+import { Form, useActionData, Link } from "react-router";
 import AuthSubmitButton from "../components/auth/authSubmitButton";
+import { useToastContext } from "../providers/toastProvider";
+import { useEffect, useRef } from "react";
 
 function ForgotPassword() {
+    const actionData = useActionData();
+    const { createToast } = useToastContext();
+    const emailRef = useRef();
+
+    useEffect(() => {
+        if (actionData?.errors) {
+            actionData.errors.forEact((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
+        }
+
+        if (actionData?.result) {
+            createToast({ headerText: "Email Sent", bodyText: "Reset password was sent to your email" });
+            emailRef.current.value = "";
+        }
+    }, [actionData, createToast]);
+
     return (
         <div className="auth bg-secondary ">
             <div className="container h-100">
@@ -13,6 +30,7 @@ function ForgotPassword() {
                             <Form method="POST">
                                 <div className="form-floating w-100">
                                     <input
+                                        ref={emailRef}
                                         type="email"
                                         className="form-control mb-3"
                                         id="email"
@@ -26,6 +44,11 @@ function ForgotPassword() {
 
                                 <AuthSubmitButton />
                             </Form>
+                            <div className="d-flex justify-content-center">
+                                <Link to="/auth" className="link-underline link-underline-opacity-0">
+                                    Sign In instead
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
