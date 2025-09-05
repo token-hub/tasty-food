@@ -10,7 +10,7 @@ function ForgotPassword() {
 
     useEffect(() => {
         if (actionData?.errors) {
-            actionData.errors.forEact((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
+            actionData.errors.forEach((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
         }
 
         if (actionData?.result) {
