@@ -25,7 +25,7 @@ export async function resetPasswordAction({ request }) {
 
     return await customTryCatchWrapper(() => {
         return customFetch({
-            url: "auth/reset-password",
+            url: "auth/resetPassword",
             data
         });
     });

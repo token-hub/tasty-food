@@ -6,7 +6,7 @@ export async function forgotPasswordAction({ request }) {
 
     return await customTryCatchWrapper(() => {
         return customFetch({
-            url: "auth/request-reset-password",
+            url: "auth/requestResetPassword",
             data
         });
     });
