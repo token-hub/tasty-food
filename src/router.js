@@ -1,4 +1,4 @@
-import AuthPage from "./pages/auth";
+import AuthPage from "./pages/auth/auth";
 import SignUpLogin from "./layout/signUpLogin";
 import BaseLayout from "./layout/base";
 import AuthLayout from "./layout/auth";
@@ -12,8 +12,9 @@ import Notifications from "./pages/notifications";
 import Recipe from "./pages/recipe";
 import Public from "./layout/public";
 import NotFound from "./pages/notFound";
-import ForgotPassword from "./pages/forgotPassword";
-import ResetPassword from "./pages/resetPassword";
+import ForgotPassword from "./pages/auth/forgotPassword";
+import ResetPassword from "./pages/auth/resetPassword";
+import EmailVerified from "./pages/auth/emailVerified";
 
 // actions
 import { authAction } from "./actions/auth";
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
                         path: "reset-password",
                         Component: ResetPassword,
                         action: resetPasswordAction
+                    },
+                    {
+                        path: "email-verified",
+                        Component: EmailVerified
                     }
                 ]
             }
