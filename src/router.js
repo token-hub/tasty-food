@@ -22,6 +22,8 @@ import { signOutAction } from "./actions/signOut";
 import { emailVerificationAction } from "./actions/emailVerification";
 import { forgotPasswordAction } from "./actions/forgotPassword";
 import { resetPasswordAction } from "./actions/resetPassword";
+import { updatePasswordAction } from "./actions/updatePassword";
+import { updateUserAction } from "./actions/updateUser";
 
 const router = createBrowserRouter([
     {
@@ -53,7 +55,8 @@ const router = createBrowserRouter([
                     { index: true, Component: Me },
                     {
                         path: "profile",
-                        Component: Profile
+                        Component: Profile,
+                        action: updateUserAction
                     },
                     {
                         path: "recipes",
@@ -68,7 +71,8 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "password",
-                        Component: Password
+                        Component: Password,
+                        action: updatePasswordAction
                     },
                     {
                         path: "notifications",
