@@ -31,9 +31,9 @@ function Profile() {
                     required
                     className="form-control bg-gray-light mb-3"
                     id="email"
-                    defaultValue={user.email ?? ""}
+                    defaultValue={user?.email ?? ""}
                     placeholder="johndoe@gmail.com"
-                    disabled={user.email ?? false}
+                    disabled={user?.email ?? false}
                 />
                 <label htmlFor="email">Email</label>
             </div>
@@ -45,7 +45,7 @@ function Profile() {
                     name="name"
                     className="form-control bg-light mb-3"
                     id="name"
-                    defaultValue={user.name ?? ""}
+                    defaultValue={user?.name ?? ""}
                     placeholder="John"
                 />
                 <label htmlFor="name">Name</label>
