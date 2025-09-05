@@ -7,7 +7,7 @@ import FilterMobile from "../components/sidebar/filterMobile";
 import { useUserContext } from "../providers/userProvider";
 
 function Public() {
-    const { user } = useUserContext;
+    const { user } = useUserContext();
     const params = useParams();
     const leftSideClasses = params?.recipe ? "col-md-1" : "col-md-3 col-lg-2";
     const rightSideClasses = params?.recipe ? "col-md-10" : "col-md-9 col-lg-10";
