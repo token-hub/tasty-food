@@ -59,8 +59,8 @@ function ResetPassword() {
                                     />
                                     <label htmlFor="confirm-password">Confirm password</label>
                                 </div>
-
                                 <AuthSubmitButton text="Reset password" />
+                                <p className="text-muted fs-7 text-center">Kindly type your new desired password</p>
                             </Form>
                         </div>
                     </div>
