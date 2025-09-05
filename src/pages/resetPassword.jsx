@@ -1,4 +1,4 @@
-import { Form, useActionData, useSearchParams } from "react-router";
+import { Form, useActionData, useNavigate, useSearchParams } from "react-router";
 import AuthSubmitButton from "../components/auth/authSubmitButton";
 import { useToastContext } from "../providers/toastProvider";
 import { useEffect, useRef } from "react";
@@ -9,6 +9,7 @@ function ResetPassword() {
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
     const formRef = useRef();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (actionData?.errors) {
@@ -19,7 +20,12 @@ function ResetPassword() {
             createToast({ headerText: "Server Error", bodyText: actionData?.error, isSuccess: false });
             formRef.current.reset();
         }
-    }, [actionData, createToast]);
+        if (actionData?.result) {
+            createToast({ headerText: "Password Updated", bodyText: "Password successfully updated" });
+            formRef.current.reset();
+            navigate("/auth");
+        }
+    }, [actionData, createToast, navigate]);
 
     return (
         <div className="auth bg-secondary ">
