@@ -1,6 +1,7 @@
 import { Form, useActionData, useSearchParams } from "react-router";
 import AuthSubmitButton from "../components/auth/authSubmitButton";
 import { useToastContext } from "../providers/toastProvider";
+import { useEffect } from "react";
 
 function ResetPassword() {
     const actionData = useActionData();
@@ -8,13 +9,17 @@ function ResetPassword() {
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
 
-    if (!token) {
-        createToast({ headerText: "Invalid or missing token", bodyText: "Kindly start with forgot password again", isSuccess: false });
-    }
+    useEffect(() => {
+        if (!token) {
+            createToast({ headerText: "Invalid or missing token", bodyText: "Kindly start with forgot password again", isSuccess: false });
+        }
+    }, [token, createToast]);
 
-    if (actionData?.errors) {
-        actionData.errors.map((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
-    }
+    useEffect(() => {
+        if (actionData?.errors) {
+            actionData.errors.forEact((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
+        }
+    }, [actionData, createToast]);
 
     return (
         <div className="auth bg-secondary ">
