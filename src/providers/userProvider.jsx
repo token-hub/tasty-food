@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import { getSession } from "../queries/getSession";
+import { useNavigate } from "react-router";
 
 const UserContext = createContext();
 
@@ -9,11 +10,18 @@ export function useUserContext() {
 }
 
 function UserProvider({ children }) {
-    const { data: session } = useQuery({
+    const navigate = useNavigate();
+    const { data: session, isLoading } = useQuery({
         queryKey: ["session"],
         queryFn: ({ signal }) => getSession(signal),
         staleTime: 1 * 60 * 1000 * 60
     });
+
+    useEffect(() => {
+        if (!isLoading && !session?.details?.user) {
+            navigate("/auth");
+        }
+    }, [isLoading, session, navigate]);
 
     const values = useMemo(
         () => ({
