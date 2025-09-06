@@ -1,64 +1,27 @@
-import { useState, Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { generateInput } from "../../../lib/utilities";
 import IngredientsInputs from "./ingredientsInputs";
+import { useIngredients } from "../../../hooks/useIngredients";
 
-function Ingredients({ recipe }) {
-    function generateInitialInputs(ingredients) {
-        const newId = new Date().toISOString();
+function Ingredients({ recipe, onChange }) {
+    const { inputs, setInputs, addIngredient, removeIngredient } = useIngredients(onChange);
 
-        if (ingredients?.length) {
-            return ingredients.map((ingredient) => {
-                const toPass = {
-                    id: ingredient.name,
-                    removeIngredient
-                };
-                return {
-                    id: ingredient.name,
-                    ingredient,
-                    toPass
-                };
-            });
+    useEffect(() => {
+        if (!inputs.length) {
+            const initialInputs = generateInput(recipe.ingredients);
+            setInputs(initialInputs);
+            onChange({ target: { name: "ingredients", value: initialInputs } });
         }
-
-        return [
-            {
-                id: newId,
-                ingredient: {},
-                toPass: { id: newId, removeIngredient }
-            }
-        ];
-    }
-
-    const initialInputs = generateInitialInputs(recipe.ingredients);
-    const [inputs, setInputs] = useState(initialInputs);
-
-    function addIngredient() {
-        const newId = new Date().toISOString();
-        setInputs((inputs) => {
-            return [
-                ...inputs,
-                {
-                    id: newId,
-                    ingredient: {},
-                    toPass: { id: newId, removeIngredient }
-                }
-            ];
-        });
-    }
-
-    function removeIngredient(id) {
-        setInputs((inputs) => {
-            return inputs.filter((input) => input.id !== id);
-        });
-    }
-
+    }, [inputs, setInputs, recipe, onChange]);
+    console.log(inputs);
     return (
         <>
             <span className="d-block mb-3 mt-4">Ingredients:</span>
 
-            {inputs.map(({ id, ingredient, toPass }) => {
+            {inputs.map((data) => {
                 return (
-                    <Fragment key={id}>
-                        <IngredientsInputs {...ingredient} {...toPass} />
+                    <Fragment key={data.id}>
+                        <IngredientsInputs {...data} onChange={onChange} removeIngredient={removeIngredient} />
                     </Fragment>
                 );
             })}
