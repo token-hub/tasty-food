@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import UploadImage from "./uploadImage";
 import UploadVideo from "./uploadVideo";
 import Ingredients from "./ingredients";
@@ -11,22 +11,18 @@ import { useRecipeContext } from "../../../providers/recipeProvider";
 import { useModalContext } from "../../../providers/modalProvider";
 import { MODAL_MODES } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
+import { useUserContext } from "../../../providers/userProvider";
 
 function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
+    const { user } = useUserContext();
     const [recipeState, setRecipeState] = useState({
         author: {
-            name: "John",
-            userId: "68a7287130e1273419856675"
+            name: "",
+            userId: ""
         },
         instructions: [],
-        ingredients: [
-            {
-                name: "sibuyas",
-                quantity: 3,
-                unit: "pc/s"
-            }
-        ],
+        ingredients: [],
         categories: [],
         cookTime: {
             hours: 1,
@@ -50,43 +46,80 @@ function CreateRecipeModal() {
         reset
     } = useModalContext();
     const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(show);
-    let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
+
     const isEditting = mode === MODAL_MODES[1];
 
-    function handleRecipeState(event) {
+    const handleRecipeState = useCallback((event) => {
         let name = event.target.name;
         let value = event.target.value;
 
-        if (name === "image") {
-            value = event.target.files[0];
-        }
-
-        if (name === "prepHours") {
-            name = "prepTime";
-            value = { ...recipeState.prepTime, hours: +value };
-        }
-
-        if (name === "prepMinutes") {
-            name = "prepTime";
-            value = { ...recipeState.prepTime, minutes: +value };
-        }
-
-        if (name === "categories") {
-            value = recipeState.categories.includes(event.target.id)
-                ? recipeState.categories.filter((c) => c !== event.target.id)
-                : [...recipeState.categories, event.target.id];
-        }
-
         setRecipeState((state) => {
+            if (name === "image") {
+                value = event.target.files[0];
+            }
+
+            if (name === "video") {
+                value = event.target.files[0];
+            }
+
+            if (name === "prepHours") {
+                name = "prepTime";
+                value = { ...state.prepTime, hours: +value };
+            }
+
+            if (name === "prepMinutes") {
+                name = "prepTime";
+                value = { ...state.prepTime, minutes: +value };
+            }
+
+            if (name === "categories") {
+                value = state.categories.includes(event.target.id)
+                    ? state.categories.filter((c) => c !== event.target.id)
+                    : [...state.categories, event.target.id];
+            }
+
+            if (name === "unit" || name === "quantity" || name === "ingredient") {
+                const targetField = name == "ingredient" ? "name" : name;
+                name = "ingredients";
+
+                value = state.ingredients.map((ing) => {
+                    if (ing.id === event.target.getAttribute("parentid")) {
+                        return { ...ing, [targetField]: value };
+                    } else {
+                        return ing;
+                    }
+                });
+            }
+
+            if (name === "instruction") {
+                name = name + "s";
+                value = state.instructions.map((ins) => {
+                    if (ins.id === event.target.id) {
+                        return { ...ins, instruction: value };
+                    } else {
+                        return ins;
+                    }
+                });
+            }
             return {
                 ...state,
                 [name]: value
             };
         });
+    }, []);
+
+    function handleSubmit() {
+        const prepData = {
+            ...recipeState,
+            author: {
+                userId: user?.id,
+                name: user?.name
+            }
+        };
+
+        console.log(prepData);
     }
 
-    function handleSubmit() {}
-    console.log(recipeState);
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -112,17 +145,17 @@ function CreateRecipeModal() {
                                     )}
                                     {secondPart && (
                                         <>
-                                            <Ingredients recipe={dataToUse} />
+                                            <Ingredients recipe={recipeState} onChange={handleRecipeState} />
                                         </>
                                     )}
                                     {thirdPart && (
                                         <>
-                                            <Instructions recipe={dataToUse} />
+                                            <Instructions recipe={recipeState} onChange={handleRecipeState} />
                                         </>
                                     )}
                                     {fourthPart && (
                                         <>
-                                            <UploadVideo />
+                                            <UploadVideo recipe={recipeState} onChange={handleRecipeState} />
                                         </>
                                     )}
                                 </form>
