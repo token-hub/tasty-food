@@ -27,6 +27,7 @@ function CreateRecipeModal() {
                 unit: "pc/s"
             }
         ],
+        categories: [],
         cookTime: {
             hours: 1,
             minutes: 30
@@ -53,11 +54,27 @@ function CreateRecipeModal() {
     const isEditting = mode === MODAL_MODES[1];
 
     function handleRecipeState(event) {
-        const name = event.target.name;
+        let name = event.target.name;
         let value = event.target.value;
 
         if (name === "image") {
             value = event.target.files[0];
+        }
+
+        if (name === "prepHours") {
+            name = "prepTime";
+            value = { ...recipeState.prepTime, hours: +value };
+        }
+
+        if (name === "prepMinutes") {
+            name = "prepTime";
+            value = { ...recipeState.prepTime, minutes: +value };
+        }
+
+        if (name === "categories") {
+            value = recipeState.categories.includes(event.target.id)
+                ? recipeState.categories.filter((c) => c !== event.target.id)
+                : [...recipeState.categories, event.target.id];
         }
 
         setRecipeState((state) => {
@@ -87,10 +104,10 @@ function CreateRecipeModal() {
                                     <ProgressBar now={progress} />
                                     {firstPart && (
                                         <>
-                                            <UploadImage recipe={dataToUse} onChange={handleRecipeState} />
-                                            <NameAndDiscription recipe={dataToUse} onChange={handleRecipeState} />
-                                            <Timers recipe={dataToUse} onChange={handleRecipeState} />
-                                            <Categories recipe={dataToUse} onChange={handleRecipeState} />
+                                            <UploadImage recipe={recipeState} onChange={handleRecipeState} />
+                                            <NameAndDiscription recipe={recipeState} onChange={handleRecipeState} />
+                                            <Timers recipe={recipeState} onChange={handleRecipeState} />
+                                            <Categories recipe={recipeState} onChange={handleRecipeState} />
                                         </>
                                     )}
                                     {secondPart && (

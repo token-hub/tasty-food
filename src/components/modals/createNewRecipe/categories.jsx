@@ -1,6 +1,6 @@
 import { RECIPE_CATEGORIES } from "../../../lib/constants";
 
-function Categories({ recipe }) {
+function Categories({ recipe, onChange }) {
     return (
         <>
             <span>Categories:</span>
@@ -13,6 +13,7 @@ function Categories({ recipe }) {
                                 checked={recipe ? recipe?.categories?.includes(category) : false}
                                 className="btn-check"
                                 id={category}
+                                onChange={onChange}
                                 name="categories"
                                 autoComplete="off"
                             />
