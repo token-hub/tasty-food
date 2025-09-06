@@ -1,4 +1,5 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
+import { useEffect } from "react";
 
 // Components
 import Chat from "../components/main/chat/chat";
@@ -6,8 +7,18 @@ import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
 import Main from "./main";
+import { useUserContext } from "../providers/userProvider";
 
 function AuthLayout() {
+    const navigate = useNavigate();
+    const { user, isLoading } = useUserContext();
+
+    useEffect(() => {
+        if (!isLoading && !user) {
+            navigate("/auth");
+        }
+    }, [user, navigate, isLoading]);
+
     return (
         <>
             <BaseHeader />
