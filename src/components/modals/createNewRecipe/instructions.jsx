@@ -1,65 +1,26 @@
-import { useState, Fragment } from "react";
-
+import { Fragment, useEffect } from "react";
+import { generateInput } from "../../../lib/utilities";
 import InstructionInput from "./instructionInput";
+import { useInstructions } from "../../../hooks/useInstructions";
 
-function Instructions({ recipe }) {
-    function generateInitialInputs(instructions) {
-        const newId = new Date().toISOString();
+function Instructions({ recipe, onChange }) {
+    const { inputs, setInputs, addInstruction, removeInstruction } = useInstructions(onChange);
 
-        if (instructions?.length) {
-            return instructions.map((instruction) => {
-                const id = instruction.slice(0, 10);
-                const toPass = {
-                    id,
-                    instruction,
-                    removeInstruction
-                };
-                return {
-                    id,
-                    toPass
-                };
-            });
+    useEffect(() => {
+        if (!inputs.length) {
+            const initialInputs = generateInput(recipe.instructions, false);
+            setInputs(initialInputs);
+            onChange({ target: { name: "instructions", value: initialInputs } });
         }
-
-        return [
-            {
-                id: newId,
-                instruction: "",
-                toPass: { id: newId, removeInstruction }
-            }
-        ];
-    }
-
-    const initialInputs = generateInitialInputs(recipe.instructions);
-
-    const [inputs, setInputs] = useState(initialInputs);
-
-    function addInstruction() {
-        const newId = new Date().toISOString();
-        setInputs((inputs) => {
-            return [
-                ...inputs,
-                {
-                    id: newId,
-                    toPass: { instruction: "", id: newId, removeInstruction }
-                }
-            ];
-        });
-    }
-
-    function removeInstruction(id) {
-        setInputs((inputs) => {
-            return inputs.filter((input) => input.id !== id);
-        });
-    }
+    }, [inputs, setInputs, recipe, onChange]);
 
     return (
         <>
             <span className="d-block mb-3 mt-4">Instructions:</span>
-            {inputs.map(({ id, toPass }, index) => {
+            {inputs.map((data, index) => {
                 return (
-                    <Fragment key={id}>
-                        <InstructionInput index={index} {...toPass} />
+                    <Fragment key={data.id}>
+                        <InstructionInput index={index} {...data} onChange={onChange} removeInstruction={removeInstruction} />
                     </Fragment>
                 );
             })}
