@@ -2,7 +2,7 @@ function NameAndDiscription({ recipe }) {
     return (
         <>
             <div className="form-floating">
-                <input type="text" defaultValue={recipe.name} className="form-control mb-3" id="name" placeholder="name" />
+                <input type="text" defaultValue={recipe.name} className="form-control mb-3" id="name" placeholder="name" name="" />
                 <label htmlFor="name">Recipe name</label>
             </div>
 
@@ -12,6 +12,7 @@ function NameAndDiscription({ recipe }) {
                     style={{ height: "10rem" }}
                     placeholder="Leave a comment here"
                     id="desciption"
+                    name="description"
                     defaultValue={recipe.description}
                 />
                 <label htmlFor="desciption">Description</label>

@@ -66,6 +66,7 @@ function CreateModalUploadImage({ recipe }) {
                     className="form-control"
                     type="file"
                     id="imageFile"
+                    name="recipeImg"
                     accept="image/png, image/gif, image/jpeg"
                 />
             </div>

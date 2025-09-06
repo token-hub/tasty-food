@@ -13,6 +13,7 @@ function Categories({ recipe }) {
                                 checked={recipe ? recipe?.categories?.includes(category) : false}
                                 className="btn-check"
                                 id={category}
+                                name="categories"
                                 autoComplete="off"
                             />
                             <label className="btn btn-outline-primary" htmlFor={category}>

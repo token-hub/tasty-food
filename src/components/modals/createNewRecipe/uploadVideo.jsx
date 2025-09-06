@@ -4,7 +4,7 @@ function CreateModalUploadVideo() {
             <label htmlFor="formFile" className="form-label">
                 Upload video instruction
             </label>
-            <input className="form-control" type="file" id="formFile" />
+            <input className="form-control" name="recipeVideo" type="file" id="formFile" />
         </div>
     );
 }
