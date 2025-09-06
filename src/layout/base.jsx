@@ -1,34 +1,14 @@
 import { Outlet } from "react-router";
-import SlideProvider from "../providers/slideProvider";
-import RecipeProvider from "../providers/recipeProvider";
-import ChatProvider from "../providers/chatProvider";
-import ModalProvider from "../providers/modalProvider";
-import ToastProvider from "../providers/toastProvider";
 import CreateRecipeModal from "../components/modals/createNewRecipe/createRecipeModal";
 import DefaultMetaData from "../components/header/defaultMetaData";
-import UserProvider from "../providers/userProvider";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "../lib/queryClient";
 
 function Base() {
     return (
-        <QueryClientProvider client={queryClient}>
-            <UserProvider>
-                <RecipeProvider>
-                    <ModalProvider>
-                        <SlideProvider>
-                            <ChatProvider>
-                                <ToastProvider>
-                                    <DefaultMetaData />
-                                    <Outlet />
-                                    <CreateRecipeModal />
-                                </ToastProvider>
-                            </ChatProvider>
-                        </SlideProvider>
-                    </ModalProvider>
-                </RecipeProvider>
-            </UserProvider>
-        </QueryClientProvider>
+        <>
+            <DefaultMetaData />
+            <Outlet />
+            <CreateRecipeModal />
+        </>
     );
 }
 
