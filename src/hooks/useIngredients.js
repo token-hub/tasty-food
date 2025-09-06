@@ -4,12 +4,8 @@ export function useIngredients(onChange) {
     const [inputs, setInputs] = useState([]);
 
     function removeIngredient(id) {
-        let newInputs;
-        setInputs((inputs) => {
-            newInputs = inputs.filter((input) => input.id !== id);
-            return newInputs;
-        });
-        onChange({ target: { name: "ingredients", value: newInputs } });
+        setInputs((inputs) => inputs.filter((input) => input.id !== id));
+        onChange({ target: { name: "ingredients", value: inputs.filter((input) => input.id !== id) } });
     }
 
     function addIngredient() {
@@ -20,12 +16,9 @@ export function useIngredients(onChange) {
             unit: "",
             name: ""
         };
-        let newInputs;
-        setInputs((inputs) => {
-            newInputs = [...inputs, newIngredient];
-            return newInputs;
-        });
-        onChange({ target: { name: "ingredients", value: newInputs } });
+
+        setInputs((inputs) => [...inputs, newIngredient]);
+        onChange({ target: { name: "ingredients", value: [...inputs, newIngredient] } });
     }
 
     return {
