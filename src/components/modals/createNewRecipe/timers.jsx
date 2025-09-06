@@ -1,4 +1,4 @@
-function Timers({ recipe }) {
+function Timers({ recipe, onChange }) {
     return (
         <>
             <span>Prepation Time:</span>
@@ -9,6 +9,7 @@ function Timers({ recipe }) {
                         className="form-control mb-3"
                         id="prepHours"
                         defaultValue={recipe ? recipe.prepTime?.hours : 0}
+                        onChange={onChange}
                         name="prepHours"
                         min="0"
                         placeholder="name"
@@ -21,6 +22,7 @@ function Timers({ recipe }) {
                         className="form-control mb-3"
                         id="prepMinutes"
                         defaultValue={recipe ? recipe.prepTime?.minutes : 0}
+                        onChange={onChange}
                         name="prepMinutes"
                         min="0"
                         max="60"
@@ -38,6 +40,7 @@ function Timers({ recipe }) {
                         className="form-control mb-3"
                         id="cookTime"
                         defaultValue={recipe ? recipe.cookTime?.hours : 0}
+                        onChange={onChange}
                         name="cookHours"
                         min="0"
                         placeholder="name"
@@ -50,6 +53,7 @@ function Timers({ recipe }) {
                         className="form-control mb-3"
                         id="cookMinutes"
                         defaultValue={recipe ? recipe.cookTime?.minutes : 0}
+                        onChange={onChange}
                         name="cookMinutes"
                         min="0"
                         max="60"
