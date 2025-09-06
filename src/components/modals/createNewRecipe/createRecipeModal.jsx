@@ -10,41 +10,66 @@ import ProgressBar from "./progressBar";
 import { useRecipeContext } from "../../../providers/recipeProvider";
 import { useModalContext } from "../../../providers/modalProvider";
 import { MODAL_MODES } from "../../../lib/constants";
+import { useProgress } from "../../../hooks/useProgress";
 
 function CreateRecipeModal() {
-    const progressStep = 25; // for 4 parts of the modal that will sum to 100
-    const progressMax = 100;
-    const [progress, setProgress] = useState(progressStep);
     const { recipe } = useRecipeContext();
+    const [recipeState, setRecipeState] = useState({
+        author: {
+            name: "John",
+            userId: "68a7287130e1273419856675"
+        },
+        instructions: [],
+        ingredients: [
+            {
+                name: "sibuyas",
+                quantity: 3,
+                unit: "pc/s"
+            }
+        ],
+        cookTime: {
+            hours: 1,
+            minutes: 30
+        },
+        prepTime: {
+            hours: 1,
+            minutes: 30
+        },
+        name: "sinigang na baboy",
+        description: "Si mama mo sinigang",
+        image: {
+            name: "sinigang.png",
+            size: "dasdasd",
+            link: "link"
+        }
+    });
+
     const {
         modal: { name, mode, show },
         reset
     } = useModalContext();
+    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(show);
     let dataToUse = mode === MODAL_MODES[0] ? {} : recipe;
     const isEditting = mode === MODAL_MODES[1];
-    const showPrevButton = progress !== progressStep;
-    const hideNextButton = progress === progressMax;
-    const firstPart = progress === progressStep;
-    const secondPart = progress === progressStep * 2;
-    const thirdPart = progress === progressStep * 3;
-    const fourthPart = progress === progressStep * 4;
 
-    useEffect(() => {
-        if (!show && progress !== progressStep) {
-            setProgress(progressStep);
+    function handleRecipeState(event) {
+        const name = event.target.name;
+        let value = event.target.value;
+
+        if (name === "image") {
+            value = event.target.files[0];
         }
-    }, [show, progress]);
 
-    function handleNext() {
-        setProgress((prev) => prev + progressStep);
-    }
-
-    function handlePrevious() {
-        setProgress((prev) => prev - progressStep);
+        setRecipeState((state) => {
+            return {
+                ...state,
+                [name]: value
+            };
+        });
     }
 
     function handleSubmit() {}
-
+    console.log(recipeState);
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -62,10 +87,10 @@ function CreateRecipeModal() {
                                     <ProgressBar now={progress} />
                                     {firstPart && (
                                         <>
-                                            <UploadImage recipe={dataToUse} />
-                                            <NameAndDiscription recipe={dataToUse} />
-                                            <Timers recipe={dataToUse} />
-                                            <Categories recipe={dataToUse} />
+                                            <UploadImage recipe={dataToUse} onChange={handleRecipeState} />
+                                            <NameAndDiscription recipe={dataToUse} onChange={handleRecipeState} />
+                                            <Timers recipe={dataToUse} onChange={handleRecipeState} />
+                                            <Categories recipe={dataToUse} onChange={handleRecipeState} />
                                         </>
                                     )}
                                     {secondPart && (
