@@ -13,7 +13,7 @@ function Ingredients({ recipe, onChange }) {
             onChange({ target: { name: "ingredients", value: initialInputs } });
         }
     }, [inputs, setInputs, recipe, onChange]);
-    console.log(inputs);
+
     return (
         <>
             <span className="d-block mb-3 mt-4">Ingredients:</span>
