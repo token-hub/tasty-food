@@ -92,24 +92,33 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
     }
 }
 
-export function generateInput(ingredients = []) {
+export function generateInput(arr = [], isIngredient = true) {
     const newId = new Date().toISOString();
 
-    if (ingredients?.length) {
-        return ingredients.map((ingredient) => {
-            return {
-                ...ingredient,
-                id: ingredient.name
-            };
-        });
-    }
-
-    return [
-        {
-            id: newId,
-            quantity: 0,
-            unit: "",
-            name: ""
+    if (isIngredient) {
+        if (arr?.length) {
+            return arr.map((data) => {
+                return {
+                    ...data,
+                    id: data.name
+                };
+            });
         }
-    ];
+
+        return [
+            {
+                id: newId,
+                quantity: 0,
+                unit: "",
+                name: ""
+            }
+        ];
+    } else {
+        return [
+            {
+                id: newId,
+                instruction: ""
+            }
+        ];
+    }
 }
