@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import UpArrowIcon from "../../../assets/icons/UpArrowIcon";
 import XIcon from "../../../assets/icons/xIcon";
 
-function CreateModalUploadImage({ recipe }) {
+function CreateModalUploadImage({ recipe, onChange }) {
     const defaultImage = "https://placehold.co/200x200?font=roboto&text=Recipe";
 
     const uploadRef = useRef();
@@ -12,7 +12,7 @@ function CreateModalUploadImage({ recipe }) {
         uploadRef.current.click();
     }
 
-    function handleUpload() {
+    function handleUpload(e) {
         const file = uploadRef.current.files[0];
 
         if (file) {
@@ -23,6 +23,8 @@ function CreateModalUploadImage({ recipe }) {
 
             fileReader.readAsDataURL(file);
         }
+
+        onChange(e);
     }
 
     function handleReset() {
@@ -66,7 +68,7 @@ function CreateModalUploadImage({ recipe }) {
                     className="form-control"
                     type="file"
                     id="imageFile"
-                    name="recipeImg"
+                    name="image"
                     accept="image/png, image/gif, image/jpeg"
                 />
             </div>
