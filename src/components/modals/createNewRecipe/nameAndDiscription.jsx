@@ -9,7 +9,7 @@ function NameAndDiscription({ recipe, onChange }) {
                     className="form-control mb-3"
                     id="name"
                     placeholder="name"
-                    name=""
+                    name="name"
                 />
                 <label htmlFor="name">Recipe name</label>
             </div>
