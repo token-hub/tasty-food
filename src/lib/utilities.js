@@ -121,3 +121,59 @@ export function generateInput(arr = [], isIngredient = true) {
         ];
     }
 }
+
+export function validateRecipeState(state) {
+    if (!state) return [];
+    const keys = Object.keys(state);
+    let values = Object.values(state);
+
+    if (keys.includes("ingredients")) {
+        values = values.map((data) => {
+            data = data.filter((inner) => {
+                return inner.quantity && inner.unit && inner.name;
+            });
+
+            return data;
+        });
+    }
+
+    if (keys.includes("instructions")) {
+        values = values.map((data) => {
+            data = data.filter((inner) => {
+                return inner.instruction;
+            });
+            return data;
+        });
+    }
+
+    let errors = [];
+
+    for (let i = 0; i < keys.length; i++) {
+        const currentValue = values[i];
+        const currentKey = keys[i];
+        const isValueAnArray = Array.isArray(currentValue);
+        const isValueIsEmptyArr = isValueAnArray && !currentValue.length;
+        const isValueAnArrayLessThan2 = !isValueIsEmptyArr && currentValue.length < 2;
+
+        if (isValueIsEmptyArr && currentKey === "categories") {
+            errors.push({ key: keys[i], message: "You must select at least 1 category" });
+            continue;
+        }
+
+        if (isValueAnArrayLessThan2 && currentKey === "ingredients") {
+            errors.push({ key: keys[i], message: "You must select at least add 2 ingredients" });
+            continue;
+        }
+
+        if (isValueAnArrayLessThan2 && currentKey === "instructions") {
+            errors.push({ key: keys[i], message: "You must select at least add 2 instructions" });
+            continue;
+        }
+
+        if (!currentValue || isValueIsEmptyArr) {
+            errors.push({ key: keys[i], message: `${keys[i]} must not be empty` });
+        }
+    }
+
+    return errors;
+}
