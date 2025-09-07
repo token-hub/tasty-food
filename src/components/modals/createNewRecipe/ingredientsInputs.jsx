@@ -1,6 +1,23 @@
 import XIcon from "../../../assets/icons/xIcon";
 
-function IngredientsInputs({ quantity, unit, name, id, onChange, removeIngredient }) {
+function IngredientsInputs({ quantity, unit, name, id, setInputs, onChange, removeIngredient }) {
+    function handleChange(e, id) {
+        const name = e.target.name;
+        const value = e.target.value;
+
+        setInputs((prev) =>
+            prev.map((input) => {
+                if (input.id === id) {
+                    const nameToUse = name === "ingredient" ? "name" : name;
+                    return { ...input, [nameToUse]: value };
+                } else {
+                    return input;
+                }
+            })
+        );
+        onChange({ target: { name, value, id } });
+    }
+
     return (
         <div className="d-flex w-100 align-items-center h-100">
             <div className="form-floating w-100">
@@ -13,7 +30,7 @@ function IngredientsInputs({ quantity, unit, name, id, onChange, removeIngredien
                     name="quantity"
                     defaultValue={quantity}
                     placeholder="1"
-                    onChange={onChange}
+                    onChange={(e) => handleChange(e, id)}
                 />
                 <label htmlFor="quantity">Quantity</label>
             </div>
@@ -27,7 +44,7 @@ function IngredientsInputs({ quantity, unit, name, id, onChange, removeIngredien
                     name="unit"
                     defaultValue={unit}
                     placeholder="1"
-                    onChange={onChange}
+                    onChange={(e) => handleChange(e, id)}
                 />
                 <label htmlFor="unit">Unit</label>
             </div>
@@ -41,7 +58,7 @@ function IngredientsInputs({ quantity, unit, name, id, onChange, removeIngredien
                     name="ingredient"
                     defaultValue={name}
                     placeholder="1"
-                    onChange={onChange}
+                    onChange={(e) => handleChange(e, id)}
                 />
                 <label htmlFor="ingredient">Ingredient</label>
             </div>
