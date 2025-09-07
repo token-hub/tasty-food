@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import UploadImage from "./uploadImage";
 import UploadVideo from "./uploadVideo";
 import Ingredients from "./ingredients";
@@ -16,15 +16,21 @@ import { useUserContext } from "../../../providers/userProvider";
 function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
     const { user } = useUserContext();
-    const [recipeState, setRecipeState] = useState(recipe ?? DEFAULT_RECIPE_STATE);
-
+    const initialState = Object.keys(recipe).length ? recipe : DEFAULT_RECIPE_STATE;
+    const [recipeState, setRecipeState] = useState(initialState);
     const {
         modal: { name, mode, show },
         reset
     } = useModalContext();
-    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(show);
 
+    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(show);
     const isEditting = mode === MODAL_MODES[1];
+
+    useEffect(() => {
+        if (!show && recipeState?.name) {
+            setRecipeState(initialState);
+        }
+    }, [show, recipe, recipeState, initialState]);
 
     const handleRecipeState = useCallback((event) => {
         let name = event.target.name;
@@ -47,6 +53,16 @@ function CreateRecipeModal() {
             if (name === "prepMinutes") {
                 name = "prepTime";
                 value = { ...state.prepTime, minutes: +value };
+            }
+
+            if (name === "cookHours") {
+                name = "cookTime";
+                value = { ...state.cookTime, hours: +value };
+            }
+
+            if (name === "cookMinutes") {
+                name = "cookTime";
+                value = { ...state.cookTime, minutes: +value };
             }
 
             if (name === "categories") {
@@ -96,7 +112,7 @@ function CreateRecipeModal() {
 
         console.log(prepData);
     }
-
+    console.log(recipeState);
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
