@@ -23,7 +23,10 @@ function CreateRecipeModal() {
         reset
     } = useModalContext();
 
-    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(show);
+    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(
+        show,
+        recipeState
+    );
     const isEditting = mode === MODAL_MODES[1];
 
     useEffect(() => {
@@ -76,7 +79,7 @@ function CreateRecipeModal() {
                 name = "ingredients";
 
                 value = state.ingredients.map((ing) => {
-                    if (ing.id === event.target.getAttribute("parentid")) {
+                    if (ing.id === event.target.id) {
                         return { ...ing, [targetField]: value };
                     } else {
                         return ing;
