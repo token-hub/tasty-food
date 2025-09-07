@@ -20,7 +20,7 @@ function Instructions({ recipe, onChange }) {
             {inputs.map((data, index) => {
                 return (
                     <Fragment key={data.id}>
-                        <InstructionInput index={index} {...data} onChange={onChange} removeInstruction={removeInstruction} />
+                        <InstructionInput index={index} {...data} onChange={onChange} setInputs={setInputs} removeInstruction={removeInstruction} />
                     </Fragment>
                 );
             })}
