@@ -94,17 +94,16 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
 
 export function generateInput(arr = [], isIngredient = true) {
     const newId = new Date().toISOString();
+    if (arr?.length) {
+        return arr.map((data) => {
+            return {
+                ...data,
+                id: data.id
+            };
+        });
+    }
 
     if (isIngredient) {
-        if (arr?.length) {
-            return arr.map((data) => {
-                return {
-                    ...data,
-                    id: data.name
-                };
-            });
-        }
-
         return [
             {
                 id: newId,
