@@ -9,37 +9,14 @@ import NameAndDiscription from "./nameAndDiscription";
 import ProgressBar from "./progressBar";
 import { useRecipeContext } from "../../../providers/recipeProvider";
 import { useModalContext } from "../../../providers/modalProvider";
-import { MODAL_MODES } from "../../../lib/constants";
+import { MODAL_MODES, DEFAULT_RECIPE_STATE } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
 import { useUserContext } from "../../../providers/userProvider";
 
 function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
     const { user } = useUserContext();
-    const [recipeState, setRecipeState] = useState({
-        author: {
-            name: "",
-            userId: ""
-        },
-        instructions: [],
-        ingredients: [],
-        categories: [],
-        cookTime: {
-            hours: 1,
-            minutes: 30
-        },
-        prepTime: {
-            hours: 1,
-            minutes: 30
-        },
-        name: "sinigang na baboy",
-        description: "Si mama mo sinigang",
-        image: {
-            name: "sinigang.png",
-            size: "dasdasd",
-            link: "link"
-        }
-    });
+    const [recipeState, setRecipeState] = useState(recipe ?? DEFAULT_RECIPE_STATE);
 
     const {
         modal: { name, mode, show },
