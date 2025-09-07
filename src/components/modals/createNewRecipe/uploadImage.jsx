@@ -6,7 +6,7 @@ function CreateModalUploadImage({ recipe, onChange }) {
     const defaultImage = "https://placehold.co/200x200?font=roboto&text=Recipe";
 
     const uploadRef = useRef();
-    const [recipeImage, setRecipeImage] = useState(recipe.imageSource ?? defaultImage);
+    const [recipeImage, setRecipeImage] = useState(recipe.image.link ?? defaultImage);
 
     function handleUploadClick() {
         uploadRef.current.click();
