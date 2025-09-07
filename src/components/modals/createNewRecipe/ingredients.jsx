@@ -21,7 +21,7 @@ function Ingredients({ recipe, onChange }) {
             {inputs.map((data) => {
                 return (
                     <Fragment key={data.id}>
-                        <IngredientsInputs {...data} onChange={onChange} removeIngredient={removeIngredient} />
+                        <IngredientsInputs {...data} setInputs={setInputs} onChange={onChange} removeIngredient={removeIngredient} />
                     </Fragment>
                 );
             })}
