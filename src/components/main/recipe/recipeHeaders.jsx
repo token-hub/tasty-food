@@ -8,8 +8,15 @@ import { MODAL_MODES } from "../../../lib/constants";
 import { useSlideContext } from "../../../providers/slideProvider";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
 import { useUserContext } from "../../../providers/userProvider";
+import { useFetcher, useNavigate } from "react-router";
+import { objectToFormData } from "../../../lib/utilities";
+import { useToastContext } from "../../../providers/toastProvider";
+import { useEffect } from "react";
 
 function RecipeHeaders({ recipe }) {
+    const fetcher = useFetcher();
+    const navigate = useNavigate();
+    const { createToast } = useToastContext();
     let { image, goodForPeopleCount, description, name } = recipe;
     const { setCurrentModal } = useModalContext();
     const { handleOpenChat } = useChatContext();
@@ -17,8 +24,14 @@ function RecipeHeaders({ recipe }) {
     const { openSlide } = useSlideContext();
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
-
     const isAuthor = user?.id === recipe.author.userId;
+
+    useEffect(() => {
+        if (fetcher.data?.result) {
+            createToast({ headerText: "Recipe achived", bodyText: "You have successfull archived a recipe" });
+            navigate("/me/archives");
+        }
+    }, [fetcher, createToast, navigate]);
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);
@@ -32,6 +45,13 @@ function RecipeHeaders({ recipe }) {
         });
     }
 
+    function handleArchive() {
+        fetcher.submit(objectToFormData({ userId: user?.id, recipeId: recipe._id, isArchive: true }), {
+            method: "PUT",
+            action: "/me/recipes/create"
+        });
+    }
+    console.log(fetcher.data);
     return (
         <div className="row">
             <div className="col-lg-3">
@@ -47,7 +67,7 @@ function RecipeHeaders({ recipe }) {
                             <button className="btn px-2 border-0" onClick={handleEdit} data-bs-toggle="modal" data-bs-target="#createRecipe">
                                 <EditIcon className="text-secondary" height="18" width="18" />
                             </button>
-                            <button className="btn px-2 border-0">
+                            <button className="btn px-2 border-0" onClick={handleArchive}>
                                 <ArchiveIcon className="text-secondary" height="18" width="18" />
                             </button>
                         </div>
