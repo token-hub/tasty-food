@@ -18,7 +18,7 @@ function RecipeHeaders({ recipe }) {
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
 
-    const isAuthor = user.id !== recipe.author.id;
+    const isAuthor = user?.id !== recipe.author.userId;
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);
