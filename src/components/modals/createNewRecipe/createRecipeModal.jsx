@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import UploadImage from "./uploadImage";
 import UploadVideo from "./uploadVideo";
 import Ingredients from "./ingredients";
@@ -12,12 +12,16 @@ import { useModalContext } from "../../../providers/modalProvider";
 import { MODAL_MODES, DEFAULT_RECIPE_STATE } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
 import { useUserContext } from "../../../providers/userProvider";
+import { useFetcher } from "react-router";
+import { objectToFormData } from "../../../lib/utilities";
 
 function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
     const { user } = useUserContext();
+    const fetcher = useFetcher();
     const initialState = Object.keys(recipe).length ? recipe : DEFAULT_RECIPE_STATE;
     const [recipeState, setRecipeState] = useState(initialState);
+    const closeRef = useRef();
     const {
         modal: { name, mode, show },
         reset
@@ -34,6 +38,12 @@ function CreateRecipeModal() {
             setRecipeState(initialState);
         }
     }, [show, recipe, recipeState, initialState]);
+
+    useEffect(() => {
+        if (fetcher.state === "idle" && fetcher.data) {
+            closeRef.current.click();
+        }
+    }, [fetcher]);
 
     const handleRecipeState = useCallback((event) => {
         let name = event.target.name;
@@ -112,10 +122,9 @@ function CreateRecipeModal() {
                 name: user?.name
             }
         };
-
-        console.log(prepData);
+        fetcher.submit(objectToFormData(prepData), { method: "POST", action: "/me/recipes/create" });
     }
-    console.log(recipeState);
+
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -125,7 +134,7 @@ function CreateRecipeModal() {
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
                                 {isEditting ? "Edit recipe" : "Create new recipe"}
                             </h1>
-                            <button type="button" onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                            <button type="button" ref={closeRef} onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
                         <div className="modal-body min-vh-70">
                             {show && (
@@ -170,7 +179,14 @@ function CreateRecipeModal() {
                                 </button>
                             ) : (
                                 <button type="submit" className="btn btn-primary text-white" onClick={handleSubmit}>
-                                    Submit
+                                    {fetcher.state === "submitting" ? (
+                                        <>
+                                            <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
+                                            <span role="status">Submitting ...</span>
+                                        </>
+                                    ) : (
+                                        "Submit"
+                                    )}
                                 </button>
                             )}
                         </div>
