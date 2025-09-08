@@ -1,13 +1,28 @@
 import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
-import { sampleRecipes } from "../lib/constants";
+import { useQuery } from "@tanstack/react-query";
+import { useUserContext } from "../providers/userProvider";
+import { getOwnRecipes } from "../queries/getOwnRecipes";
 
 function Archives() {
+    const { user } = useUserContext();
+    const { data } = useQuery({
+        queryKey: ["ownRecipes"],
+        queryFn: ({ signal }) =>
+            getOwnRecipes({
+                signal,
+                author: {
+                    userId: user?.id
+                },
+                isArchived: true
+            }),
+        enabled: Boolean(user)
+    });
     return (
         <div className="container">
             <div className="row">
-                {sampleRecipes &&
-                    sampleRecipes.map((recipe) => {
+                {data?.data?.recipes &&
+                    data?.data?.recipes.map((recipe) => {
                         return (
                             <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
                                 <Recipe recipe={recipe} isArchived />
