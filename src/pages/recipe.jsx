@@ -15,7 +15,7 @@ function Recipe() {
     const [activeTab, setActiveTab] = useState("ratings");
     const { recipe: currentRecipe, setCurrentRecipe } = useRecipeContext();
     useEffect(() => {
-        if (!Object.values(currentRecipe).length) {
+        if (currentRecipe && !Object.values(currentRecipe).length) {
             const noFirstChar = pathname.slice(1);
             const recipeLink = noFirstChar.slice(noFirstChar.indexOf("/"));
             const selectedRecipe = sampleRecipes.find((res) => res.recipeLink === recipeLink);
@@ -28,6 +28,7 @@ function Recipe() {
     }
 
     return (
+        currentRecipe &&
         Object.values(currentRecipe).length > 0 && (
             <div className="container">
                 <RecipeHeaders recipe={currentRecipe} />
