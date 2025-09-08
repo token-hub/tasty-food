@@ -73,7 +73,7 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
             if (redirectTo) {
                 return redirect(redirectTo);
             }
-            return responseData({ result: data });
+            return responseData({ result: data?.data });
         } else {
             return responseData(
                 {
@@ -176,4 +176,74 @@ export function validateRecipeState(state) {
     }
 
     return errors;
+}
+
+export function objectToFormData(obj, formData = new FormData(), parentKey = "") {
+    if (obj === null || obj === undefined) return formData;
+
+    if (obj instanceof File) {
+        // Handle files
+        formData.append(parentKey, obj);
+    } else if (Array.isArray(obj)) {
+        // Handle arrays
+        obj.forEach((value, index) => {
+            const key = parentKey ? `${parentKey}[${index}]` : index;
+            objectToFormData(value, formData, key);
+        });
+    } else if (typeof obj === "object") {
+        // Handle objects
+        Object.keys(obj).forEach((key) => {
+            const value = obj[key];
+            const newKey = parentKey ? `${parentKey}.${key}` : key;
+            objectToFormData(value, formData, newKey);
+        });
+    } else {
+        // Handle primitives
+        formData.append(parentKey, obj);
+    }
+
+    return formData;
+}
+
+function setValue(obj, path, value) {
+    const parts = path
+        .replace(/\[(\d+)\]/g, ".$1") // convert [0] → .0 for easy splitting
+        .split(".");
+
+    let current = obj;
+
+    parts.forEach((part, index) => {
+        const isLast = index === parts.length - 1;
+
+        // If it's an array index
+        if (!isNaN(part)) {
+            const arrayIndex = Number(part);
+            if (!Array.isArray(current)) current = [];
+            if (current[arrayIndex] === undefined) current[arrayIndex] = isLast ? value : {};
+            current = current[arrayIndex];
+            return;
+        }
+
+        // If not last, prepare the next object/array
+        if (!isLast) {
+            if (current[part] === undefined) {
+                // If next part is an index → create array, else object
+                current[part] = isNaN(parts[index + 1]) ? {} : [];
+            }
+            current = current[part];
+        } else {
+            // Last part → set value
+            current[part] = value;
+        }
+    });
+}
+
+export function formDataToObject(formData) {
+    const obj = {};
+
+    for (const [key, value] of formData.entries()) {
+        setValue(obj, key, value);
+    }
+
+    return obj;
 }
