@@ -14,7 +14,8 @@ function Recipes() {
                 author: {
                     userId: user?.id
                 }
-            })
+            }),
+        enabled: Boolean(user)
     });
 
     return (
