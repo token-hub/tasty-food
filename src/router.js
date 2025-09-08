@@ -27,7 +27,6 @@ import { updateUserAction } from "./actions/updateUser";
 import { createRecipeAction } from "./actions/createRecipe";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
-import { getOwnRecipesLoader } from "./loaders/getOwnRecipesLoader";
 
 const router = createBrowserRouter([
     {
@@ -65,7 +64,7 @@ const router = createBrowserRouter([
                     {
                         path: "recipes",
                         children: [
-                            { index: true, Component: Recipes, loader: getOwnRecipesLoader },
+                            { index: true, Component: Recipes },
                             { path: "create", action: createRecipeAction },
                             { path: ":recipeId", Component: Recipe }
                         ]
