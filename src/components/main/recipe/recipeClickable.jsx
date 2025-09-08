@@ -1,13 +1,15 @@
 import { Link, useLocation } from "react-router";
 import { useRecipeContext } from "../../../providers/recipeProvider";
 import { removeSpacesFromText } from "../../../lib/utilities";
+import { DEFAULT_IMAGE } from "../../../lib/constants";
 
 function Recipe({ recipe, isArchived = false }) {
-    const { recipeLink, imageSource, name } = recipe;
+    const { image, name } = recipe;
     const { setCurrentRecipe } = useRecipeContext();
     const { pathname } = useLocation();
     const linkPreFix = pathname.includes("me") ? "me" : removeSpacesFromText(recipe.author.name);
-    const recipeLinkToUse = "/" + linkPreFix + recipeLink;
+    const recipeLinkToUse = "/" + linkPreFix + "/recipes/" + name;
+    const imageSource = image ?? DEFAULT_IMAGE;
 
     let classes = "card recipe bg-white shadow ";
     if (isArchived) {
