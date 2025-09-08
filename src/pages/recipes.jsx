@@ -1,19 +1,27 @@
 import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
-import { sampleRecipes } from "../lib/constants";
-import { useLoaderData, useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { getOwnRecipes } from "../queries/getOwnRecipes";
+import { useUserContext } from "../providers/userProvider";
 
 function Recipes() {
-    const data = useLoaderData();
-    const params = useParams();
-    const author = params?.author;
-    const recipesOfTheAuthor = sampleRecipes; // temporary
-    const recipes = author ? recipesOfTheAuthor : sampleRecipes;
+    const { user } = useUserContext();
+    const { data } = useQuery({
+        queryKey: ["ownRecipes"],
+        queryFn: ({ signal }) =>
+            getOwnRecipes({
+                signal,
+                author: {
+                    userId: user?.id
+                }
+            })
+    });
+
     return (
         <div className="container">
             <div className="row">
-                {data?.recipes?.length > 0 &&
-                    data?.recipes.map((recipe) => {
+                {data?.data?.recipes?.length > 0 &&
+                    data?.data?.recipes.map((recipe) => {
                         return (
                             <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
                                 <Recipe recipe={recipe} />
