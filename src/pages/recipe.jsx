@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import RecipeHeaders from "../components/main/recipe/recipeHeaders";
 import RecipeIngredients from "../components/main/recipe/recipeIngredients";
 import RecipeInstructions from "../components/main/recipe/recipeInstructions";
