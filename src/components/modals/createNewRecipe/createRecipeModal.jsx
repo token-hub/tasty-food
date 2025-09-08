@@ -7,23 +7,21 @@ import Categories from "./categories";
 import Timers from "./timers";
 import NameAndDiscription from "./nameAndDiscription";
 import ProgressBar from "./progressBar";
-import { useRecipeContext } from "../../../providers/recipeProvider";
 import { useModalContext } from "../../../providers/modalProvider";
-import { MODAL_MODES, DEFAULT_RECIPE_STATE } from "../../../lib/constants";
+import { MODAL_MODES } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
 import { useUserContext } from "../../../providers/userProvider";
-import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
+import { useRecipeFetcher } from "../../../hooks/useRecipeFetcher";
+import { useRecipeState } from "../../../hooks/useRecipeState";
 
 function CreateRecipeModal() {
-    const { recipe } = useRecipeContext();
+    const { recipeState, setRecipeState, recipeId, data, initialState } = useRecipeState();
     const { user } = useUserContext();
-    const fetcher = useFetcher();
-    const initialState = recipe && Object.keys(recipe).length ? recipe : DEFAULT_RECIPE_STATE;
-    const [recipeState, setRecipeState] = useState(initialState);
-    const closeRef = useRef();
+    const { closeRef, fetcher } = useRecipeFetcher(recipeId);
+
     const {
-        modal: { name, mode, show },
+        modal: { mode, show },
         reset
     } = useModalContext();
 
@@ -34,85 +32,82 @@ function CreateRecipeModal() {
     const isEditting = mode === MODAL_MODES[1];
 
     useEffect(() => {
-        if (!show && recipeState?.name) {
+        if (data || !show) {
             setRecipeState(initialState);
         }
-    }, [show, recipe, recipeState, initialState]);
+    }, [show, data, initialState, setRecipeState]);
 
-    useEffect(() => {
-        if (fetcher.state === "idle" && fetcher.data) {
-            closeRef.current.click();
-        }
-    }, [fetcher]);
+    const handleRecipeState = useCallback(
+        (event) => {
+            let name = event.target.name;
+            let value = event.target.value;
 
-    const handleRecipeState = useCallback((event) => {
-        let name = event.target.name;
-        let value = event.target.value;
+            setRecipeState((state) => {
+                if (name === "image") {
+                    value = event.target.files[0];
+                }
 
-        setRecipeState((state) => {
-            if (name === "image") {
-                value = event.target.files[0];
-            }
+                if (name === "video") {
+                    value = event.target.files[0];
+                }
 
-            if (name === "video") {
-                value = event.target.files[0];
-            }
+                if (name === "prepHours") {
+                    name = "prepTime";
+                    value = { ...state.prepTime, hours: +value };
+                }
 
-            if (name === "prepHours") {
-                name = "prepTime";
-                value = { ...state.prepTime, hours: +value };
-            }
+                if (name === "prepMinutes") {
+                    name = "prepTime";
+                    value = { ...state.prepTime, minutes: +value };
+                }
 
-            if (name === "prepMinutes") {
-                name = "prepTime";
-                value = { ...state.prepTime, minutes: +value };
-            }
+                if (name === "cookHours") {
+                    name = "cookTime";
+                    value = { ...state.cookTime, hours: +value };
+                }
 
-            if (name === "cookHours") {
-                name = "cookTime";
-                value = { ...state.cookTime, hours: +value };
-            }
+                if (name === "cookMinutes") {
+                    name = "cookTime";
+                    value = { ...state.cookTime, minutes: +value };
+                }
 
-            if (name === "cookMinutes") {
-                name = "cookTime";
-                value = { ...state.cookTime, minutes: +value };
-            }
+                if (name === "categories") {
+                    value = state.categories.includes(event.target.id)
+                        ? state.categories.filter((c) => c !== event.target.id)
+                        : [...state.categories, event.target.id];
+                }
 
-            if (name === "categories") {
-                value = state.categories.includes(event.target.id)
-                    ? state.categories.filter((c) => c !== event.target.id)
-                    : [...state.categories, event.target.id];
-            }
+                if (name === "unit" || name === "quantity" || name === "ingredient") {
+                    const targetField = name == "ingredient" ? "name" : name;
+                    name = "ingredients";
 
-            if (name === "unit" || name === "quantity" || name === "ingredient") {
-                const targetField = name == "ingredient" ? "name" : name;
-                name = "ingredients";
+                    value = state.ingredients.map((ing) => {
+                        if (ing.id === event.target.id) {
+                            return { ...ing, [targetField]: value };
+                        } else {
+                            return ing;
+                        }
+                    });
+                }
 
-                value = state.ingredients.map((ing) => {
-                    if (ing.id === event.target.id) {
-                        return { ...ing, [targetField]: value };
-                    } else {
-                        return ing;
-                    }
-                });
-            }
-
-            if (name === "instruction") {
-                name = name + "s";
-                value = state.instructions.map((ins) => {
-                    if (ins.id === event.target.id) {
-                        return { ...ins, instruction: value };
-                    } else {
-                        return ins;
-                    }
-                });
-            }
-            return {
-                ...state,
-                [name]: value
-            };
-        });
-    }, []);
+                if (name === "instruction") {
+                    name = name + "s";
+                    value = state.instructions.map((ins) => {
+                        if (ins.id === event.target.id) {
+                            return { ...ins, instruction: value };
+                        } else {
+                            return ins;
+                        }
+                    });
+                }
+                return {
+                    ...state,
+                    [name]: value
+                };
+            });
+        },
+        [setRecipeState]
+    );
 
     function handleSubmit() {
         const prepData = {
@@ -120,12 +115,12 @@ function CreateRecipeModal() {
             author: {
                 userId: user?.id,
                 name: user?.name
-            }
+            },
+            recipeId
         };
         fetcher.submit(objectToFormData(prepData), { method: "POST", action: "/me/recipes/create" });
     }
-    console.log(recipeState);
-    console.log(recipe);
+    console.log(fetcher);
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -138,7 +133,7 @@ function CreateRecipeModal() {
                             <button type="button" ref={closeRef} onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
                         <div className="modal-body min-vh-70">
-                            {false && (
+                            {show && (
                                 <form className="form-floating">
                                     <ProgressBar now={progress} />
                                     {firstPart && (
