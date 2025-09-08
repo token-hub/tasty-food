@@ -1,6 +1,6 @@
 import { SERVER_API_URL } from "../lib/constants";
 
-export async function getOwnRecipes({ signal, pagination = {}, author }) {
+export async function getOwnRecipes({ signal, pagination = {}, author, isArchived = false }) {
     const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
         method: "POST",
         headers: {
@@ -15,7 +15,8 @@ export async function getOwnRecipes({ signal, pagination = {}, author }) {
                 limit: pagination.limit ?? 6,
                 sortBy: pagination.sortBy ?? "updatedAt"
             },
-            author
+            author,
+            isArchived
         })
     });
 
