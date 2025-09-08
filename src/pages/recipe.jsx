@@ -5,28 +5,23 @@ import RecipeInstructions from "../components/main/recipe/recipeInstructions";
 import RecipeTabs from "../components/main/recipe/recipeTabs";
 import RecipeRatings from "../components/main/recipe/recipeRatings";
 import RecipeReports from "../components/main/recipe/recipeReports";
-import { sampleRecipes, TABS } from "../lib/constants";
-import { useRecipeContext } from "../providers/recipeProvider";
-import { useLocation } from "react-router";
-
+import { TABS } from "../lib/constants";
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import { getRecipe } from "../queries/getRecipe";
 function Recipe() {
-    const { pathname } = useLocation();
-
     const [activeTab, setActiveTab] = useState("ratings");
-    const { recipe: currentRecipe, setCurrentRecipe } = useRecipeContext();
-    useEffect(() => {
-        if (currentRecipe && !Object.values(currentRecipe).length) {
-            const noFirstChar = pathname.slice(1);
-            const recipeLink = noFirstChar.slice(noFirstChar.indexOf("/"));
-            const selectedRecipe = sampleRecipes.find((res) => res.recipeLink === recipeLink);
-            setCurrentRecipe(selectedRecipe);
-        }
-    }, [pathname, currentRecipe, setCurrentRecipe]);
+    const { recipeId } = useParams();
+    const { data } = useQuery({
+        queryKey: ["recipe"],
+        queryFn: ({ signal }) => getRecipe({ signal, recipeId })
+    });
 
     function handleActiveTab(tab) {
         setActiveTab(tab);
     }
 
+    const currentRecipe = data?.data;
     return (
         currentRecipe &&
         Object.values(currentRecipe).length > 0 && (
