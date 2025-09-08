@@ -4,12 +4,14 @@ import { queryClient } from "../lib/queryClient";
 export async function createRecipeAction({ request }) {
     const formData = await request.formData();
     const data = formDataToObject(formData);
-
+    const method = data?.recipeId ? "PUT" : "POST";
+    const url = data?.recipeId ? "recipes/" + data.recipeId : "recipes";
     return await customTryCatchWrapper(
         () => {
             return customFetch({
-                url: "recipes",
-                data
+                url,
+                data,
+                method
             });
         },
         () => {
