@@ -5,7 +5,7 @@ import { useUserContext } from "../../../providers/userProvider";
 
 function RecipeRatings({ ratings, recipeAuthorId }) {
     const { user } = useUserContext();
-    const isNotTheAuthor = user.id !== recipeAuthorId;
+    const isNotTheAuthor = user?.id !== recipeAuthorId;
     return (
         <div className="container">
             {isNotTheAuthor && (
