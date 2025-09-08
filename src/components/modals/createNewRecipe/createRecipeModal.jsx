@@ -19,7 +19,7 @@ function CreateRecipeModal() {
     const { recipe } = useRecipeContext();
     const { user } = useUserContext();
     const fetcher = useFetcher();
-    const initialState = Object.keys(recipe).length ? recipe : DEFAULT_RECIPE_STATE;
+    const initialState = recipe && Object.keys(recipe).length ? recipe : DEFAULT_RECIPE_STATE;
     const [recipeState, setRecipeState] = useState(initialState);
     const closeRef = useRef();
     const {
@@ -124,7 +124,8 @@ function CreateRecipeModal() {
         };
         fetcher.submit(objectToFormData(prepData), { method: "POST", action: "/me/recipes/create" });
     }
-
+    console.log(recipeState);
+    console.log(recipe);
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
@@ -137,7 +138,7 @@ function CreateRecipeModal() {
                             <button type="button" ref={closeRef} onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                         </div>
                         <div className="modal-body min-vh-70">
-                            {show && (
+                            {false && (
                                 <form className="form-floating">
                                     <ProgressBar now={progress} />
                                     {firstPart && (
