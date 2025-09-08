@@ -1,9 +1,11 @@
 import RecipeRating from "./recipeRating";
 import RecipeForm from "./recipeForm";
 import Pagination from "../pagination";
-import { currentUser } from "../../../lib/constants";
+import { useUserContext } from "../../../providers/userProvider";
+
 function RecipeRatings({ ratings, recipeAuthorId }) {
-    const isNotTheAuthor = currentUser.id !== recipeAuthorId;
+    const { user } = useUserContext();
+    const isNotTheAuthor = user.id !== recipeAuthorId;
     return (
         <div className="container">
             {isNotTheAuthor && (
