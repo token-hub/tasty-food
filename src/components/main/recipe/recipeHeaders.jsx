@@ -1,20 +1,24 @@
 import ChatIcon from "../../../assets/icons/chatIcon";
 import ArchiveIcon from "../../../assets/icons/archiveIcon";
 import EditIcon from "../../../assets/icons/editIcon";
-import { DEFAULT_IMAGE, isAuthor } from "../../../lib/constants";
+import { DEFAULT_IMAGE } from "../../../lib/constants";
 import { useModalContext } from "../../../providers/modalProvider";
 import { useChatContext } from "../../../providers/chatProvider";
 import { MODAL_MODES } from "../../../lib/constants";
 import { useSlideContext } from "../../../providers/slideProvider";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
+import { useUserContext } from "../../../providers/userProvider";
 
 function RecipeHeaders({ recipe }) {
     let { image, goodForPeopleCount, description, name } = recipe;
     const { setCurrentModal } = useModalContext();
     const { handleOpenChat } = useChatContext();
+    const { user } = useUserContext();
     const { openSlide } = useSlideContext();
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
+
+    const isAuthor = user.id !== recipe.author.id;
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);
@@ -37,7 +41,7 @@ function RecipeHeaders({ recipe }) {
             </div>
             <div className="col-lg-8">
                 <div className="d-flex flex-column flex-md-row">
-                    <h2 className="fw-bold mb-0 mb-md-3  flex-md-grow-1">Sinigang na Baboy</h2>
+                    <h2 className="fw-bold mb-0 mb-md-3 text-capitalize flex-md-grow-1">{recipe.name}</h2>
                     {isAuthor && (
                         <div className=" d-md-block">
                             <button className="btn px-2 border-0" onClick={handleEdit} data-bs-toggle="modal" data-bs-target="#createRecipe">
