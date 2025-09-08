@@ -24,6 +24,8 @@ import { forgotPasswordAction } from "./actions/forgotPassword";
 import { resetPasswordAction } from "./actions/resetPassword";
 import { updatePasswordAction } from "./actions/updatePassword";
 import { updateUserAction } from "./actions/updateUser";
+import { createRecipeAction } from "./actions/createRecipe";
+// loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 
 const router = createBrowserRouter([
@@ -63,6 +65,7 @@ const router = createBrowserRouter([
                         path: "recipes",
                         children: [
                             { index: true, Component: Recipes },
+                            { path: "create", action: createRecipeAction },
                             { path: ":recipe", Component: Recipe }
                         ]
                     },
@@ -104,6 +107,10 @@ const router = createBrowserRouter([
                 ]
             }
         ]
+    },
+    {
+        path: "/createRecipe",
+        action: createRecipeAction
     },
     {
         path: "/signOut",
