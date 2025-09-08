@@ -67,7 +67,7 @@ const router = createBrowserRouter([
                         children: [
                             { index: true, Component: Recipes, loader: getOwnRecipesLoader },
                             { path: "create", action: createRecipeAction },
-                            { path: ":recipe", Component: Recipe }
+                            { path: ":recipeId", Component: Recipe }
                         ]
                     },
                     {
