@@ -70,6 +70,8 @@ export const DEFAULT_RECIPE_STATE = {
     video: null
 };
 
+export const DEFAULT_IMAGE = "https://placehold.co/200x200?font=roboto&text=Recipe";
+
 export const sampleRecipes = [
     {
         author: {
