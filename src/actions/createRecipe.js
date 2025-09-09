@@ -6,7 +6,7 @@ export async function createRecipeAction({ request }) {
     const data = formDataToObject(formData);
     const method = data?.recipeId ? "PUT" : "POST";
     const url = data?.recipeId ? "recipes/" + data.recipeId : "recipes";
-    return await customTryCatchWrapper(
+    const result = await customTryCatchWrapper(
         () => {
             return customFetch({
                 url,
@@ -14,8 +14,21 @@ export async function createRecipeAction({ request }) {
                 method
             });
         },
-        () => {
-            queryClient.invalidateQueries({ queryKey: ["myRecipes"] });
+        async () => {
+            const queryKey = ["myRecipes"];
+            if (!!data?.isArchive && data?.recipeId) {
+                queryKey.push("archives");
+            } else {
+                queryKey.push("recipe");
+            }
+
+            await Promise.all(
+                queryKey.map((query) => {
+                    return queryClient.invalidateQueries({ queryKey: [query] });
+                })
+            );
         }
     );
+
+    return result;
 }
