@@ -120,7 +120,7 @@ function CreateRecipeModal() {
         };
         fetcher.submit(objectToFormData(prepData), { method: "POST", action: "/me/recipes/create" });
     }
-    console.log(fetcher);
+
     return (
         <>
             <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
