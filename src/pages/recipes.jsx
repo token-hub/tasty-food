@@ -21,8 +21,8 @@ function Recipes() {
     return (
         <div className="container">
             <div className="row">
-                {data?.data?.recipes?.length > 0 &&
-                    data?.data?.recipes.map((recipe) => {
+                {data?.details?.recipes?.length > 0 &&
+                    data?.details?.recipes.map((recipe) => {
                         return (
                             <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
                                 <Recipe recipe={recipe} />
