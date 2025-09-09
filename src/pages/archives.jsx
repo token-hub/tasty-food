@@ -3,18 +3,20 @@ import Pagination from "../components/main/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { useUserContext } from "../providers/userProvider";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
+import { useArchiveFetcher } from "../hooks/useArchiveFetcher";
 
 function Archives() {
     const { user } = useUserContext();
+    const { fetcher } = useArchiveFetcher();
     const { data } = useQuery({
-        queryKey: ["ownRecipes"],
+        queryKey: ["archives"],
         queryFn: ({ signal }) =>
             getOwnRecipes({
                 signal,
                 author: {
                     userId: user?.id
                 },
-                isArchived: true
+                isArchive: true
             }),
         enabled: Boolean(user)
     });
@@ -25,7 +27,7 @@ function Archives() {
                     data?.data?.recipes.map((recipe) => {
                         return (
                             <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
-                                <Recipe recipe={recipe} isArchived />
+                                <Recipe recipe={recipe} isArchived fetcher={fetcher} />
                             </div>
                         );
                     })}
