@@ -37,9 +37,11 @@ function Recipe({ recipe, isArchived = false, fetcher }) {
                         </Link>
                     </div>
                     <div className="col-1">
-                        <button className="btn border-0 p-0" onClick={handleUnarchiveRecipe}>
-                            <UnarchiveIcon className="text-primary" height="16" width="16" />
-                        </button>
+                        {isArchived && (
+                            <button className="btn border-0 p-0" onClick={handleUnarchiveRecipe}>
+                                <UnarchiveIcon className="text-primary" height="16" width="16" />
+                            </button>
+                        )}
                     </div>
                 </div>
             </div>
