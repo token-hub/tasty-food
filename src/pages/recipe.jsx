@@ -21,7 +21,7 @@ function Recipe() {
         setActiveTab(tab);
     }
 
-    const currentRecipe = data?.data;
+    const currentRecipe = data?.details;
     return (
         currentRecipe &&
         Object.values(currentRecipe).length > 0 && (
