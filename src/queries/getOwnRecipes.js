@@ -1,7 +1,6 @@
 import { SERVER_API_URL } from "../lib/constants";
 
 export async function getOwnRecipes({ signal, pagination = {}, author, isArchive = false }) {
-    const { page = 1, cursor = "", limit = 6, sortBy = "updatedAt" } = pagination;
     const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
         method: "POST",
         headers: {
@@ -10,12 +9,7 @@ export async function getOwnRecipes({ signal, pagination = {}, author, isArchive
         signal,
         credentials: "include",
         body: JSON.stringify({
-            pagination: {
-                page,
-                cursor,
-                limit,
-                sortBy
-            },
+            pagination,
             author,
             isArchive
         })
