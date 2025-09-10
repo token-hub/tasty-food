@@ -6,23 +6,28 @@ import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { getRecipes } from "../queries/getRecipes";
 import { useUserContext } from "../providers/userProvider";
 import { useLocation } from "react-router";
+import { usePagination } from "../hooks/usePagination";
 
 function Recipes() {
+    const { page, handlePagination } = usePagination();
     const { pathname } = useLocation();
     const { user } = useUserContext();
     const isOwnRecipesPage = pathname.includes("recipes");
-    const queryKey = isOwnRecipesPage ? "ownRecipes" : "recipes";
+    const queryKey = isOwnRecipesPage ? "own" : "";
     const queryFn = isOwnRecipesPage ? getOwnRecipes : getRecipes;
     const option = isOwnRecipesPage
         ? {
               author: {
                   userId: user?.id
+              },
+              pagination: {
+                  page: page
               }
           }
         : null;
 
     const { data } = useQuery({
-        queryKey: [queryKey],
+        queryKey: ["recipes", queryKey, page],
         queryFn: ({ signal }) =>
             queryFn({
                 signal,
@@ -31,13 +36,12 @@ function Recipes() {
         enabled: user ? Boolean(user) : true
     });
     const { data: dataCount } = useQuery({
-        queryKey: ["recipeCount"],
+        queryKey: ["recipes", "count"],
         queryFn: ({ signal }) =>
             getRecipesTotalCount({
                 signal,
                 ...option
-            }),
-        staleTime: 1000 * 60 * 60 // 1 hour,
+            })
     });
 
     return (
@@ -52,7 +56,7 @@ function Recipes() {
                         );
                     })}
             </div>
-            <Pagination total={dataCount?.details?.recipeTotalCount} />
+            <Pagination onChange={handlePagination} currentPage={page} total={dataCount?.details?.recipeTotalCount} />
         </div>
     );
 }
