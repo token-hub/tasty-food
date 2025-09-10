@@ -9,25 +9,21 @@ import { useLocation } from "react-router";
 import { usePagination } from "../hooks/usePagination";
 
 function Recipes() {
-    const { page, handlePagination } = usePagination();
+    const { pagination, setPagination } = usePagination();
     const { pathname } = useLocation();
     const { user } = useUserContext();
     const isOwnRecipesPage = pathname.includes("recipes");
     const queryKey = isOwnRecipesPage ? "own" : "";
     const queryFn = isOwnRecipesPage ? getOwnRecipes : getRecipes;
-    const option = isOwnRecipesPage
-        ? {
-              author: {
-                  userId: user?.id
-              },
-              pagination: {
-                  page: page
-              }
-          }
-        : null;
+    const option = { pagination };
+    if (isOwnRecipesPage) {
+        option.author = {
+            userId: user?.id
+        };
+    }
 
     const { data } = useQuery({
-        queryKey: ["recipes", queryKey, page],
+        queryKey: ["recipes", queryKey, pagination.page],
         queryFn: ({ signal }) =>
             queryFn({
                 signal,
@@ -44,6 +40,14 @@ function Recipes() {
             })
     });
 
+    function handlePagination(page) {
+        setPagination((prev) => ({
+            ...prev,
+            page,
+            cursor: data?.details?.recipes[0].updatedAt
+        }));
+    }
+
     return (
         <div className="container">
             <div className="row">
@@ -56,7 +60,7 @@ function Recipes() {
                         );
                     })}
             </div>
-            <Pagination onChange={handlePagination} currentPage={page} total={dataCount?.details?.recipeTotalCount} />
+            <Pagination onChange={handlePagination} currentPage={pagination.page} total={dataCount?.details?.recipeTotalCount} />
         </div>
     );
 }
