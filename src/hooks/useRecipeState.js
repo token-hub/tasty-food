@@ -12,7 +12,8 @@ export function useRecipeState() {
         queryFn: ({ signal }) => getRecipe({ signal, recipeId }),
         enabled: Boolean(recipeId)
     });
-    const initialState = data?.details ?? DEFAULT_RECIPE_STATE;
+
+    const initialState = recipeId && data?.details ? data?.details : DEFAULT_RECIPE_STATE;
     const [recipeState, setRecipeState] = useState(initialState);
 
     return { recipeState, setRecipeState, recipeId, data, initialState };
