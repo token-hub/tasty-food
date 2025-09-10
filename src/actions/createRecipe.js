@@ -15,18 +15,7 @@ export async function createRecipeAction({ request }) {
             });
         },
         async () => {
-            const queryKey = ["myRecipes"];
-            if (!!data?.isArchive && data?.recipeId) {
-                queryKey.push("archives");
-            } else {
-                queryKey.push("recipe");
-            }
-
-            await Promise.all(
-                queryKey.map((query) => {
-                    return queryClient.invalidateQueries({ queryKey: [query] });
-                })
-            );
+            await queryClient.invalidateQueries({ queryKey: ["recipes"] });
         }
     );
 
