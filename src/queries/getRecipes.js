@@ -9,12 +9,7 @@ export async function getRecipes({ signal, pagination = {}, filters = { categori
         signal,
         credentials: "include",
         body: JSON.stringify({
-            pagination: {
-                page: pagination.page ?? 1,
-                cursor: pagination.cursor ?? "",
-                limit: pagination.limit ?? 6,
-                sortBy: pagination.sortBy ?? "updatedAt"
-            },
+            pagination,
             filters: {
                 categories: filters.categories ?? []
             }
