@@ -13,7 +13,7 @@ function Recipe() {
     const [activeTab, setActiveTab] = useState("ratings");
     const { recipeId } = useParams();
     const { data } = useQuery({
-        queryKey: ["recipe"],
+        queryKey: ["recipes", "single"],
         queryFn: ({ signal }) => getRecipe({ signal, recipeId })
     });
 
