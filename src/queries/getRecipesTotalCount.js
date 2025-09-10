@@ -1,7 +1,8 @@
 import { SERVER_API_URL } from "../lib/constants";
 
-export async function getRecipesTotalCount({ signal }) {
-    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes/totalCount`, {
+export async function getRecipesTotalCount({ signal, author }) {
+    const query = author?.userId ? `?authorId=${author.userId}` : "";
+    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes/totalCount${query}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
