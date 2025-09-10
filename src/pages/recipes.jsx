@@ -1,6 +1,7 @@
 import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
 import { useQuery } from "@tanstack/react-query";
+import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { useUserContext } from "../providers/userProvider";
 
@@ -17,6 +18,14 @@ function Recipes() {
             }),
         enabled: Boolean(user)
     });
+    const { data: dataCount } = useQuery({
+        queryKey: ["recipeCount"],
+        queryFn: ({ signal }) =>
+            getRecipesTotalCount({
+                signal
+            }),
+        staleTime: 1000 * 60 * 60 // 1 hour,
+    });
 
     return (
         <div className="container">
@@ -30,7 +39,7 @@ function Recipes() {
                         );
                     })}
             </div>
-            <Pagination pageSize={6} total={12} />
+            <Pagination total={dataCount?.details?.recipeTotalCount} />
         </div>
     );
 }
