@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 export function usePagination() {
-    const [page, setPage] = useState(1);
+    const [pagination, setPagination] = useState({
+        page: 1,
+        cursor: "",
+        limit: 6,
+        sortBy: "updatedAt",
+        order: -1
+    });
 
-    function handlePagination(page) {
-        setPage(page);
-    }
-
-    return { page, handlePagination };
+    return { pagination, setPagination };
 }
