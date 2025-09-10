@@ -4,8 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useUserContext } from "../providers/userProvider";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { useArchiveFetcher } from "../hooks/useArchiveFetcher";
+import { usePagination } from "../hooks/usePagination";
+import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
 
 function Archives() {
+    const { pagination, setPagination } = usePagination();
     const { user } = useUserContext();
     const { fetcher } = useArchiveFetcher();
     const { data } = useQuery({
@@ -16,15 +19,37 @@ function Archives() {
                 author: {
                     userId: user?.id
                 },
-                isArchive: true
+                isArchive: true,
+                pagination
             }),
         enabled: Boolean(user)
     });
+
+    const { data: dataCount } = useQuery({
+        queryKey: ["recipes", "count"],
+        queryFn: ({ signal }) =>
+            getRecipesTotalCount({
+                signal,
+                author: {
+                    userId: user?.id
+                },
+                isArchive: true
+            })
+    });
+
+    function handlePagination(page) {
+        setPagination((prev) => ({
+            ...prev,
+            page,
+            cursor: data?.details?.recipes[0].updatedAt
+        }));
+    }
+
     return (
         <div className="container">
             <div className="row">
-                {data?.data?.recipes &&
-                    data?.data?.recipes.map((recipe) => {
+                {data?.details?.recipes &&
+                    data?.details?.recipes.map((recipe) => {
                         return (
                             <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
                                 <Recipe recipe={recipe} isArchived fetcher={fetcher} />
@@ -32,7 +57,7 @@ function Archives() {
                         );
                     })}
             </div>
-            <Pagination pageSize={6} total={12} />
+            <Pagination onChange={handlePagination} currentPage={pagination.page} total={dataCount?.details?.recipeTotalCount} />
         </div>
     );
 }
