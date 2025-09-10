@@ -9,7 +9,7 @@ function Archives() {
     const { user } = useUserContext();
     const { fetcher } = useArchiveFetcher();
     const { data } = useQuery({
-        queryKey: ["archives"],
+        queryKey: ["recipes", "archives"],
         queryFn: ({ signal }) =>
             getOwnRecipes({
                 signal,
