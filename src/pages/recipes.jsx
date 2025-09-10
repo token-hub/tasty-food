@@ -3,26 +3,39 @@ import Pagination from "../components/main/pagination";
 import { useQuery } from "@tanstack/react-query";
 import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
+import { getRecipes } from "../queries/getRecipes";
 import { useUserContext } from "../providers/userProvider";
+import { useLocation } from "react-router";
 
 function Recipes() {
+    const { pathname } = useLocation();
     const { user } = useUserContext();
+    const isOwnRecipesPage = pathname.includes("recipes");
+    const queryKey = isOwnRecipesPage ? "ownRecipes" : "recipes";
+    const queryFn = isOwnRecipesPage ? getOwnRecipes : getRecipes;
+    const option = isOwnRecipesPage
+        ? {
+              author: {
+                  userId: user?.id
+              }
+          }
+        : null;
+
     const { data } = useQuery({
-        queryKey: ["ownRecipes"],
+        queryKey: [queryKey],
         queryFn: ({ signal }) =>
-            getOwnRecipes({
+            queryFn({
                 signal,
-                author: {
-                    userId: user?.id
-                }
+                ...option
             }),
-        enabled: Boolean(user)
+        enabled: user ? Boolean(user) : true
     });
     const { data: dataCount } = useQuery({
         queryKey: ["recipeCount"],
         queryFn: ({ signal }) =>
             getRecipesTotalCount({
-                signal
+                signal,
+                ...option
             }),
         staleTime: 1000 * 60 * 60 // 1 hour,
     });
