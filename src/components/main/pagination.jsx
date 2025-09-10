@@ -3,7 +3,7 @@ import LeftCaretIcon from "../../assets/icons/leftCaretIcon";
 import RightCaretIcon from "../../assets/icons/rightCaretIcon";
 import { useState } from "react";
 
-function Pagination({ pageSize = 6, total = 6, currentPage = 1 }) {
+function Pagination({ pageSize = 6, total = 6, currentPage = 1, onChange }) {
     const [makeFirstPageHidden, setMakeFirstPageHidden] = useState(false);
     const [makeLastPageHidden, setMakeLastPageHidden] = useState(true);
     const lastPage = Math.ceil(total / pageSize);
@@ -13,6 +13,7 @@ function Pagination({ pageSize = 6, total = 6, currentPage = 1 }) {
             <RcPagination
                 pageSize={pageSize}
                 total={total}
+                onChange={onChange}
                 currentPage={currentPage}
                 hideOnSinglePage={true}
                 className="pagination"
