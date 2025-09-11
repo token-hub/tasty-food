@@ -98,12 +98,17 @@ function RecipeHeaders({ recipe }) {
                             {recipe?.author?.name}
                         </span>
                     </p>
-                    <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleOpenChat}>
-                        <ChatIcon className="mt-n1 text-secondary" />
-                    </button>
-                    <button type="button" className="btn border-0 p-0 d-block d-md-none" onClick={handleOpenMobileChatSlide}>
-                        <ChatIcon className="mt-n1 text-secondary" />
-                    </button>
+
+                    {!isAuthor && (
+                        <>
+                            <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleOpenChat}>
+                                <ChatIcon className="mt-n1 text-secondary" />
+                            </button>
+                            <button type="button" className="btn border-0 p-0 d-block d-md-none" onClick={handleOpenMobileChatSlide}>
+                                <ChatIcon className="mt-n1 text-secondary" />
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         </div>
