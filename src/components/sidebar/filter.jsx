@@ -4,13 +4,13 @@ import { useRecipeFilterContext } from "../../providers/recipeFilterProvider";
 
 function Filter() {
     const categories = Object.values(RECIPE_CATEGORIES);
-    const { filter, handlefilter } = useRecipeFilterContext();
+    const { filters, handlefilter } = useRecipeFilterContext();
 
     function handleChange(e) {
         const id = e.target.id;
         handlefilter(id);
     }
-    console.log(filter);
+
     return (
         <aside className="d-none d-md-block">
             <div className="d-flex align-items-center py-2">
@@ -24,7 +24,7 @@ function Filter() {
                         type="checkbox"
                         defaultValue=""
                         id={category}
-                        checked={filter.includes(category) ? true : false}
+                        checked={filters.includes(category) ? true : false}
                         onChange={handleChange}
                     />
                     <label className="form-check-label fs-7 text-capitalize" htmlFor="checkDefault">
