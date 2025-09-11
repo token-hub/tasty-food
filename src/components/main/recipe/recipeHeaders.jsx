@@ -84,13 +84,10 @@ function RecipeHeaders({ recipe }) {
                 </p>
                 <div className="timers my-2">
                     <p className="m-0 me-2">
-                        <span className="fw-bold">Prep: </span> 25 minutes
+                        <span className="fw-bold">Prep: </span> {recipe?.prepTime.hours} hour/s {recipe?.prepTime.minutes} minutes
                     </p>
                     <p className="m-0 me-2">
-                        <span className="fw-bold">Cook: </span> 35 minutes
-                    </p>
-                    <p className="m-0">
-                        <span className="fw-bold">Total: </span> 1 hour
+                        <span className="fw-bold">Cook: </span> {recipe?.cookTime.hours} hour/s {recipe?.cookTime.minutes} minutes
                     </p>
                 </div>
 
