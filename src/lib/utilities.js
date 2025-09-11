@@ -73,7 +73,7 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
             if (redirectTo) {
                 return redirect(redirectTo);
             }
-            return responseData({ result: data?.data }, { status: 200 });
+            return responseData({ result: data?.details }, { status: 200 });
         } else {
             return responseData(
                 {
