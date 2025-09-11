@@ -44,7 +44,7 @@ const router = createBrowserRouter([
                                 path: "recipes",
                                 children: [
                                     { index: true, Component: Recipes },
-                                    { path: ":recipe", Component: Recipe }
+                                    { path: ":recipeId", Component: Recipe }
                                 ]
                             }
                         ]
