@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
 
 const RecipeFilterContext = createContext({
-    filter: [],
-    setFilterRecipe: () => {}
+    filters: [],
+    handlefilter: () => {}
 });
 
 export function useRecipeFilterContext() {
@@ -10,23 +10,23 @@ export function useRecipeFilterContext() {
 }
 
 function RecipeFilterProvider({ children }) {
-    const [filter, setFilterRecipe] = useState([]);
+    const [filters, setFilterRecipe] = useState([]);
 
     function handlefilter(filter) {
         setFilterRecipe((prev) => {
-            let filters = [...prev];
+            let newfilters = [...prev];
             const isExist = prev.some((p) => p == filter);
             if (isExist) {
-                filters = filters.filter((f) => f != filter);
+                newfilters = newfilters.filter((f) => f != filter);
             } else {
-                filters.push(filter);
+                newfilters.push(filter);
             }
-            return filters;
+            return newfilters;
         });
     }
 
     const values = {
-        filter,
+        filters,
         handlefilter
     };
 
