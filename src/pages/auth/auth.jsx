@@ -25,7 +25,7 @@ function Auth() {
         }
 
         if (data?.result) {
-            let name = data?.result?.details?.user?.name;
+            let name = data?.result?.user?.name;
             if (name) {
                 name = name[0].toUpperCase() + name.slice(1);
             }
