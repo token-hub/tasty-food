@@ -51,7 +51,12 @@ function RecipeHeaders({ recipe }) {
             action: "/me/recipes/create"
         });
     }
-    console.log(fetcher.data);
+
+    function handleUserRecipes() {
+        const linkPreFix = isAuthor ? "me" : recipe?.author?.name;
+        navigate(`/${linkPreFix}/recipes`, { state: { authorId: recipe?.author?.userId } });
+    }
+
     return (
         <div className="row">
             <div className="col-lg-3">
@@ -90,8 +95,11 @@ function RecipeHeaders({ recipe }) {
                 </div>
 
                 <div className="d-flex align-items-center">
-                    <p className="me-1 m-0">
-                        <span className="fw-bold">Author:</span> John Doe
+                    <p className="me-2 m-0 text-capitalize">
+                        <span className="fw-bold ">Author:</span>
+                        <span className="border-bottom border-primary ms-1" role="button" onClick={handleUserRecipes}>
+                            {recipe?.author?.name}
+                        </span>
                     </p>
                     <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleOpenChat}>
                         <ChatIcon className="mt-n1 text-secondary" />
