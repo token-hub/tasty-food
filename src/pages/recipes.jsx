@@ -7,24 +7,39 @@ import { getRecipes } from "../queries/getRecipes";
 import { useUserContext } from "../providers/userProvider";
 import { useLocation } from "react-router";
 import { usePagination } from "../hooks/usePagination";
+import { useRecipeFilterContext } from "../providers/recipeFilterProvider";
 
 function Recipes() {
     const { pagination, setPagination } = usePagination();
+    const { filters } = useRecipeFilterContext();
     const { pathname, state } = useLocation();
+    const isHomePage = pathname === "/";
     const { user } = useUserContext();
     const isOtherUsersPage = state?.authorId;
     const isOwnRecipesPage = pathname.includes("recipes");
-    const queryKey = isOwnRecipesPage ? "own" : "";
+    const parentKey = "recipes";
+    const secondaryKey = isOwnRecipesPage ? "own" : "all";
+    const recipeQueryKey = [parentKey, secondaryKey, pagination.page];
+    const recipeCountQueryKey = [parentKey, "count"];
     const queryFn = isOwnRecipesPage || isOtherUsersPage ? getOwnRecipes : getRecipes;
     const option = { pagination };
+
     if (isOwnRecipesPage || isOtherUsersPage) {
         option.author = {
             userId: state?.authorId ?? user?.id
         };
     }
 
+    if (isHomePage && filters.length) {
+        recipeQueryKey.push(filters.join(","));
+        recipeCountQueryKey.push(filters.join(","));
+        option.filters = {
+            categories: filters
+        };
+    }
+
     const { data } = useQuery({
-        queryKey: ["recipes", queryKey, pagination.page],
+        queryKey: recipeQueryKey,
         queryFn: ({ signal }) =>
             queryFn({
                 signal,
@@ -33,7 +48,7 @@ function Recipes() {
         enabled: user ? Boolean(user) : true
     });
     const { data: dataCount } = useQuery({
-        queryKey: ["recipes", "count"],
+        queryKey: recipeCountQueryKey,
         queryFn: ({ signal }) =>
             getRecipesTotalCount({
                 signal,
