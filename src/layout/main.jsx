@@ -9,9 +9,7 @@ function Main({ children }) {
     let currentHeader = getMainHeaderText(pathname);
     let button;
 
-    const path = pathname.split("/");
-    const lastPart = path[path.length - 1];
-    if (lastPart === PATHS.myRecipes.name) {
+    if (pathname.includes("me/recipes")) {
         button = <RecipeAddButton />;
     }
 
