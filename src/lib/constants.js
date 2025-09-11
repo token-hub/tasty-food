@@ -38,7 +38,7 @@ export const RECIPE_CATEGORIES = {
 export const PATHS = {
     password: { name: "password", toDisplay: "Password" },
     profile: { name: "profile", toDisplay: "Profile" },
-    myRecipes: { name: "recipes", toDisplay: "My Recipes" },
+    myRecipes: { name: "recipes", toDisplay: "Recipes" },
     archives: { name: "archives", toDisplay: "Archives" }
 };
 

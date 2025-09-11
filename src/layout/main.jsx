@@ -1,7 +1,6 @@
 import { useLocation } from "react-router";
 import MainHeader from "../components/main/mainHeader";
 import { getMainHeaderText } from "../lib/utilities";
-import { PATHS } from "../lib/constants";
 import RecipeAddButton from "../components/main/recipe/recipeAddButton";
 
 function Main({ children }) {
