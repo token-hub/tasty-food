@@ -10,15 +10,16 @@ import { usePagination } from "../hooks/usePagination";
 
 function Recipes() {
     const { pagination, setPagination } = usePagination();
-    const { pathname } = useLocation();
+    const { pathname, state } = useLocation();
     const { user } = useUserContext();
+    const isOtherUsersPage = state?.authorId;
     const isOwnRecipesPage = pathname.includes("recipes");
     const queryKey = isOwnRecipesPage ? "own" : "";
-    const queryFn = isOwnRecipesPage ? getOwnRecipes : getRecipes;
+    const queryFn = isOwnRecipesPage || isOtherUsersPage ? getOwnRecipes : getRecipes;
     const option = { pagination };
-    if (isOwnRecipesPage) {
+    if (isOwnRecipesPage || isOtherUsersPage) {
         option.author = {
-            userId: user?.id
+            userId: state?.authorId ?? user?.id
         };
     }
 
