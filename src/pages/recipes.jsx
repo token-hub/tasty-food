@@ -1,60 +1,11 @@
 import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
-import { useQuery } from "@tanstack/react-query";
-import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
-import { getOwnRecipes } from "../queries/getOwnRecipes";
-import { getRecipes } from "../queries/getRecipes";
-import { useUserContext } from "../providers/userProvider";
-import { useLocation } from "react-router";
 import { usePagination } from "../hooks/usePagination";
-import { useRecipeFilterContext } from "../providers/recipeFilterProvider";
+import { useRecipes } from "../hooks/useRecipes";
 
 function Recipes() {
     const { pagination, setPagination } = usePagination();
-    const { filters } = useRecipeFilterContext();
-    const { pathname, state } = useLocation();
-    const isHomePage = pathname === "/";
-    const { user } = useUserContext();
-    const isOtherUsersPage = state?.authorId;
-    const isOwnRecipesPage = pathname.includes("recipes");
-    const parentKey = "recipes";
-    const secondaryKey = isOwnRecipesPage ? "own" : "all";
-    const recipeQueryKey = [parentKey, secondaryKey, pagination.page];
-    const recipeCountQueryKey = [parentKey, "count"];
-    const queryFn = isOwnRecipesPage || isOtherUsersPage ? getOwnRecipes : getRecipes;
-    const option = { pagination };
-
-    if (isOwnRecipesPage || isOtherUsersPage) {
-        option.author = {
-            userId: state?.authorId ?? user?.id
-        };
-    }
-
-    if (isHomePage && filters.length) {
-        recipeQueryKey.push(filters.join(","));
-        recipeCountQueryKey.push(filters.join(","));
-        option.filters = {
-            categories: filters
-        };
-    }
-
-    const { data } = useQuery({
-        queryKey: recipeQueryKey,
-        queryFn: ({ signal }) =>
-            queryFn({
-                signal,
-                ...option
-            }),
-        enabled: user ? Boolean(user) : true
-    });
-    const { data: dataCount } = useQuery({
-        queryKey: recipeCountQueryKey,
-        queryFn: ({ signal }) =>
-            getRecipesTotalCount({
-                signal,
-                ...option
-            })
-    });
+    const { data, dataCount } = useRecipes(pagination);
 
     function handlePagination(page) {
         setPagination((prev) => ({
