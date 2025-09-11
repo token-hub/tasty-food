@@ -10,7 +10,7 @@ import router from "./router.js";
 import { queryClient } from "./lib/queryClient.js";
 import { QueryClientProvider } from "@tanstack/react-query";
 import SlideProvider from "./providers/slideProvider";
-import RecipeProvider from "./providers/recipeProvider";
+import RecipeProvider from "./providers/recipeFilterProvider.jsx";
 import ChatProvider from "./providers/chatProvider";
 import ModalProvider from "./providers/modalProvider";
 import ToastProvider from "./providers/toastProvider";
