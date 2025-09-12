@@ -1,6 +1,6 @@
 import { SERVER_API_URL } from "../lib/constants";
 
-export async function getRecipes({ signal, pagination = {}, filters = { categories: [] } }) {
+export async function getRecipes({ signal, pagination = {}, filters = { categories: [] }, query = "" }) {
     const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
         method: "POST",
         headers: {
@@ -10,7 +10,8 @@ export async function getRecipes({ signal, pagination = {}, filters = { categori
         credentials: "include",
         body: JSON.stringify({
             pagination,
-            filters
+            filters,
+            query
         })
     });
 

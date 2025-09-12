@@ -1,12 +1,15 @@
 import { SERVER_API_URL } from "../lib/constants";
 
-export async function getRecipesTotalCount({ signal, author, isArchive = false, filters = { categories: [] } }) {
-    let query = `?isArchive=${isArchive}&filters=${JSON.stringify(filters.categories)}`;
+export async function getRecipesTotalCount({ signal, author, isArchive = false, filters = { categories: [] }, query = "" }) {
+    let queries = `?isArchive=${isArchive}&filters=${JSON.stringify(filters.categories)}`;
     if (author?.userId) {
-        query += `&authorId=${author.userId}`;
+        queries += `&authorId=${author.userId}`;
+    }
+    if (query) {
+        queries += `&query=${query}`;
     }
 
-    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes/totalCount${query}`, {
+    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes/totalCount${queries}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

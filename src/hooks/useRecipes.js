@@ -7,7 +7,7 @@ import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { getRecipes } from "../queries/getRecipes";
 
 export function useRecipes(pagination) {
-    const { filters } = useRecipeFilterContext();
+    const { filters, query } = useRecipeFilterContext();
     const { pathname, state } = useLocation();
     const { user } = useUserContext();
     const isHomePage = pathname === "/";
@@ -19,6 +19,12 @@ export function useRecipes(pagination) {
     const recipeCountQueryKey = [parentKey, "count"];
     const queryFn = isOwnRecipesPage || isOtherUsersPage ? getOwnRecipes : getRecipes;
     const option = { pagination };
+
+    if (query) {
+        option.query = query;
+        recipeQueryKey.push(query);
+        recipeCountQueryKey.push(query);
+    }
 
     if (isOwnRecipesPage || isOtherUsersPage) {
         option.author = {
