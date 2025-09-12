@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 const RecipeFilterContext = createContext({
     filters: [],
+    query: "",
     handlefilter: () => {}
 });
 
@@ -11,6 +12,7 @@ export function useRecipeFilterContext() {
 
 function RecipeFilterProvider({ children }) {
     const [filters, setFilterRecipe] = useState([]);
+    const [query, setQuery] = useState("");
 
     function handlefilter(filter) {
         setFilterRecipe((prev) => {
@@ -26,6 +28,8 @@ function RecipeFilterProvider({ children }) {
     }
 
     const values = {
+        query,
+        setQuery,
         filters,
         handlefilter
     };
