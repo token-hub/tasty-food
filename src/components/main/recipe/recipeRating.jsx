@@ -3,6 +3,7 @@ import LikeFillIcon from "../../../assets/icons/likeFillIcon";
 import LikeIcon from "../../../assets/icons/likeIcon";
 import { Rating } from "react-simple-star-rating";
 import { currentUser } from "../../../lib/constants";
+import dayjs from "dayjs";
 
 function RecipeRating({ rating }) {
     const isLiked = rating.likes.includes(currentUser.id);
@@ -18,7 +19,7 @@ function RecipeRating({ rating }) {
             <div className="col-9 col-md-9 col-lg-8 p-0">
                 <div className="d-flex flex-column h-100">
                     <p className="fs-7 text-dark mb-0">{rating.rater.name}</p>
-                    <p className="fs-7 text-muted mb-0">{rating.createdAt}</p>
+                    <p className="fs-7 text-muted mb-0">{dayjs(rating.createdAt).format("YYYY-MM-DD HH:mm")}</p>
                     <Rating className="text-primary" readonly initialValue={rating.rating} />
                     <p className="fs-7 text-muted mb-0">{rating.comment}</p>
                     <div className="d-flex align-items-center mt-2">

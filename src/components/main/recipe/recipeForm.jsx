@@ -8,6 +8,7 @@ import { useUserContext } from "../../../providers/userProvider";
 import { objectToFormData } from "../../../lib/utilities";
 import { useCreateRating } from "../../../hooks/useCreateRating";
 import { useGetRating } from "../../../hooks/useGetRating";
+import dayjs from "dayjs";
 
 function RecipeForm() {
     const { recipeId } = useParams();
@@ -54,7 +55,7 @@ function RecipeForm() {
                     )}
                 </label>
                 <Rating readonly={disabled} onClick={(rate) => handleRating("rate", rate)} initialValue={rating ? rating.rate : 0} />
-                <p className="m-0 text-muted fs-7 ms-2">{rating ? rating.createdAt : null}</p>
+                <p className="m-0 text-muted fs-7 ms-2">{rating ? dayjs(rating.createdAt).format("YYYY-MM-DD HH:mm") : null}</p>
             </div>
             <div className="form-floating">
                 <textarea
