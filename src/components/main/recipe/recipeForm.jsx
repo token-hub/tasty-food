@@ -7,35 +7,16 @@ import { useParams } from "react-router";
 import { useUserContext } from "../../../providers/userProvider";
 import { objectToFormData } from "../../../lib/utilities";
 import { useCreateRating } from "../../../hooks/useCreateRating";
-import { useQuery } from "@tanstack/react-query";
-import { getRating } from "../../../queries/getRating";
+import { useGetRating } from "../../../hooks/useGetRating";
 
-const defaultRating = {
-    recipeId: "",
-    comment: "",
-    rate: 0,
-    rater: {
-        raterId: "",
-        name: ""
-    },
-    likes: []
-};
 function RecipeForm() {
     const { recipeId } = useParams();
     const { fetcher } = useCreateRating();
     const { user } = useUserContext();
-
-    const { data } = useQuery({
-        queryKey: ["rating"],
-        queryFn: ({ signal }) => getRating({ signal, recipeId, userId: user.id }),
-        enabled: Boolean(recipeId && recipeId)
-    });
-
-    const [rating, setRating] = useState(data?.details ?? defaultRating);
+    const { rating, setRating, isLoading } = useGetRating(recipeId, user?.id);
     const [isEditting, setIsEditting] = useState(false);
-    const isLoading = false;
 
-    const userHasData = !isLoading && data?.details;
+    const userHasData = !isLoading && rating?._id;
     const disabled = userHasData && !isEditting;
 
     function handleRating(name, value) {
