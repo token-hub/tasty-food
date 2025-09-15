@@ -69,14 +69,12 @@ function RecipeForm() {
             </div>
 
             <div className="d-flex align-items-center mt-2">
-                {rating ? (
-                    <button disabled className="btn d-flex align-items-center p-0 border-0 ms-2">
-                        <div className="d-flex">
-                            <LikeFillIcon className="text-primary" />
-                            <span className="text-muted fs-7 ms-1">{rating?.likes?.length || 0}</span>
-                        </div>
-                    </button>
-                ) : null}
+                <button disabled className="btn d-flex align-items-center p-0 border-0 ms-2">
+                    <div className="d-flex">
+                        <LikeFillIcon className="text-primary" />
+                        <span className="text-muted fs-7 ms-1">{rating?.likes?.length || 0}</span>
+                    </div>
+                </button>
 
                 {!disabled && (
                     <button type="submit" className="btn btn-primary text-white mt-3 ms-auto">
