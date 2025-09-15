@@ -7,6 +7,8 @@ import { useParams } from "react-router";
 import { useUserContext } from "../../../providers/userProvider";
 import { objectToFormData } from "../../../lib/utilities";
 import { useCreateRating } from "../../../hooks/useCreateRating";
+import { useQuery } from "@tanstack/react-query";
+import { getRating } from "../../../queries/getRating";
 
 const defaultRating = {
     recipeId: "",
@@ -15,22 +17,25 @@ const defaultRating = {
     rater: {
         raterId: "",
         name: ""
-    }
+    },
+    likes: []
 };
 function RecipeForm() {
     const { recipeId } = useParams();
     const { fetcher } = useCreateRating();
     const { user } = useUserContext();
 
-    // this is only temporary,
-    // the current user own rating will be fetch separately from the recipe rating itself
-    // const [rating, setRating] = useState(currentUser.rating);
-    const [rating, setRating] = useState(defaultRating);
+    const { data } = useQuery({
+        queryKey: ["rating"],
+        queryFn: ({ signal }) => getRating({ signal, recipeId, userId: user.id }),
+        enabled: Boolean(recipeId && recipeId)
+    });
+
+    const [rating, setRating] = useState(data?.details ?? defaultRating);
     const [isEditting, setIsEditting] = useState(false);
     const isLoading = false;
-    const data = false;
 
-    const userHasData = !isLoading && data;
+    const userHasData = !isLoading && data?.details;
     const disabled = userHasData && !isEditting;
 
     function handleRating(name, value) {
@@ -67,7 +72,7 @@ function RecipeForm() {
                         </button>
                     )}
                 </label>
-                <Rating readonly={disabled} onClick={(rate) => handleRating("rate", rate)} initialValue={rating ? rating.rating : 0} />
+                <Rating readonly={disabled} onClick={(rate) => handleRating("rate", rate)} initialValue={rating ? rating.rate : 0} />
                 <p className="m-0 text-muted fs-7 ms-2">{rating ? rating.createdAt : null}</p>
             </div>
             <div className="form-floating">
