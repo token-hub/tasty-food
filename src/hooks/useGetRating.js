@@ -21,10 +21,10 @@ export function useGetRating(recipeId, userId) {
     });
 
     useEffect(() => {
-        if (!rating?._id && !isLoading && data) {
+        if (!isLoading && data) {
             setRating(data?.details);
         }
-    }, [data, isLoading, rating]);
+    }, [data, isLoading]);
 
     return { rating, setRating, isLoading };
 }
