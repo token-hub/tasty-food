@@ -8,7 +8,7 @@ import { getRatingsTotalCount } from "../../../queries/getRatingsTotalCount";
 function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const { user } = useUserContext();
     const isNotTheAuthor = user?.id !== recipeAuthorId;
-    const { data: { details: { count } = {} } = {} } = useQuery({
+    const { data: { details: count = {} } = {} } = useQuery({
         queryKey: ["rating", "count"],
         queryFn: ({ signal }) => getRatingsTotalCount({ signal, recipeId: recipe?._id }),
         enabled: Boolean(recipe?._id),
