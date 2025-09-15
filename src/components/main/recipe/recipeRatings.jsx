@@ -2,10 +2,18 @@ import RecipeRating from "./recipeRating";
 import RecipeForm from "./recipeForm";
 import Pagination from "../pagination";
 import { useUserContext } from "../../../providers/userProvider";
+import { useQuery } from "@tanstack/react-query";
+import { getRatingsTotalCount } from "../../../queries/getRatingsTotalCount";
 
-function RecipeRatings({ ratings, recipeAuthorId }) {
+function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const { user } = useUserContext();
     const isNotTheAuthor = user?.id !== recipeAuthorId;
+    const { data: { details: { count } = {} } = {} } = useQuery({
+        queryKey: ["rating", "count"],
+        queryFn: ({ signal }) => getRatingsTotalCount({ signal, recipeId: recipe?._id }),
+        enabled: Boolean(recipe?._id)
+    });
+
     return (
         <div className="container">
             {isNotTheAuthor && (
@@ -24,7 +32,7 @@ function RecipeRatings({ ratings, recipeAuthorId }) {
             )}
 
             <div className="mt-3">
-                <Pagination pageSize={5} total={10} />
+                <Pagination total={count} />
             </div>
         </div>
     );
