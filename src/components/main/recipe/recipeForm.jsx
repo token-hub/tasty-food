@@ -70,7 +70,7 @@ function RecipeForm() {
 
             <div className="d-flex align-items-center mt-2">
                 {rating ? (
-                    <button className="btn d-flex align-items-center p-0 border-0 ms-2">
+                    <button disabled className="btn d-flex align-items-center p-0 border-0 ms-2">
                         <div className="d-flex">
                             <LikeFillIcon className="text-primary" />
                             <span className="text-muted fs-7 ms-1">{rating?.likes?.length || 0}</span>
