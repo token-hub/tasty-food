@@ -4,46 +4,75 @@ import LikeFillIcon from "../../../assets/icons/likeFillIcon";
 import XIcon from "../../../assets/icons/xIcon";
 import { currentUser } from "../../../lib/constants";
 import { useState } from "react";
+import { useParams } from "react-router";
+import { useUserContext } from "../../../providers/userProvider";
 
+const defaultRating = {
+    recipeId: "",
+    comment: "",
+    rate: 0,
+    rater: {
+        raterId: "",
+        name: ""
+    }
+};
 function RecipeForm() {
+    const { recipeId } = useParams();
+    const { user } = useUserContext();
     // this is only temporary,
     // the current user own rating will be fetch separately from the recipe rating itself
     // const [rating, setRating] = useState(currentUser.rating);
-    const [rating, setRating] = useState();
+    const [rating, setRating] = useState(defaultRating);
     const [isEditting, setIsEditting] = useState(false);
+    const isLoading = false;
+    const data = false;
 
-    const showSubmitBtn = !rating || isEditting;
-    const isDisabled = !isEditting && rating;
+    const userHasData = !isLoading && data;
+    const disabled = userHasData && !isEditting;
 
-    function handleRating() {
-        // do something here
+    function handleRating(name, value) {
+        setRating((prev) => ({ ...prev, [name]: value }));
     }
 
     function handleEdit() {
         setIsEditting(!isEditting);
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        const newRating = {
+            ...rating,
+            recipeId,
+            rater: {
+                raterId: user.id,
+                name: user.name
+            }
+        };
+        console.log(newRating);
+    }
+
     return (
-        <form className="mt-4">
+        <form className="mt-4" onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label htmlFor="rating" className="form-label w-100 d-flex m-0">
                     <span className="flex-grow-1">Your rating for this recipe:</span>
-                    {rating && (
+                    {userHasData && (
                         <button type="button" onClick={handleEdit} className="btn p-1 mb-1 text-primary border-0 ms-auto">
                             {!isEditting ? <EditIcon /> : <XIcon />}
                         </button>
                     )}
                 </label>
-                <Rating readonly={isDisabled} onClick={handleRating} initialValue={rating ? rating.rating : 0} />
+                <Rating readonly={disabled} onClick={(rate) => handleRating("rate", rate)} initialValue={rating ? rating.rating : 0} />
                 <p className="m-0 text-muted fs-7 ms-2">{rating ? rating.createdAt : null}</p>
             </div>
             <div className="form-floating">
                 <textarea
-                    className={`form-control ${isDisabled ? "" : "bg-light"}`}
+                    className={`form-control ${disabled ? "" : "bg-light"}`}
                     placeholder="Leave a comment here ..."
                     id="floatingTextarea2"
                     style={{ height: 100 }}
-                    disabled={isDisabled}
+                    disabled={disabled}
+                    onChange={(e) => handleRating("comment", e.target.value)}
                     defaultValue={rating ? rating.comment : ""}
                 />
             </div>
@@ -53,12 +82,12 @@ function RecipeForm() {
                     <button className="btn d-flex align-items-center p-0 border-0 ms-2">
                         <div className="d-flex">
                             <LikeFillIcon className="text-primary" />
-                            <span className="text-muted fs-7 ms-1">{rating.likes.length}</span>
+                            <span className="text-muted fs-7 ms-1">{rating?.likes?.length || 0}</span>
                         </div>
                     </button>
                 ) : null}
 
-                {showSubmitBtn && (
+                {!disabled && (
                     <button type="submit" className="btn btn-primary text-white mt-3 ms-auto">
                         Submit
                     </button>
