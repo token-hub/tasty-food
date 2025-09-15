@@ -25,6 +25,7 @@ import { resetPasswordAction } from "./actions/resetPassword";
 import { updatePasswordAction } from "./actions/updatePassword";
 import { updateUserAction } from "./actions/updateUser";
 import { createRecipeAction } from "./actions/createRecipe";
+import { createRecipeRatingAction } from "./actions/createRecipeRating";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
                                 path: "recipes",
                                 children: [
                                     { index: true, Component: Recipes },
-                                    { path: ":recipeId", Component: Recipe }
+                                    { path: ":recipeId", Component: Recipe, action: createRecipeRatingAction }
                                 ]
                             }
                         ]
