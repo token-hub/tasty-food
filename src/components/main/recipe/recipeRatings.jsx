@@ -11,7 +11,8 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const { data: { details: { count } = {} } = {} } = useQuery({
         queryKey: ["rating", "count"],
         queryFn: ({ signal }) => getRatingsTotalCount({ signal, recipeId: recipe?._id }),
-        enabled: Boolean(recipe?._id)
+        enabled: Boolean(recipe?._id),
+        staleTime: 1000 * 60 * 30
     });
 
     return (
