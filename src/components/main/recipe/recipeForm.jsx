@@ -2,11 +2,11 @@ import { Rating } from "react-simple-star-rating";
 import EditIcon from "../../../assets/icons/editIcon";
 import LikeFillIcon from "../../../assets/icons/likeFillIcon";
 import XIcon from "../../../assets/icons/xIcon";
-import { useEffect, useState } from "react";
-import { useFetcher, useNavigate, useParams } from "react-router";
+import { useState } from "react";
+import { useParams } from "react-router";
 import { useUserContext } from "../../../providers/userProvider";
 import { objectToFormData } from "../../../lib/utilities";
-import { useToastContext } from "../../../providers/toastProvider";
+import { useCreateRating } from "../../../hooks/useCreateRating";
 
 const defaultRating = {
     recipeId: "",
@@ -19,20 +19,8 @@ const defaultRating = {
 };
 function RecipeForm() {
     const { recipeId } = useParams();
+    const { fetcher } = useCreateRating();
     const { user } = useUserContext();
-    const navigate = useNavigate();
-    const { createToast } = useToastContext();
-    const fetcher = useFetcher();
-
-    useEffect(() => {
-        if (fetcher?.data?.error) {
-            createToast({ headerText: "Server Error", bodyText: fetcher?.data?.error, isSuccess: false });
-        }
-
-        if (fetcher.data?.result) {
-            createToast({ headerText: "Recipe rating created", bodyText: "You have successfull submitted a rating" });
-        }
-    }, [fetcher, createToast, navigate]);
 
     // this is only temporary,
     // the current user own rating will be fetch separately from the recipe rating itself
@@ -63,13 +51,11 @@ function RecipeForm() {
                 name: user.name
             }
         };
-        console.log(newRating);
 
         fetcher.submit(objectToFormData(newRating), { action: "/:author/recipes/:recipeId", method: "POST" });
         setIsEditting();
     }
 
-    console.log(fetcher.data);
     return (
         <form className="mt-4" onSubmit={handleSubmit}>
             <div className="mb-3">
