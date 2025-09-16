@@ -24,8 +24,14 @@ function RecipeRating({ rating }) {
                     <p className="fs-7 text-muted mb-0">{rating.comment}</p>
                     <div className="d-flex align-items-center mt-2">
                         <button className="btn d-flex align-items-center p-0 border-0">
-                            {isLiked ? <LikeFillIcon className="text-primary" /> : <LikeIcon />}
-                            <p className="fs-7 text-muted mb-0 ms-1">Helpful ?</p>
+                            {isLiked ? (
+                                <LikeFillIcon className="text-primary" />
+                            ) : (
+                                <div className="d-flex">
+                                    <LikeIcon />
+                                    <p className="fs-7 text-muted mb-0 ms-1">Helpful ?</p>
+                                </div>
+                            )}
                         </button>
                     </div>
                 </div>
