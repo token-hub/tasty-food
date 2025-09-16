@@ -4,16 +4,32 @@ import Pagination from "../pagination";
 import { useUserContext } from "../../../providers/userProvider";
 import { useQuery } from "@tanstack/react-query";
 import { getRatingsTotalCount } from "../../../queries/getRatingsTotalCount";
+import { getRatings } from "../../../queries/getRatings";
+import { usePagination } from "../../../hooks/usePagination";
 
 function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const { user } = useUserContext();
+    const { pagination, setPagination } = usePagination();
     const isNotTheAuthor = user?.id !== recipeAuthorId;
-    const { data: { details: count = {} } = {} } = useQuery({
-        queryKey: ["rating", "count"],
-        queryFn: ({ signal }) => getRatingsTotalCount({ signal, recipeId: recipe?._id }),
-        enabled: Boolean(recipe?._id),
-        staleTime: 1000 * 60 * 30
-    });
+
+    function handlePagination(page) {
+        let cursor = ratings[0].updatedAt;
+        const isFirstPageGoingSecond = pagination.page === 1 && page === 2;
+
+        if (!isFirstPageGoingSecond) {
+            cursor = nextRatings?.ratings[0].updatedAt;
+        }
+
+        setPagination((prev) => ({
+            ...prev,
+            page,
+            cursor
+        }));
+    }
+
+    const isThereTopFiveRatings = ratings?.length && pagination.page === 1;
+    const isThereNextPageRatings = nextRatings?.ratings?.length && pagination.page > 1;
+    const isNoRatingsFound = !ratings.length || (pagination.page > 1 && !nextRatings?.ratings?.length);
 
     return (
         <div className="container">
@@ -24,16 +40,16 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
                 </>
             )}
 
-            {ratings.length ? (
-                ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)
-            ) : (
+            {isThereTopFiveRatings && ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)}
+            {isThereNextPageRatings && nextRatings?.ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)}
+            {isNoRatingsFound && (
                 <div style={{ height: "15rem" }} className="d-flex w-100 justify-content-center align-items-center text-muted">
                     No ratings found
                 </div>
             )}
 
             <div className="mt-3">
-                <Pagination total={count} />
+                <Pagination onChange={handlePagination} total={count} />
             </div>
         </div>
     );
