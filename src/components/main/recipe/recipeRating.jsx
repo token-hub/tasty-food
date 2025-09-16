@@ -20,7 +20,7 @@ function RecipeRating({ rating }) {
                 <div className="d-flex flex-column h-100">
                     <p className="fs-7 text-dark mb-0">{rating.rater.name}</p>
                     <p className="fs-7 text-muted mb-0">{dayjs(rating.createdAt).format("YYYY-MM-DD HH:mm")}</p>
-                    <Rating className="text-primary" readonly initialValue={rating.rating} />
+                    <Rating className="text-primary" readonly initialValue={rating.rate} />
                     <p className="fs-7 text-muted mb-0">{rating.comment}</p>
                     <div className="d-flex align-items-center mt-2">
                         <button className="btn d-flex align-items-center p-0 border-0">
