@@ -2,16 +2,14 @@ import RecipeRating from "./recipeRating";
 import RecipeForm from "./recipeForm";
 import Pagination from "../pagination";
 import { useUserContext } from "../../../providers/userProvider";
-import { useQuery } from "@tanstack/react-query";
-import { getRatingsTotalCount } from "../../../queries/getRatingsTotalCount";
-import { getRatings } from "../../../queries/getRatings";
 import { usePagination } from "../../../hooks/usePagination";
+import { useGetRatings } from "../../../hooks/useGetRatings";
 
 function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const { user } = useUserContext();
     const { pagination, setPagination } = usePagination();
+    const { count, nextRatings } = useGetRatings(recipe?._id, pagination);
     const isNotTheAuthor = user?.id !== recipeAuthorId;
-
     function handlePagination(page) {
         let cursor = ratings[0].updatedAt;
         const isFirstPageGoingSecond = pagination.page === 1 && page === 2;
@@ -49,7 +47,7 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
             )}
 
             <div className="mt-3">
-                <Pagination onChange={handlePagination} total={count} />
+                <Pagination onChange={handlePagination} currentPage={pagination.page} total={count} />
             </div>
         </div>
     );
