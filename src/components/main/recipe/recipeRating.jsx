@@ -29,7 +29,7 @@ function RecipeRating({ rating }) {
                             ) : (
                                 <div className="d-flex">
                                     <LikeIcon />
-                                    <p className="fs-7 text-muted mb-0 ms-1">Helpful ?</p>
+                                    <p className="fs-7 text-muted mb-0 ms-1">Helpful ??</p>
                                 </div>
                             )}
                         </button>
