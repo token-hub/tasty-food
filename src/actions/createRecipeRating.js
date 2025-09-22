@@ -14,6 +14,7 @@ export async function createRecipeRatingAction({ request }) {
         },
         async () => {
             await queryClient.invalidateQueries({ queryKey: ["recipes", "single"], exact: true });
+            await queryClient.invalidateQueries({ queryKey: ["rating"], exact: true });
         }
     );
 
