@@ -31,7 +31,7 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
 
     return (
         <div className="container">
-            {isNotTheAuthor && (
+            {isNotTheAuthor && user && (
                 <>
                     <hr className="mt-3" />
                     <RecipeForm />
