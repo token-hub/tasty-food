@@ -25,9 +25,9 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
         }));
     }
 
-    const isThereTopFiveRatings = ratings?.length && pagination.page === 1;
-    const isThereNextPageRatings = nextRatings?.ratings?.length && pagination.page > 1;
-    const isNoRatingsFound = !ratings.length || (pagination.page > 1 && !nextRatings?.ratings?.length);
+    const isThereTopFiveRatings = ratings?.length > 0 && pagination.page === 1;
+    const isThereNextPageRatings = nextRatings?.ratings?.length > 0 && pagination.page > 1;
+    const isNoRatingsFound = ratings.length < 1 || (pagination.page > 1 && !nextRatings?.ratings?.length);
 
     return (
         <div className="container">
