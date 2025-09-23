@@ -57,6 +57,30 @@ function RecipeHeaders({ recipe }) {
         navigate(`/${linkPreFix}/recipes`, { state: { authorId: recipe?.author?.userId } });
     }
 
+    function handleChat() {
+        handleOpenChat();
+        fetcher.submit(
+            objectToFormData({
+                recipe: {
+                    recipeId: recipe._id,
+                    name: recipe.name,
+                    imageLink: recipe?.image?.type?.link
+                },
+                participants: [
+                    {
+                        name: user?.name,
+                        userId: user?.id
+                    },
+                    {
+                        name: recipe.author.name,
+                        userId: recipe.author.userId
+                    }
+                ]
+            }),
+            { action: "/:author/recipes/:recipeId/createConversation", method: "POST" }
+        );
+    }
+
     return (
         <div className="row">
             <div className="col-lg-3">
@@ -101,7 +125,7 @@ function RecipeHeaders({ recipe }) {
 
                     {!isAuthor && (
                         <>
-                            <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleOpenChat}>
+                            <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleChat}>
                                 <ChatIcon className="mt-n1 text-secondary" />
                             </button>
                             <button type="button" className="btn border-0 p-0 d-block d-md-none" onClick={handleOpenMobileChatSlide}>
