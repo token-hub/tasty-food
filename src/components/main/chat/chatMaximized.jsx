@@ -5,9 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getConversations } from "../../../queries/getConversations";
 import { useUserContext } from "../../../providers/userProvider";
 import { usePagination } from "../../../hooks/usePagination";
+import { useChatContext } from "../../../providers/chatProvider";
 
 function ChatMaximized({ chatCount, isOpen, onClick }) {
-    let hasSelectedConvo = true;
+    const { selectedConvo, setSelectedConvo } = useChatContext();
     const { user } = useUserContext();
     const { pagination } = usePagination();
 
@@ -32,21 +33,31 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
 
                         {!isLoading &&
                             details.length > 0 &&
-                            details.map(({ _id, participants, updatedAt, messages }) => {
+                            details.map((convo) => {
+                                const { _id, participants, updatedAt, messages } = convo;
                                 const convoWith = participants.find((u) => u.userId != user.id);
-                                const text = messages[0] ?? "...";
+                                const text = messages[0] ? messages[0].message : "...";
                                 const convoCount = messages.filter((m) => !m.isRead).length;
-                                return <ChatConvo name={convoWith.name} date={updatedAt} key={_id} text={text} convoCount={convoCount} />;
+                                return (
+                                    <ChatConvo
+                                        onClick={() => setSelectedConvo(convo)}
+                                        name={convoWith.name}
+                                        date={updatedAt}
+                                        key={_id}
+                                        text={text}
+                                        convoCount={convoCount}
+                                    />
+                                );
                             })}
                     </div>
                     <div className="col-8 h-100 ps-0 ">
-                        {!hasSelectedConvo && (
+                        {!selectedConvo && (
                             <div className="h-100 d-flex flex-column align-items-center justify-content-center bg-gray-light">
                                 <h6 className="fw-bold">Welcome to Recipe Chat</h6>
                                 <h6 className="text-muted">Start a conversations</h6>
                             </div>
                         )}
-                        <ChatMaximizedBody convoWith={"John Doe"} />
+                        <ChatMaximizedBody />
                     </div>
                 </div>
             </div>

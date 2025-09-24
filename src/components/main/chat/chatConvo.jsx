@@ -30,7 +30,7 @@ function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount)
     );
 }
 
-function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
+function ChatConvo({ name, date, text, convoCount = 0, mobileView = false, onClick }) {
     let trimNameLength = mobileView ? 27 : 8;
     let trimTextLength = mobileView ? 35 : 13;
     const convoDate = getDayAndMonthFromDate(date);
@@ -56,7 +56,7 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false }) {
                 {chatConvoContent(...toPass)}
             </div>
             {/* Add change convo click event on large screen */}
-            <div className="d-flex align-items-center p-2 d-none d-sm-flex" role="button">
+            <div className="d-flex align-items-center p-2 d-none d-sm-flex" role="button" onClick={onClick}>
                 {chatConvoContent(...toPass)}
             </div>
         </>

@@ -8,6 +8,7 @@ export function useChatContext() {
 
 function ChatProvider({ children }) {
     const [openChat, setOpenChat] = useState(false);
+    const [selectedConvo, setSelectedConvo] = useState();
 
     function handleOpenChat() {
         setOpenChat(true);
@@ -19,7 +20,9 @@ function ChatProvider({ children }) {
     const values = {
         openChat,
         handleOpenChat,
-        handleCloseChat
+        handleCloseChat,
+        selectedConvo,
+        setSelectedConvo
     };
     return <ChatContext value={values}>{children}</ChatContext>;
 }
