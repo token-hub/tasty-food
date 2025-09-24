@@ -32,6 +32,18 @@ export function getTimeFromDate(date) {
     return date.toLocaleTimeString("en-us", { hour: "2-digit", minute: "2-digit" });
 }
 
+export function getFormattedDate(date) {
+    if (!date) return;
+
+    return date.toLocaleString("en-US", {
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+}
+
 export function trimTextAddEllipsis(text, index) {
     if (text.length < 5) return text;
     if (!text || !index) return;
