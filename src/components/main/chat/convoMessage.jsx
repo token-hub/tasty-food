@@ -4,7 +4,7 @@ function ConvoMessage({ message, isUser = false, date }) {
     const transMessage = capitalizeFirstLetter(message);
     const time = getTimeFromDate(date);
 
-    let classes = isUser ? "ms-auto bg-primary-light" : "bg-gray";
+    let classes = isUser ? "ms-auto bg-primary-light" : "me-auto bg-gray";
 
     return (
         <p className={`convo-message p-2 rounded-3 ${classes}`}>

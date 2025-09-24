@@ -1,8 +1,14 @@
 import ConvoDate from "./convoDate";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
+import { useChatContext } from "../../../providers/chatProvider";
+import { useUserContext } from "../../../providers/userProvider";
 
-function ChatMaximizedBody({ convoWith, mobileView = false }) {
+function ChatMaximizedBody({ mobileView = false }) {
+    const { selectedConvo } = useChatContext();
+    const { user } = useUserContext();
+    const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
+
     return (
         <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
             {!mobileView && (
@@ -14,13 +20,17 @@ function ChatMaximizedBody({ convoWith, mobileView = false }) {
 
             <div className="h-100 p-3 overflow-auto">
                 <div className="d-flex flex-column mb-6">
-                    <ConvoDate date={"2020/07/26"} />
-                    <ConvoMessage
-                        date={new Date()}
-                        message="Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, dolor! Est fugiat incidunt enim dolore quisquam
-                            explicabo recusandae delectus consequatur voluptatem et laudantium reprehenderit corrupti aut sapiente deserunt, quo a."
-                    />
-                    <ConvoMessage date={new Date()} isUser={true} message="Hello Author!" />
+                    {selectedConvo &&
+                        selectedConvo.messages.length > 0 &&
+                        selectedConvo.messages.map(({ messageId, message, userId, updatedAt }) => {
+                            const isUser = userId == user?.id;
+
+                            return (
+                                <>
+                                    <ConvoMessage key={messageId} date={new Date(updatedAt)} isUser={isUser} message={message} />
+                                </>
+                            );
+                        })}
                 </div>
             </div>
             <ChatArea />
