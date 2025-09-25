@@ -36,11 +36,15 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
                             details.map((convo) => {
                                 const { _id, participants, updatedAt, messages } = convo;
                                 const convoWith = participants.find((u) => u.userId != user.id);
-                                const text = messages[0] ? messages[0].message : "...";
-                                const convoCount = messages.filter((m) => !m.isRead).length;
+                                const latestMessage = messages[messages.length - 1];
+                                const text = latestMessage ? latestMessage.message : "...";
+                                const convoCount = messages.filter((m) => !m.isReadBy?.includes(user.id)).length;
+                                // so that text in the convo sidebar won't change if
+                                // error happened during optimistic update
+                                const deepCopy = JSON.parse(JSON.stringify(convo));
                                 return (
                                     <ChatConvo
-                                        onClick={() => setSelectedConvo(convo)}
+                                        onClick={() => setSelectedConvo(deepCopy)}
                                         name={convoWith.name}
                                         date={updatedAt}
                                         key={_id}

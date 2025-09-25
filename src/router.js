@@ -29,6 +29,7 @@ import { createRecipeRatingAction } from "./actions/createRecipeRating";
 import { createConversationAction } from "./actions/createConversation";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
+import { createMessageAction } from "./actions/createMessage";
 
 const router = createBrowserRouter([
     {
@@ -46,8 +47,15 @@ const router = createBrowserRouter([
                                 path: "recipes",
                                 children: [
                                     { index: true, Component: Recipes },
-                                    { path: ":recipeId", Component: Recipe, action: createRecipeRatingAction },
-                                    { path: ":recipeId/createConversation", action: createConversationAction }
+                                    {
+                                        path: ":recipeId",
+                                        Component: Recipe,
+                                        children: [
+                                            { path: "", action: createRecipeRatingAction },
+                                            { path: "createConversation", action: createConversationAction },
+                                            { path: "createMessage", action: createMessageAction }
+                                        ]
+                                    }
                                 ]
                             }
                         ]
