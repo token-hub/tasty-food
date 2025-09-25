@@ -19,7 +19,7 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
     });
 
     return (
-        <div className={`chat-maximized position-fixed bottom-0 end-0 bg-light rounded-top shadow ${isOpen ? "chat-maximized-open" : ""} `}>
+        <div className={`chat-maximized z-3 position-fixed bottom-0 end-0 bg-light rounded-top shadow ${isOpen ? "chat-maximized-open" : ""} `}>
             <ChatMaximizedHeader onClick={onClick} chatCount={chatCount} />
             <div className="chat-body">
                 <div className="row h-100">
