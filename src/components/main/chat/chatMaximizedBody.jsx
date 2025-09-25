@@ -1,4 +1,4 @@
-import ConvoDate from "./convoDate";
+import { useRef, useEffect } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
 import { useChatContext } from "../../../providers/chatProvider";
@@ -8,6 +8,11 @@ function ChatMaximizedBody({ mobileView = false }) {
     const { selectedConvo } = useChatContext();
     const { user } = useUserContext();
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
+    const bottomRef = useRef();
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [selectedConvo]);
 
     return (
         <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
@@ -31,6 +36,7 @@ function ChatMaximizedBody({ mobileView = false }) {
                                 </>
                             );
                         })}
+                    <div ref={bottomRef} />
                 </div>
             </div>
             <ChatArea />
