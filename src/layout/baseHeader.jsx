@@ -5,12 +5,12 @@ import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
 import { SUBMENU_HEADERS } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
-import { useSlideContext } from "../providers/slideProvider";
 import ChatConvo from "../components/main/chat/chatConvo";
 import { useUserContext } from "../providers/userProvider";
+import { useSlideStore } from "../stores/useSlideStore";
 
 function BaseHeader({ chatCount = 20 }) {
-    const { openSlide } = useSlideContext();
+    const openSlide = useSlideStore((state) => state.openSlide);
     const { user } = useUserContext();
     const navigate = useNavigate();
 

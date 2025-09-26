@@ -1,13 +1,12 @@
 import { useEffect } from "react";
-import { useSlideContext } from "../../providers/slideProvider";
 import LeftIcon from "../../assets/icons/leftIcon";
 import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
-
-import ChatConvo from "../main/chat/chatConvo";
-import ChatMaximizedBody from "../main/chat/chatMaximizedBody";
+import { useSlideStore } from "../../stores/useSlideStore";
 
 function MobileSlide({ index, children }) {
-    const { slides, closeSlide } = useSlideContext();
+    const slides = useSlideStore((state) => state.slides);
+    const closeSlide = useSlideStore((state) => state.closeSlide);
+
     const currentSlide = slides[index];
     const isSlideOpen = currentSlide?.open;
 

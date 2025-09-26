@@ -5,13 +5,13 @@ import { DEFAULT_IMAGE } from "../../../lib/constants";
 import { useModalContext } from "../../../providers/modalProvider";
 import { useChatContext } from "../../../providers/chatProvider";
 import { MODAL_MODES } from "../../../lib/constants";
-import { useSlideContext } from "../../../providers/slideProvider";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
 import { useUserContext } from "../../../providers/userProvider";
 import { useFetcher, useNavigate } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
 import { useToastContext } from "../../../providers/toastProvider";
 import { useEffect } from "react";
+import { useSlideStore } from "../../../stores/useSlideStore";
 
 function RecipeHeaders({ recipe }) {
     const fetcher = useFetcher();
@@ -21,7 +21,7 @@ function RecipeHeaders({ recipe }) {
     const { setCurrentModal } = useModalContext();
     const { handleOpenChat } = useChatContext();
     const { user } = useUserContext();
-    const { openSlide } = useSlideContext();
+    const { openSlide } = useSlideStore();
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
     const isAuthor = user?.id === recipe.author.userId;

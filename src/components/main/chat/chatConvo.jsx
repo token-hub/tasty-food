@@ -1,6 +1,6 @@
 import UserIcon from "../../../assets/icons/userIcon";
 import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from "../../../lib/utilities";
-import { useSlideContext } from "../../../providers/slideProvider";
+import { useSlideStore } from "../../../stores/useSlideStore";
 import ChatMaximizedBody from "./chatMaximizedBody";
 
 function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount) {
@@ -38,8 +38,7 @@ function ChatConvo({ name, date, text, convoCount = 0, mobileView = false, onCli
     let trimText = trimTextAddEllipsis(text, trimTextLength);
     trimText = capitalizeFirstLetter(trimText);
     let toPass = [mobileView, trimName, trimText, convoDate, convoCount];
-
-    const { openSlide } = useSlideContext();
+    const openSlide = useSlideStore((state) => state.openSlide);
 
     function handleSelectedConvo() {
         openSlide({

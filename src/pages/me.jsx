@@ -1,11 +1,11 @@
 import Submenu from "../components/main/submenu";
-import { useSlideContext } from "../providers/slideProvider";
 import { SUBMENU_HEADERS } from "../lib/constants";
 import Profile from "../pages/profile";
 import Password from "../pages/password";
+import { useSlideStore } from "../stores/useSlideStore";
 
 function Me() {
-    const { openSlide } = useSlideContext();
+    const openSlide = useSlideStore((state) => state.openSlide);
 
     return (
         <div className="d-md-none px-3">
