@@ -9,7 +9,7 @@ import router from "./router.js";
 
 import { queryClient } from "./lib/queryClient.js";
 import { QueryClientProvider } from "@tanstack/react-query";
-import SlideProvider from "./providers/slideProvider";
+
 import RecipeProvider from "./providers/recipeFilterProvider.jsx";
 import ChatProvider from "./providers/chatProvider";
 import ModalProvider from "./providers/modalProvider";
@@ -22,13 +22,11 @@ createRoot(document.getElementById("root")).render(
             <UserProvider>
                 <RecipeProvider>
                     <ModalProvider>
-                        <SlideProvider>
-                            <ChatProvider>
-                                <ToastProvider>
-                                    <RouterProvider router={router} />
-                                </ToastProvider>
-                            </ChatProvider>
-                        </SlideProvider>
+                        <ChatProvider>
+                            <ToastProvider>
+                                <RouterProvider router={router} />
+                            </ToastProvider>
+                        </ChatProvider>
                     </ModalProvider>
                 </RecipeProvider>
             </UserProvider>
