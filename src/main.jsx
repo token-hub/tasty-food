@@ -10,16 +10,13 @@ import router from "./router.js";
 import { queryClient } from "./lib/queryClient.js";
 import { QueryClientProvider } from "@tanstack/react-query";
 
-import RecipeProvider from "./providers/recipeFilterProvider.jsx";
 import UserProvider from "./providers/userProvider";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
             <UserProvider>
-                <RecipeProvider>
-                    <RouterProvider router={router} />
-                </RecipeProvider>
+                <RouterProvider router={router} />
             </UserProvider>
         </QueryClientProvider>
     </StrictMode>

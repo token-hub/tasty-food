@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import SearchIcon from "../../assets/icons/searchIcon";
-import { useRecipeFilterContext } from "../../providers/recipeFilterProvider";
+import { useRecipeStore } from "../../stores/useRecipeStore";
 import { useNavigate } from "react-router";
 
 function SearchBar({ inputWidth = "vw-40", maxWidth = "mw-65" }) {
     const searchRef = useRef();
-    const { setQuery } = useRecipeFilterContext();
+    const setQuery = useRecipeStore((state) => state.setQuery);
     const navigate = useNavigate();
 
     function handleSubmit(e) {

@@ -1,14 +1,15 @@
 import FilterIcon from "../../assets/icons/filterIcon";
 import { RECIPE_CATEGORIES } from "../../lib/constants";
-import { useRecipeFilterContext } from "../../providers/recipeFilterProvider";
+import { useRecipeStore } from "../../stores/useRecipeStore";
 
 function Filter() {
     const categories = Object.values(RECIPE_CATEGORIES);
-    const { filters, handlefilter } = useRecipeFilterContext();
+    const filters = useRecipeStore((state) => state.filters);
+    const handleFilters = useRecipeStore((state) => state.handleFilters);
 
     function handleChange(e) {
         const id = e.target.id;
-        handlefilter(id);
+        handleFilters(id);
     }
 
     return (
