@@ -1,10 +1,10 @@
 import { useFetcher } from "react-router";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 import { useEffect } from "react";
 
 export function useArchiveFetcher() {
     const fetcher = useFetcher();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
 
     useEffect(() => {
         if (fetcher?.data?.error) {

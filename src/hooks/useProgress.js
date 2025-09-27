@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 import { validateRecipeState } from "../lib/utilities";
 
 export function useProgress(show, recipeState) {
     const { name, description, cookTime, prepTime, categories, ingredients, instructions } = recipeState;
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const toValidate = {
         1: {
             name,

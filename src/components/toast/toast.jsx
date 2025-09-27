@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useToastContext } from "../../providers/toastProvider";
+import { useToastStore } from "../../stores/useToastStore";
 import { Toast as bootstrapToast } from "bootstrap";
 
 function Toast({ toast, delay = 3000 }) {
-    const { updateToast, removeToast } = useToastContext();
+    const updateToast = useToastStore((state) => state.updateToast);
+    const removeToast = useToastStore((state) => state.removeToast);
     const [shouldRender, setShouldRender] = useState(true);
     const { id, headerText, bodyText, shouldClose, isSuccess } = toast;
     const toastRef = useRef();

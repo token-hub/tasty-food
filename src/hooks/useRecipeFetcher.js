@@ -1,10 +1,10 @@
 import { useFetcher } from "react-router";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 import { useEffect, useRef } from "react";
 
 export function useRecipeFetcher(recipeId) {
     const fetcher = useFetcher();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const closeRef = useRef();
 
     useEffect(() => {

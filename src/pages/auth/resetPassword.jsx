@@ -1,11 +1,11 @@
 import { Form, useActionData, useNavigate, useSearchParams } from "react-router";
 import AuthSubmitButton from "../../components/auth/authSubmitButton";
-import { useToastContext } from "../../providers/toastProvider";
+import { useToastStore } from "../../stores/useToastStore";
 import { useEffect, useRef } from "react";
 
 function ResetPassword() {
     const actionData = useActionData();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const [searchParams] = useSearchParams();
     const token = searchParams.get("token");
     const formRef = useRef();

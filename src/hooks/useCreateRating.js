@@ -1,10 +1,10 @@
 import { useFetcher, useNavigate } from "react-router";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 import { useEffect } from "react";
 
 export function useCreateRating() {
     const navigate = useNavigate();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const fetcher = useFetcher();
     useEffect(() => {
         if (fetcher?.data?.error) {

@@ -1,12 +1,12 @@
 import { useSubmit, Form, useActionData } from "react-router";
 import { useUserContext } from "../providers/userProvider";
 import { useEffect } from "react";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 
 function Profile() {
     const submit = useSubmit();
     const actionData = useActionData();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const { user } = useUserContext();
 
     function handleEmailVerification() {

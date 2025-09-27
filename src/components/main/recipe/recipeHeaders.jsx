@@ -8,7 +8,7 @@ import ChatMaximizedBody from "../chat/chatMaximizedBody";
 import { useUserContext } from "../../../providers/userProvider";
 import { useFetcher, useNavigate } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
-import { useToastContext } from "../../../providers/toastProvider";
+import { useToastStore } from "../../../stores/useToastStore";
 import { useEffect } from "react";
 import { useSlideStore } from "../../../stores/useSlideStore";
 import { useModalStore } from "../../../stores/useModalStore";
@@ -16,7 +16,7 @@ import { useModalStore } from "../../../stores/useModalStore";
 function RecipeHeaders({ recipe }) {
     const fetcher = useFetcher();
     const navigate = useNavigate();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     let { image, goodForPeopleCount, description, name } = recipe;
     const setCurrentModal = useModalStore((state) => state.setCurrentModal);
     const { handleOpenChat } = useChatContext();

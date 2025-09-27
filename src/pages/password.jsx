@@ -1,10 +1,10 @@
 import { Form, useActionData } from "react-router";
-import { useToastContext } from "../providers/toastProvider";
+import { useToastStore } from "../stores/useToastStore";
 import { useEffect, useRef } from "react";
 
 function Password() {
     const actionData = useActionData();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const formRef = useRef();
 
     useEffect(() => {

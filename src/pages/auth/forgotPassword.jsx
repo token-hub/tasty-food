@@ -1,11 +1,11 @@
 import { Form, useActionData, Link } from "react-router";
 import AuthSubmitButton from "../../components/auth/authSubmitButton";
-import { useToastContext } from "../../providers/toastProvider";
+import { useToastStore } from "../../stores/useToastStore";
 import { useEffect, useRef } from "react";
 
 function ForgotPassword() {
     const actionData = useActionData();
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const emailRef = useRef();
 
     useEffect(() => {

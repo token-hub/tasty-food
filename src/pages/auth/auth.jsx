@@ -3,12 +3,12 @@ import { Link, useActionData, useNavigate, useSearchParams } from "react-router"
 import FacebookIcon from "../../assets/icons/facebookIcon";
 import GoogleIcon from "../../assets/icons/googleIcon";
 import AuthSubmitButton from "../../components/auth/authSubmitButton";
-import { useToastContext } from "../../providers/toastProvider";
+import { useToastStore } from "../../stores/useToastStore";
 import { useEffect } from "react";
 import { Form } from "react-router";
 
 function Auth() {
-    const { createToast } = useToastContext();
+    const createToast = useToastStore((state) => state.createToast);
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const data = useActionData();
