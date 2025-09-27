@@ -2,7 +2,7 @@ import ChatIcon from "../../../assets/icons/chatIcon";
 import ArchiveIcon from "../../../assets/icons/archiveIcon";
 import EditIcon from "../../../assets/icons/editIcon";
 import { DEFAULT_IMAGE } from "../../../lib/constants";
-import { useChatContext } from "../../../providers/chatProvider";
+import { useChatStore } from "../../../stores/useChatStore";
 import { MODAL_MODES } from "../../../lib/constants";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
 import { useUserContext } from "../../../providers/userProvider";
@@ -19,7 +19,7 @@ function RecipeHeaders({ recipe }) {
     const createToast = useToastStore((state) => state.createToast);
     let { image, goodForPeopleCount, description, name } = recipe;
     const setCurrentModal = useModalStore((state) => state.setCurrentModal);
-    const { handleOpenChat } = useChatContext();
+    const handleOpenChat = useChatStore((state) => state.handleOpenChat);
     const { user } = useUserContext();
     const { openSlide } = useSlideStore();
     const imageSource = image ?? DEFAULT_IMAGE;

@@ -11,7 +11,6 @@ import { queryClient } from "./lib/queryClient.js";
 import { QueryClientProvider } from "@tanstack/react-query";
 
 import RecipeProvider from "./providers/recipeFilterProvider.jsx";
-import ChatProvider from "./providers/chatProvider";
 import UserProvider from "./providers/userProvider";
 
 createRoot(document.getElementById("root")).render(
@@ -19,9 +18,7 @@ createRoot(document.getElementById("root")).render(
         <QueryClientProvider client={queryClient}>
             <UserProvider>
                 <RecipeProvider>
-                    <ChatProvider>
-                        <RouterProvider router={router} />
-                    </ChatProvider>
+                    <RouterProvider router={router} />
                 </RecipeProvider>
             </UserProvider>
         </QueryClientProvider>

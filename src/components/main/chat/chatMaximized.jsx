@@ -5,10 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getConversations } from "../../../queries/getConversations";
 import { useUserContext } from "../../../providers/userProvider";
 import { usePagination } from "../../../hooks/usePagination";
-import { useChatContext } from "../../../providers/chatProvider";
+import { useChatStore } from "../../../stores/useChatStore";
 
 function ChatMaximized({ chatCount, isOpen, onClick }) {
-    const { selectedConvo, setSelectedConvo } = useChatContext();
+    const selectedConvo = useChatStore((state) => state.selectedConvo);
+    const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
+
     const { user } = useUserContext();
     const { pagination } = usePagination();
 

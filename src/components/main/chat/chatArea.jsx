@@ -3,27 +3,24 @@ import SendIcon from "../../../assets/icons/sendIcon";
 import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
 import { useUserContext } from "../../../providers/userProvider";
-import { useChatContext } from "../../../providers/chatProvider";
+import { useChatStore } from "../../../stores/useChatStore";
 
 function ChatArea() {
     const chatRef = useRef();
     const fetcher = useFetcher();
     const { user } = useUserContext();
-    const { selectedConvo, setSelectedConvo } = useChatContext();
-
+    const selectedConvo = useChatStore((state) => state.selectedConvo);
+    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     useEffect(() => {
         if (fetcher.data?.error) {
             const hasOptimisticData = selectedConvo.messages.some((m) => !m.messageId);
             if (hasOptimisticData) {
-                setSelectedConvo((prev) => {
-                    return {
-                        ...prev,
-                        messages: prev.messages.filter((m) => m.messageId)
-                    };
+                updateSelectedConvo({
+                    messages: selectedConvo.messages.filter((m) => m.messageId)
                 });
             }
         }
-    }, [fetcher, selectedConvo, setSelectedConvo]);
+    }, [fetcher, selectedConvo, updateSelectedConvo]);
 
     function handleSend() {
         const newMessage = {
@@ -33,15 +30,11 @@ function ChatArea() {
             conversationId: selectedConvo._id,
             isReadBy: [user.id]
         };
-        setSelectedConvo((prev) => {
-            const messages = [...prev.messages];
-            newMessage.updatedAt = new Date();
-            messages.push(newMessage);
-            return {
-                ...prev,
-                messages
-            };
-        });
+
+        const messages = [...selectedConvo.messages];
+        newMessage.updatedAt = new Date();
+        messages.push(newMessage);
+        updateSelectedConvo({ messages });
 
         fetcher.submit(objectToFormData(newMessage), {
             action: "/:authorId/recipes/:recipeId/createMessage",
