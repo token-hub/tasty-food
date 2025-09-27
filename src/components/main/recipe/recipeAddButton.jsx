@@ -1,8 +1,8 @@
-import { useModalContext } from "../../../providers/modalProvider";
+import { useModalStore } from "../../../stores/useModalStore";
 import { MODAL_MODES } from "../../../lib/constants";
 
 function RecipeAddButton() {
-    const { setCurrentModal } = useModalContext();
+    const setCurrentModal = useModalStore((state) => state.setCurrentModal);
 
     function handleClick() {
         // create mode

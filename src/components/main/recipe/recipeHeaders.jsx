@@ -2,7 +2,6 @@ import ChatIcon from "../../../assets/icons/chatIcon";
 import ArchiveIcon from "../../../assets/icons/archiveIcon";
 import EditIcon from "../../../assets/icons/editIcon";
 import { DEFAULT_IMAGE } from "../../../lib/constants";
-import { useModalContext } from "../../../providers/modalProvider";
 import { useChatContext } from "../../../providers/chatProvider";
 import { MODAL_MODES } from "../../../lib/constants";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
@@ -12,13 +11,14 @@ import { objectToFormData } from "../../../lib/utilities";
 import { useToastContext } from "../../../providers/toastProvider";
 import { useEffect } from "react";
 import { useSlideStore } from "../../../stores/useSlideStore";
+import { useModalStore } from "../../../stores/useModalStore";
 
 function RecipeHeaders({ recipe }) {
     const fetcher = useFetcher();
     const navigate = useNavigate();
     const { createToast } = useToastContext();
     let { image, goodForPeopleCount, description, name } = recipe;
-    const { setCurrentModal } = useModalContext();
+    const setCurrentModal = useModalStore((state) => state.setCurrentModal);
     const { handleOpenChat } = useChatContext();
     const { user } = useUserContext();
     const { openSlide } = useSlideStore();

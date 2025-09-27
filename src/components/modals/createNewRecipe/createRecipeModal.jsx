@@ -7,23 +7,22 @@ import Categories from "./categories";
 import Timers from "./timers";
 import NameAndDiscription from "./nameAndDiscription";
 import ProgressBar from "./progressBar";
-import { useModalContext } from "../../../providers/modalProvider";
 import { MODAL_MODES } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
 import { useUserContext } from "../../../providers/userProvider";
 import { objectToFormData } from "../../../lib/utilities";
 import { useRecipeFetcher } from "../../../hooks/useRecipeFetcher";
 import { useRecipeState } from "../../../hooks/useRecipeState";
+import { useModalStore } from "../../../stores/useModalStore";
 
 function CreateRecipeModal() {
     const { recipeState, setRecipeState, recipeId, data, initialState } = useRecipeState();
     const { user } = useUserContext();
     const { closeRef, fetcher } = useRecipeFetcher(recipeId);
 
-    const {
-        modal: { mode, show },
-        reset
-    } = useModalContext();
+    const mode = useModalStore((state) => state.modal.mode);
+    const show = useModalStore((state) => state.modal.show);
+    const reset = useModalStore((state) => state.reset);
 
     const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(
         show,
