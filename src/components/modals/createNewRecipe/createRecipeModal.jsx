@@ -9,7 +9,7 @@ import NameAndDiscription from "./nameAndDiscription";
 import ProgressBar from "./progressBar";
 import { MODAL_MODES } from "../../../lib/constants";
 import { useProgress } from "../../../hooks/useProgress";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useRecipeFetcher } from "../../../hooks/useRecipeFetcher";
 import { useRecipeState } from "../../../hooks/useRecipeState";
@@ -17,7 +17,7 @@ import { useModalStore } from "../../../stores/useModalStore";
 
 function CreateRecipeModal() {
     const { recipeState, setRecipeState, recipeId, data, initialState } = useRecipeState();
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { closeRef, fetcher } = useRecipeFetcher(recipeId);
 
     const mode = useModalStore((state) => state.modal.mode);

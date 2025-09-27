@@ -3,7 +3,7 @@ import ChatMaximizedHeader from "./chatMaximizedHeader";
 import ChatMaximizedBody from "./chatMaximizedBody";
 import { useQuery } from "@tanstack/react-query";
 import { getConversations } from "../../../queries/getConversations";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { usePagination } from "../../../hooks/usePagination";
 import { useChatStore } from "../../../stores/useChatStore";
 
@@ -11,7 +11,7 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
 
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { pagination } = usePagination();
 
     const { data: { details = [] } = {}, isLoading } = useQuery({

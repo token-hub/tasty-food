@@ -1,5 +1,5 @@
 import { useSubmit, Form, useActionData } from "react-router";
-import { useUserContext } from "../providers/userProvider";
+import { useUserStore } from "../stores/useUserStore";
 import { useEffect } from "react";
 import { useToastStore } from "../stores/useToastStore";
 
@@ -7,7 +7,7 @@ function Profile() {
     const submit = useSubmit();
     const actionData = useActionData();
     const createToast = useToastStore((state) => state.createToast);
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
 
     function handleEmailVerification() {
         submit({ email: user.email }, { method: "POST", action: "/emailVerification" });

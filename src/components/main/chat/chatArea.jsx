@@ -2,13 +2,13 @@ import { useEffect, useRef } from "react";
 import SendIcon from "../../../assets/icons/sendIcon";
 import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { useChatStore } from "../../../stores/useChatStore";
 
 function ChatArea() {
     const chatRef = useRef();
     const fetcher = useFetcher();
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     useEffect(() => {

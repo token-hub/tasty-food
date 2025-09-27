@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
 import { useRecipeStore } from "../stores/useRecipeStore";
 import { useLocation } from "react-router";
-import { useUserContext } from "../providers/userProvider";
+import { useUserStore } from "../stores/useUserStore";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { getRecipes } from "../queries/getRecipes";
 
@@ -10,7 +10,7 @@ export function useRecipes(pagination) {
     const filters = useRecipeStore((state) => state.filters);
     const query = useRecipeStore((state) => state.query);
     const { pathname, state } = useLocation();
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const isHomePage = pathname === "/";
     const isOtherUsersPage = state?.authorId;
     const isOwnRecipesPage = pathname.includes("recipes");

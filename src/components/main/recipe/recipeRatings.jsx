@@ -1,12 +1,12 @@
 import RecipeRating from "./recipeRating";
 import RecipeForm from "./recipeForm";
 import Pagination from "../pagination";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { usePagination } from "../../../hooks/usePagination";
 import { useGetRatings } from "../../../hooks/useGetRatings";
 
 function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { pagination, setPagination } = usePagination();
     const { count, nextRatings } = useGetRatings(recipe?._id, pagination);
     const isNotTheAuthor = user?.id !== recipeAuthorId;

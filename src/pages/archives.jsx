@@ -1,7 +1,7 @@
 import Recipe from "../components/main/recipe/recipeClickable";
 import Pagination from "../components/main/pagination";
 import { useQuery } from "@tanstack/react-query";
-import { useUserContext } from "../providers/userProvider";
+import { useUserStore } from "../stores/useUserStore";
 import { getOwnRecipes } from "../queries/getOwnRecipes";
 import { useArchiveFetcher } from "../hooks/useArchiveFetcher";
 import { usePagination } from "../hooks/usePagination";
@@ -9,7 +9,7 @@ import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
 
 function Archives() {
     const { pagination, setPagination } = usePagination();
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { fetcher } = useArchiveFetcher();
     const { data } = useQuery({
         queryKey: ["recipes", "archives"],

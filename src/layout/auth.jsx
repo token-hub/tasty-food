@@ -7,11 +7,12 @@ import BaseHeader from "./baseHeader";
 import Sidebar from "../components/sidebar/sidebar";
 import MobileFooter from "./mobileFooter";
 import Main from "./main";
-import { useUserContext } from "../providers/userProvider";
+import { useUserStore } from "../stores/useUserStore";
 
 function AuthLayout() {
     const navigate = useNavigate();
-    const { user, isLoading } = useUserContext();
+    const user = useUserStore((state) => state.user);
+    const isLoading = useUserStore((state) => state.isLoading);
 
     useEffect(() => {
         if (!isLoading && !user) {

@@ -6,12 +6,12 @@ import SignInIcon from "../assets/icons/signInIcon";
 import { SUBMENU_HEADERS } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
 import ChatConvo from "../components/main/chat/chatConvo";
-import { useUserContext } from "../providers/userProvider";
+import { useUserStore } from "../stores/useUserStore";
 import { useSlideStore } from "../stores/useSlideStore";
 
 function BaseHeader({ chatCount = 20 }) {
     const openSlide = useSlideStore((state) => state.openSlide);
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const navigate = useNavigate();
 
     function handleSignIn() {

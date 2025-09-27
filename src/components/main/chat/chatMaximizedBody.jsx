@@ -2,11 +2,11 @@ import { useRef, useEffect } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
 import { useChatStore } from "../../../stores/useChatStore";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 
 function ChatMaximizedBody({ mobileView = false }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
 

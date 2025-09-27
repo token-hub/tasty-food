@@ -4,7 +4,7 @@ import LikeFillIcon from "../../../assets/icons/likeFillIcon";
 import XIcon from "../../../assets/icons/xIcon";
 import { useState } from "react";
 import { useParams } from "react-router";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useCreateRating } from "../../../hooks/useCreateRating";
 import { useGetRating } from "../../../hooks/useGetRating";
@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 function RecipeForm() {
     const { recipeId } = useParams();
     const { fetcher } = useCreateRating();
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { rating, setRating, isLoading } = useGetRating(recipeId, user?.id);
     const [isEditting, setIsEditting] = useState(false);
 

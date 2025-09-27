@@ -5,7 +5,7 @@ import { DEFAULT_IMAGE } from "../../../lib/constants";
 import { useChatStore } from "../../../stores/useChatStore";
 import { MODAL_MODES } from "../../../lib/constants";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
-import { useUserContext } from "../../../providers/userProvider";
+import { useUserStore } from "../../../stores/useUserStore";
 import { useFetcher, useNavigate } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
 import { useToastStore } from "../../../stores/useToastStore";
@@ -20,7 +20,7 @@ function RecipeHeaders({ recipe }) {
     let { image, goodForPeopleCount, description, name } = recipe;
     const setCurrentModal = useModalStore((state) => state.setCurrentModal);
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
-    const { user } = useUserContext();
+    const user = useUserStore((state) => state.user);
     const { openSlide } = useSlideStore();
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
