@@ -47,6 +47,12 @@ function ChatMaximizedBody({ mobileView = false }) {
 
             <div className="h-100 p-3 overflow-auto" onScroll={handleScroll}>
                 <div className="d-flex flex-column mb-6">
+                    {fetcher.state !== "idle" && (
+                        <p className="text-center">
+                            <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
+                            <span className="text-muted fs-7">Loading ...</span>
+                        </p>
+                    )}
                     {selectedConvo &&
                         selectedConvo.messages.length > 0 &&
                         selectedConvo.messages.map(({ messageId, message, userId, updatedAt }) => {
