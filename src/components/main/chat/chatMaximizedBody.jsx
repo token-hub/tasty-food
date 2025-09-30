@@ -1,11 +1,17 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
 import { useChatStore } from "../../../stores/useChatStore";
 import { useUserStore } from "../../../stores/useUserStore";
+import { objectToFormData } from "../../../lib/utilities";
+import { useMessagesFetcher } from "../../../hooks/useMessagesFetcher";
 
 function ChatMaximizedBody({ mobileView = false }) {
+    const [lastScrollTop, setLastScrollTop] = useState(0);
     const selectedConvo = useChatStore((state) => state.selectedConvo);
+    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
+    const { fetcher, pagination } = useMessagesFetcher(selectedConvo, updateSelectedConvo);
+
     const user = useUserStore((state) => state.user);
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
@@ -13,6 +19,26 @@ function ChatMaximizedBody({ mobileView = false }) {
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [selectedConvo]);
+
+    function handleScroll(e) {
+        const currentScrollTop = e.target.scrollTop;
+        const scrollingUp = currentScrollTop < lastScrollTop;
+        const reachedTheTop = currentScrollTop === 0;
+
+        if (scrollingUp && reachedTheTop && selectedConvo) {
+            fetcher.submit(
+                objectToFormData({
+                    conversationId: selectedConvo._id,
+                    recipeId: selectedConvo.recipes.find((r) => r.isLatest)?.recipeId,
+                    skipFirstConvoMessages: true,
+                    pagination
+                }),
+                { action: "/chat/getMoreMessages", method: "POST" }
+            );
+        }
+
+        setLastScrollTop(currentScrollTop);
+    }
 
     return (
         <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
@@ -23,7 +49,7 @@ function ChatMaximizedBody({ mobileView = false }) {
                 </>
             )}
 
-            <div className="h-100 p-3 overflow-auto">
+            <div className="h-100 p-3 overflow-auto" onScroll={handleScroll}>
                 <div className="d-flex flex-column mb-6">
                     {selectedConvo &&
                         selectedConvo.messages.length > 0 &&

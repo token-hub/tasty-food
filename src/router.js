@@ -27,6 +27,7 @@ import { updateUserAction } from "./actions/updateUser";
 import { createRecipeAction } from "./actions/createRecipe";
 import { createRecipeRatingAction } from "./actions/createRecipeRating";
 import { createConversationAction } from "./actions/createConversation";
+import { getMoreMessagesAction } from "./actions/getMoreMessagesAction";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 import { createMessageAction } from "./actions/createMessage";
@@ -120,8 +121,8 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "/createRecipe",
-        action: createRecipeAction
+        path: "/chat",
+        children: [{ path: "getMoreMessages", action: getMoreMessagesAction }]
     },
     {
         path: "/signOut",
