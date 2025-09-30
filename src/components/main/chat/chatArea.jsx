@@ -5,7 +5,7 @@ import { objectToFormData } from "../../../lib/utilities";
 import { useUserStore } from "../../../stores/useUserStore";
 import { useChatStore } from "../../../stores/useChatStore";
 
-function ChatArea() {
+function ChatArea({ bottomRef }) {
     const chatRef = useRef();
     const fetcher = useFetcher();
     const user = useUserStore((state) => state.user);
@@ -20,7 +20,11 @@ function ChatArea() {
                 });
             }
         }
-    }, [fetcher, selectedConvo, updateSelectedConvo]);
+
+        if (fetcher?.data?.result && fetcher.state === "loading") {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, [fetcher, bottomRef, selectedConvo, updateSelectedConvo]);
 
     function handleSend() {
         const newMessage = {

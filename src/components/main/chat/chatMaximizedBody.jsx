@@ -16,10 +16,6 @@ function ChatMaximizedBody({ mobileView = false }) {
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
 
-    useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [selectedConvo]);
-
     function handleScroll(e) {
         const currentScrollTop = e.target.scrollTop;
         const scrollingUp = currentScrollTop < lastScrollTop;
@@ -65,7 +61,7 @@ function ChatMaximizedBody({ mobileView = false }) {
                     <div ref={bottomRef} />
                 </div>
             </div>
-            <ChatArea />
+            <ChatArea bottomRef={bottomRef} />
         </div>
     );
 }
