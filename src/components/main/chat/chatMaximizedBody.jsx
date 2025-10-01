@@ -1,16 +1,14 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
-import { useChatStore } from "../../../stores/useChatStore";
 import { useUserStore } from "../../../stores/useUserStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMessagesFetcher } from "../../../hooks/useMessagesFetcher";
 
 function ChatMaximizedBody({ mobileView = false }) {
+    const chatRef = useRef();
     const [lastScrollTop, setLastScrollTop] = useState(0);
-    const selectedConvo = useChatStore((state) => state.selectedConvo);
-    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
-    const { fetcher, pagination } = useMessagesFetcher(selectedConvo, updateSelectedConvo);
+    const { fetcher, pagination, selectedConvo } = useMessagesFetcher(chatRef);
 
     const user = useUserStore((state) => state.user);
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
@@ -45,7 +43,7 @@ function ChatMaximizedBody({ mobileView = false }) {
                 </>
             )}
 
-            <div className="h-100 p-3 overflow-auto" onScroll={handleScroll}>
+            <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
                 <div className="d-flex flex-column mb-6">
                     {fetcher.state !== "idle" && (
                         <p className="text-center">

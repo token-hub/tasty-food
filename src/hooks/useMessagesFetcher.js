@@ -2,9 +2,12 @@ import { useFetcher } from "react-router";
 import { useToastStore } from "../stores/useToastStore";
 import { useEffect } from "react";
 import { usePagination } from "./usePagination";
+import { useChatStore } from "../stores/useChatStore";
 
-export function useMessagesFetcher(selectedConvo, updateSelectedConvo) {
+export function useMessagesFetcher(ref) {
     const { pagination, setPagination } = usePagination();
+    const selectedConvo = useChatStore((state) => state.selectedConvo);
+    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     const fetcher = useFetcher();
     const createToast = useToastStore((state) => state.createToast);
 
@@ -28,9 +31,11 @@ export function useMessagesFetcher(selectedConvo, updateSelectedConvo) {
                         messages: [...messages, ...selectedConvo.messages]
                     });
                 }
+            } else {
+                ref.current.scrollTop = 500;
             }
         }
-    }, [fetcher, createToast, setPagination, selectedConvo, updateSelectedConvo]);
+    }, [fetcher, createToast, setPagination, selectedConvo, updateSelectedConvo, ref]);
 
-    return { fetcher, pagination };
+    return { fetcher, pagination, selectedConvo };
 }
