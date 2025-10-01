@@ -5,7 +5,7 @@ import { usePagination } from "./usePagination";
 import { useChatStore } from "../stores/useChatStore";
 
 export function useMessagesFetcher(ref) {
-    const { pagination, setPagination } = usePagination();
+    const { pagination, setPagination } = usePagination({ limit: 6 });
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     const fetcher = useFetcher();
@@ -17,7 +17,7 @@ export function useMessagesFetcher(ref) {
         }
 
         if (fetcher?.data?.result && fetcher?.data?.result.length) {
-            const messages = fetcher?.data?.result;
+            const messages = fetcher?.data?.result.reverse();
             const lastMessage = messages[0];
             const exist = messages.every((m) => selectedConvo.messages.find((im) => im._id == m._id));
 
@@ -32,7 +32,9 @@ export function useMessagesFetcher(ref) {
                     });
                 }
             } else {
-                ref.current.scrollTop = 500;
+                if (fetcher.state !== "idle") {
+                    ref.current.scrollTop = 500;
+                }
             }
         }
     }, [fetcher, createToast, setPagination, selectedConvo, updateSelectedConvo, ref]);
