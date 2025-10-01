@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
 import { useUserStore } from "../../../stores/useUserStore";
@@ -13,11 +13,21 @@ function ChatMaximizedBody({ mobileView = false }) {
     const user = useUserStore((state) => state.user);
     const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
+    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
+
+    useEffect(() => {
+        if (scrollAtTheBottom || selectedConvo?.messages.length <= 6) {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }, [selectedConvo, scrollAtTheBottom]);
 
     function handleScroll(e) {
         const currentScrollTop = e.target.scrollTop;
         const scrollingUp = currentScrollTop < lastScrollTop;
         const reachedTheTop = currentScrollTop === 0;
+
+        const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
+        setScrollAtTheBottom(isBottom);
 
         if (scrollingUp && reachedTheTop && selectedConvo) {
             fetcher.submit(
@@ -30,7 +40,6 @@ function ChatMaximizedBody({ mobileView = false }) {
                 { action: "/chat/getMoreMessages", method: "POST" }
             );
         }
-
         setLastScrollTop(currentScrollTop);
     }
 
@@ -42,7 +51,6 @@ function ChatMaximizedBody({ mobileView = false }) {
                     <hr className="m-0" />
                 </>
             )}
-
             <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
                 <div className="d-flex flex-column mb-6">
                     {fetcher.state !== "idle" && (
