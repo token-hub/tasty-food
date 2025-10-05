@@ -1,9 +1,17 @@
 import { Link, useSubmit } from "react-router";
+import { useSocketContext } from "../../providers/socketProvider";
+import { useUserStore } from "../../stores/useUserStore";
 
 function MenuDropDown({ children }) {
+    const user = useUserStore((state) => state.user);
+    const { socket } = useSocketContext();
     const submit = useSubmit();
 
     async function handleLogout() {
+        if (socket) {
+            socket.emit("logout", { id: user?.id });
+        }
+
         submit(null, { action: "/signOut", method: "POST" });
     }
 
