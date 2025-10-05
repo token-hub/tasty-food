@@ -6,11 +6,13 @@ import AuthSubmitButton from "../../components/auth/authSubmitButton";
 import { useToastStore } from "../../stores/useToastStore";
 import { useEffect } from "react";
 import { Form } from "react-router";
+import { useSocketContext } from "../../providers/socketProvider";
 
 function Auth() {
     const createToast = useToastStore((state) => state.createToast);
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+    const { socket } = useSocketContext();
     const data = useActionData();
 
     const page = searchParams.get("page");
@@ -31,8 +33,9 @@ function Auth() {
             }
             createToast({ headerText: "Authentication Success", bodyText: `Welcome ${name}` });
             navigate("/");
+            socket.emit("authenticate", { id: data?.result?.user?.id, socketId: socket.id });
         }
-    }, [data, createToast, navigate]);
+    }, [data, createToast, navigate, socket]);
 
     useEffect(() => {
         if (!page) {

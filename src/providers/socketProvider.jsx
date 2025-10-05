@@ -11,10 +11,15 @@ export function useSocketContext() {
 
 export function SocketProvider({ children }) {
     const [socket, setSocket] = useState(null);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const newSocket = io("http://localhost:3001");
         setSocket(newSocket);
+
+        newSocket.on("users", (data) => {
+            setUsers(data);
+        });
 
         return () => {
             newSocket.close();
@@ -22,7 +27,8 @@ export function SocketProvider({ children }) {
     }, []);
 
     const values = {
-        socket
+        socket,
+        users
     };
     return <SocketContext value={values}>{children}</SocketContext>;
 }
