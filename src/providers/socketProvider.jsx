@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useChatStore } from "../stores/useChatStore";
+import { queryClient } from "../lib/queryClient";
 
 const SocketContext = createContext({
     socket: {}
@@ -24,6 +25,7 @@ export function SocketProvider({ children }) {
         });
 
         newSocket.on("private-message", (message) => {
+            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
             updateSelectedConvo((prev) => ({
                 ...prev,
                 messages: [...prev.messages, message]
