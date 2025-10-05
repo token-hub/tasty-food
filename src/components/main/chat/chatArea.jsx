@@ -26,8 +26,13 @@ function ChatArea({ bottomRef }) {
 
         if (fetcher?.data?.result && fetcher.state === "loading") {
             bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            socket.emit("private-message", {
+                to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
+                from: user?.id,
+                message: fetcher?.data?.result[0]
+            });
         }
-    }, [fetcher, bottomRef, selectedConvo, updateSelectedConvo]);
+    }, [fetcher, bottomRef, selectedConvo, updateSelectedConvo, socket, user?.id]);
 
     function handleSend() {
         const newMessage = {
@@ -49,11 +54,6 @@ function ChatArea({ bottomRef }) {
         });
 
         chatRef.current.value = "";
-        socket.emit("private-message", {
-            to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
-            from: user?.id,
-            message: newMessage
-        });
     }
     return (
         <div className="position-absolute bottom-0 w-100 chat-area-container">
