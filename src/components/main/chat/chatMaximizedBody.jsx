@@ -11,7 +11,7 @@ function ChatMaximizedBody({ mobileView = false }) {
     const { fetcher, pagination, selectedConvo } = useMessagesFetcher(chatRef);
 
     const user = useUserStore((state) => state.user);
-    const convoWith = selectedConvo?.participants.find((u) => u.userId != user.id)?.name;
+    const convoWith = selectedConvo?.participants?.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
 

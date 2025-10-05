@@ -9,5 +9,5 @@ export const useChatStore = create((set) => ({
         })),
     setSelectedConvo: (convo) => set(() => ({ selectedConvo: convo })),
     handleOpenChat: () => set(() => ({ openChat: true })),
-    handleCloseChat: () => set(() => ({ openChat: false }))
+    handleCloseChat: () => set(() => ({ openChat: false, selectedConvo: false }))
 }));
