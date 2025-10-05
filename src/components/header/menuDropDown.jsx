@@ -1,10 +1,10 @@
 import { Link, useSubmit } from "react-router";
-import { useSocketContext } from "../../providers/socketProvider";
 import { useUserStore } from "../../stores/useUserStore";
+import { useSocketStore } from "../../stores/useSocketStore";
 
 function MenuDropDown({ children }) {
     const user = useUserStore((state) => state.user);
-    const { socket } = useSocketContext();
+    const socket = useSocketStore((state) => state.socket);
     const submit = useSubmit();
 
     async function handleLogout() {

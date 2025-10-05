@@ -7,6 +7,7 @@ import { getSession } from "../queries/getSession";
 import { useQuery } from "@tanstack/react-query";
 import { useUserStore } from "../stores/useUserStore";
 import { useEffect } from "react";
+import { useSocket } from "../hooks/useSocket";
 
 function Base() {
     const setUser = useUserStore((state) => state.setUser);
@@ -24,7 +25,7 @@ function Base() {
             setIsLoading(isLoading);
         }
     }, [session, isLoading, setIsLoading, setUser]);
-
+    useSocket();
     return (
         <>
             <DefaultMetaData />

@@ -1,20 +1,22 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SendIcon from "../../../assets/icons/sendIcon";
 import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
 import { useUserStore } from "../../../stores/useUserStore";
 import { useChatStore } from "../../../stores/useChatStore";
-import { useSocketContext } from "../../../providers/socketProvider";
+import { useSocketStore } from "../../../stores/useSocketStore";
 
 function ChatArea({ bottomRef }) {
     const chatRef = useRef();
-    const fetcher = useFetcher();
+
     const user = useUserStore((state) => state.user);
     const selectedConvo = useChatStore((state) => state.selectedConvo);
+    const fetcher = useFetcher();
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
-    const { socket } = useSocketContext();
+    const socket = useSocketStore((state) => state.socket);
+
     useEffect(() => {
-        if (fetcher.data?.error) {
+        if (fetcher.data?.error && selectedConvo) {
             const hasOptimisticData = selectedConvo.messages.some((m) => !m.messageId);
             if (hasOptimisticData) {
                 updateSelectedConvo((prev) => ({
@@ -24,15 +26,30 @@ function ChatArea({ bottomRef }) {
             }
         }
 
-        if (fetcher?.data?.result && fetcher.state === "loading") {
+        if (fetcher?.data?.result && fetcher.state === "idle" && selectedConvo) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-            socket.emit("private-message", {
-                to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
-                from: user?.id,
-                message: fetcher?.data?.result[0]
-            });
+            const newMessage = fetcher?.data?.result[0];
+            const messageId = newMessage._id;
+            const exist = selectedConvo.messages.some((m) => m.messageId === messageId || m._id === messageId);
+            if (!exist) {
+                socket.emit("private-message", {
+                    to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
+                    from: user?.id,
+                    message: newMessage
+                });
+                updateSelectedConvo((prev) => ({
+                    ...prev,
+                    messages: prev.messages.map((m) => {
+                        if (!m._id) {
+                            return { ...m, ...newMessage };
+                        } else {
+                            return m;
+                        }
+                    })
+                }));
+            }
         }
-    }, [fetcher, bottomRef, selectedConvo, updateSelectedConvo, socket, user?.id]);
+    }, [fetcher, bottomRef, socket, selectedConvo, updateSelectedConvo, user?.id]);
 
     function handleSend() {
         const newMessage = {

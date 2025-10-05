@@ -16,7 +16,7 @@ function ChatMaximizedBody({ mobileView = false }) {
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
 
     useEffect(() => {
-        if (scrollAtTheBottom || selectedConvo?.messages.length <= 6) {
+        if (scrollAtTheBottom || selectedConvo?.messages?.length <= 6) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
     }, [selectedConvo, scrollAtTheBottom]);
