@@ -4,6 +4,7 @@ import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
 import { useUserStore } from "../../../stores/useUserStore";
 import { useChatStore } from "../../../stores/useChatStore";
+import { useSocketContext } from "../../../providers/socketProvider";
 
 function ChatArea({ bottomRef }) {
     const chatRef = useRef();
@@ -11,13 +12,15 @@ function ChatArea({ bottomRef }) {
     const user = useUserStore((state) => state.user);
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
+    const { socket } = useSocketContext();
     useEffect(() => {
         if (fetcher.data?.error) {
             const hasOptimisticData = selectedConvo.messages.some((m) => !m.messageId);
             if (hasOptimisticData) {
-                updateSelectedConvo({
-                    messages: selectedConvo.messages.filter((m) => m.messageId)
-                });
+                updateSelectedConvo((prev) => ({
+                    ...prev,
+                    messages: prev.messages.filter((m) => m.messageId)
+                }));
             }
         }
 
@@ -38,7 +41,7 @@ function ChatArea({ bottomRef }) {
         const messages = [...selectedConvo.messages];
         newMessage.updatedAt = new Date();
         messages.push(newMessage);
-        updateSelectedConvo({ messages });
+        updateSelectedConvo((prev) => ({ ...prev, messages }));
 
         fetcher.submit(objectToFormData(newMessage), {
             action: "/:authorId/recipes/:recipeId/createMessage",
@@ -46,6 +49,11 @@ function ChatArea({ bottomRef }) {
         });
 
         chatRef.current.value = "";
+        socket.emit("private-message", {
+            to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
+            from: user?.id,
+            message: newMessage
+        });
     }
     return (
         <div className="position-absolute bottom-0 w-100 chat-area-container">

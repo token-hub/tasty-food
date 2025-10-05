@@ -27,9 +27,10 @@ export function useMessagesFetcher(ref) {
                 });
 
                 if (selectedConvo) {
-                    updateSelectedConvo({
-                        messages: [...messages, ...selectedConvo.messages]
-                    });
+                    updateSelectedConvo((prev) => ({
+                        ...prev,
+                        messages: [...messages, ...prev.messages]
+                    }));
                 }
             } else {
                 if (fetcher.state !== "idle") {
