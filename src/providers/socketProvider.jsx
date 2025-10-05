@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useChatStore } from "../stores/useChatStore";
 
 const SocketContext = createContext({
     socket: {}
@@ -12,6 +13,7 @@ export function useSocketContext() {
 export function SocketProvider({ children }) {
     const [socket, setSocket] = useState(null);
     const [users, setUsers] = useState([]);
+    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
 
     useEffect(() => {
         const newSocket = io("http://localhost:3001");
@@ -19,6 +21,13 @@ export function SocketProvider({ children }) {
 
         newSocket.on("users", (data) => {
             setUsers(data);
+        });
+
+        newSocket.on("private-message", (message) => {
+            updateSelectedConvo((prev) => ({
+                ...prev,
+                messages: [...prev.messages, message]
+            }));
         });
 
         return () => {
