@@ -1,55 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import SendIcon from "../../../assets/icons/sendIcon";
-import { useFetcher } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
-import { useUserStore } from "../../../stores/useUserStore";
-import { useChatStore } from "../../../stores/useChatStore";
-import { useSocketStore } from "../../../stores/useSocketStore";
+import { useSendMessageFetcher } from "../../../hooks/useSendMessageFetcher";
 
 function ChatArea({ bottomRef }) {
     const chatRef = useRef();
-
-    const user = useUserStore((state) => state.user);
-    const selectedConvo = useChatStore((state) => state.selectedConvo);
-    const fetcher = useFetcher();
-    const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
-    const socket = useSocketStore((state) => state.socket);
-
-    useEffect(() => {
-        if (fetcher.data?.error && selectedConvo) {
-            const hasOptimisticData = selectedConvo.messages.some((m) => !m.messageId);
-            if (hasOptimisticData) {
-                updateSelectedConvo((prev) => ({
-                    ...prev,
-                    messages: prev.messages.filter((m) => m.messageId)
-                }));
-            }
-        }
-
-        if (fetcher?.data?.result && fetcher.state === "idle" && selectedConvo) {
-            bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-            const newMessage = fetcher?.data?.result[0];
-            const messageId = newMessage._id;
-            const exist = selectedConvo.messages.some((m) => m.messageId === messageId || m._id === messageId);
-            if (!exist) {
-                socket.emit("private-message", {
-                    to: selectedConvo.participants.find((p) => p.userId != user?.id)?.userId,
-                    from: user?.id,
-                    message: newMessage
-                });
-                updateSelectedConvo((prev) => ({
-                    ...prev,
-                    messages: prev.messages.map((m) => {
-                        if (!m._id) {
-                            return { ...m, ...newMessage };
-                        } else {
-                            return m;
-                        }
-                    })
-                }));
-            }
-        }
-    }, [fetcher, bottomRef, socket, selectedConvo, updateSelectedConvo, user?.id]);
+    const { user, selectedConvo, updateSelectedConvo, fetcher } = useSendMessageFetcher(bottomRef);
 
     function handleSend() {
         const newMessage = {
