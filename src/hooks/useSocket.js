@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import { io } from "socket.io-client";
 import { queryClient } from "../lib/queryClient";
 import { useChatStore } from "../stores/useChatStore";
@@ -11,30 +11,35 @@ export function useSocket() {
     const setUsers = useSocketStore((state) => state.setUsers);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
 
+    const intializeListeners = useEffectEvent((socket) => {
+        setSocket(socket);
+
+        socket.on("users", (data) => {
+            setUsers(data);
+        });
+
+        socket.on("private-message", (data) => {
+            if (data.to === user.id) {
+                queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+                updateSelectedConvo((prev) => ({
+                    ...prev,
+                    messages: [...prev.messages, data.message]
+                }));
+            }
+        });
+    });
+
     useEffect(() => {
         if (user) {
             const newSocket = io("http://localhost:3001", {
                 auth: { userId: user.id }
             });
-            setSocket(newSocket);
 
-            newSocket.on("users", (data) => {
-                setUsers(data);
-            });
-
-            newSocket.on("private-message", (data) => {
-                if (data.to === user.id) {
-                    queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
-                    updateSelectedConvo((prev) => ({
-                        ...prev,
-                        messages: [...prev.messages, data.message]
-                    }));
-                }
-            });
+            intializeListeners(newSocket);
 
             return () => {
                 newSocket.close();
             };
         }
-    }, [user, setSocket, setUsers, updateSelectedConvo]);
+    }, [user]);
 }
