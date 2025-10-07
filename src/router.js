@@ -52,7 +52,7 @@ const router = createBrowserRouter([
                                         path: ":recipeId",
                                         Component: Recipe,
                                         children: [
-                                            { path: "", action: createRecipeRatingAction },
+                                            { path: "createRecipeRating", action: createRecipeRatingAction },
                                             { path: "createConversation", action: createConversationAction },
                                             { path: "createMessage", action: createMessageAction }
                                         ]

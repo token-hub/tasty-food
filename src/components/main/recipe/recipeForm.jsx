@@ -39,7 +39,7 @@ function RecipeForm() {
             }
         };
 
-        fetcher.submit(objectToFormData(newRating), { action: "/:author/recipes/:recipeId", method: "POST" });
+        fetcher.submit(objectToFormData(newRating), { action: "/:author/recipes/:recipeId/createRecipeRating", method: "POST" });
         setIsEditting();
     }
 
