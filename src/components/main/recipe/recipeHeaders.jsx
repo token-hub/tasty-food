@@ -6,17 +6,13 @@ import { useChatStore } from "../../../stores/useChatStore";
 import { MODAL_MODES } from "../../../lib/constants";
 import ChatMaximizedBody from "../chat/chatMaximizedBody";
 import { useUserStore } from "../../../stores/useUserStore";
-import { useFetcher, useNavigate } from "react-router";
 import { objectToFormData } from "../../../lib/utilities";
-import { useToastStore } from "../../../stores/useToastStore";
-import { useEffect } from "react";
 import { useSlideStore } from "../../../stores/useSlideStore";
 import { useModalStore } from "../../../stores/useModalStore";
+import { useArchiveFetcher } from "../../../hooks/useArchiveFetcher";
+import { useNavigate } from "react-router";
 
 function RecipeHeaders({ recipe }) {
-    const fetcher = useFetcher();
-    const navigate = useNavigate();
-    const createToast = useToastStore((state) => state.createToast);
     let { image, goodForPeopleCount, description, name } = recipe;
     const setCurrentModal = useModalStore((state) => state.setCurrentModal);
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
@@ -25,13 +21,8 @@ function RecipeHeaders({ recipe }) {
     const imageSource = image ?? DEFAULT_IMAGE;
     const alt = image ? name : "default image";
     const isAuthor = user?.id === recipe.author.userId;
-
-    useEffect(() => {
-        if (fetcher.data?.result) {
-            createToast({ headerText: "Recipe achived", bodyText: "You have successfull archived a recipe" });
-            navigate("/me/archives");
-        }
-    }, [fetcher, createToast, navigate]);
+    const navigate = useNavigate();
+    const { fetcher } = useArchiveFetcher();
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);

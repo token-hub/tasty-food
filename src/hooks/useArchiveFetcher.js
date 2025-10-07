@@ -12,7 +12,10 @@ export function useArchiveFetcher() {
         }
 
         if (fetcher?.data?.result) {
-            createToast({ headerText: "Recipe Unarchived", bodyText: "You have successfully unarchived a recipe" });
+            createToast({
+                headerText: `Recipe ${fetcher?.data?.result?.isArchive ? "Archived" : "Unarchived"}`,
+                bodyText: `You have successfully ${fetcher?.data?.result?.isArchive ? "archived" : "unarchived"}  a recipe`
+            });
         }
     }, [fetcher, createToast]);
 
