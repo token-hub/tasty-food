@@ -33,7 +33,10 @@ function Auth() {
             }
             createToast({ headerText: "Authentication Success", bodyText: `Welcome ${name}` });
             navigate("/");
-            socket.emit("authenticate", { id: data?.result?.user?.id });
+
+            if (socket) {
+                socket.emit("authenticate", { id: data?.result?.user?.id });
+            }
         }
     }, [data, createToast, navigate, socket]);
 
