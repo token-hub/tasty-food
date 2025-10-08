@@ -28,6 +28,7 @@ import { createRecipeAction } from "./actions/createRecipe";
 import { createRecipeRatingAction } from "./actions/createRecipeRating";
 import { createConversationAction } from "./actions/createConversation";
 import { getMoreMessagesAction } from "./actions/getMoreMessagesAction";
+import { markUnreadMessagesAction } from "./actions/markUnreadMessagesAction";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 import { createMessageAction } from "./actions/createMessage";
@@ -122,7 +123,10 @@ const router = createBrowserRouter([
     },
     {
         path: "/chat",
-        children: [{ path: "getMoreMessages", action: getMoreMessagesAction }]
+        children: [
+            { path: "getMoreMessages", action: getMoreMessagesAction },
+            { path: "markUnreadMessages", action: markUnreadMessagesAction }
+        ]
     },
     {
         path: "/signOut",

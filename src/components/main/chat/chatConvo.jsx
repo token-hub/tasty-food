@@ -3,7 +3,7 @@ import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } fr
 import { useSlideStore } from "../../../stores/useSlideStore";
 import ChatMaximizedBody from "./chatMaximizedBody";
 
-function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount) {
+function chatConvoContent(mobileView, trimName, trimText, convoDate, unreadCount) {
     return (
         <>
             <div className={`border rounded-circle ${mobileView ? "me-2" : ""}`}>
@@ -16,12 +16,12 @@ function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount)
                 </p>
                 <p className="m-0">
                     <span className="text-muted small me-2">{trimText}</span>
-                    {convoCount > 0 && (
+                    {unreadCount > 0 && (
                         <span
                             className="convo-count small bg-secondary text-white  rounded-circle d-inline-block text-center"
                             style={{ width: "15px" }}
                         >
-                            {convoCount}
+                            {unreadCount}
                         </span>
                     )}
                 </p>
@@ -30,14 +30,14 @@ function chatConvoContent(mobileView, trimName, trimText, convoDate, convoCount)
     );
 }
 
-function ChatConvo({ name, date, text, convoCount = 0, mobileView = false, onClick }) {
+function ChatConvo({ name, date, text, unreadCount = 0, mobileView = false, onClick }) {
     let trimNameLength = mobileView ? 27 : 8;
     let trimTextLength = mobileView ? 35 : 13;
     const convoDate = getDayAndMonthFromDate(date);
     let trimName = trimTextAddEllipsis(name, trimNameLength);
     let trimText = trimTextAddEllipsis(text, trimTextLength);
     trimText = capitalizeFirstLetter(trimText);
-    let toPass = [mobileView, trimName, trimText, convoDate, convoCount];
+    let toPass = [mobileView, trimName, trimText, convoDate, unreadCount];
     const openSlide = useSlideStore((state) => state.openSlide);
 
     function handleSelectedConvo() {
