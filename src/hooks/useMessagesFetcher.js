@@ -1,18 +1,20 @@
 import { useFetcher } from "react-router";
 import { useToastStore } from "../stores/useToastStore";
-import { useEffect, useEffectEvent } from "react";
+import { useLayoutEffect, useEffectEvent } from "react";
 import { usePagination } from "./usePagination";
 import { useChatStore } from "../stores/useChatStore";
 
-export function useMessagesFetcher(ref) {
+export function useMessagesFetcher() {
     const { pagination, setPagination } = usePagination({ limit: 6 });
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     const fetcher = useFetcher();
     const createToast = useToastStore((state) => state.createToast);
-
+    const convoMessagesLength = +selectedConvo?.messages?.length;
     const loadMessages = useEffectEvent((messages) => {
+        if (!selectedConvo) return;
         const lastMessage = messages[0];
+        const totalFetchedMessages = messages.length;
         const exist = messages.every((m) => selectedConvo.messages.find((im) => im._id == m._id));
 
         if (!exist) {
@@ -20,28 +22,32 @@ export function useMessagesFetcher(ref) {
                 return { ...prev, cursor: lastMessage.updatedAt };
             });
 
-            if (selectedConvo) {
-                updateSelectedConvo((prev) => ({
-                    ...prev,
-                    messages: [...messages, ...prev.messages]
-                }));
-            }
+            updateSelectedConvo((prev) => ({
+                ...prev,
+                messages: [...messages, ...prev.messages]
+            }));
         } else {
-            if (fetcher.state !== "idle") {
-                ref.current.scrollTop = 500;
+            if (totalFetchedMessages > 0) {
+                const previousTopMessage = selectedConvo.messages[totalFetchedMessages];
+                const id = previousTopMessage.messageId ?? previousTopMessage._id;
+                const targetElement = document.getElementById(id);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView();
+                }
             }
         }
     });
 
-    useEffect(() => {
-        if (fetcher?.data?.error) {
+    useLayoutEffect(() => {
+        if (fetcher.data?.error) {
             createToast({ headerText: "Server Error", bodyText: fetcher?.data?.error, isSuccess: false });
         }
 
-        if (fetcher?.data?.result && fetcher?.data?.result.length) {
+        if (fetcher.data?.result && fetcher.data?.result.length) {
             loadMessages(fetcher?.data?.result.reverse());
         }
-    }, [fetcher, createToast]);
+    }, [fetcher.data, convoMessagesLength, createToast]);
 
     return { fetcher, pagination, selectedConvo };
 }

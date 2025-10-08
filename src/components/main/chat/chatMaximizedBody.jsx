@@ -8,27 +8,37 @@ import { useMessagesFetcher } from "../../../hooks/useMessagesFetcher";
 function ChatMaximizedBody({ mobileView = false }) {
     const chatRef = useRef();
     const [lastScrollTop, setLastScrollTop] = useState(0);
-    const { fetcher, pagination, selectedConvo } = useMessagesFetcher(chatRef);
+    const { fetcher, pagination, selectedConvo } = useMessagesFetcher();
 
     const user = useUserStore((state) => state.user);
     const convoWith = selectedConvo?.participants?.find((u) => u.userId != user.id)?.name;
     const bottomRef = useRef();
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
+    const convoMessagesLength = +selectedConvo?.messages?.length;
 
     useEffect(() => {
-        if (scrollAtTheBottom || selectedConvo?.messages?.length <= 6) {
+        const isInitialLoad = convoMessagesLength <= 6;
+        const scrollAtBotAndSendingMessage = scrollAtTheBottom && !isInitialLoad;
+
+        if (scrollAtTheBottom || isInitialLoad || scrollAtBotAndSendingMessage) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-    }, [selectedConvo, scrollAtTheBottom]);
+    }, [convoMessagesLength, scrollAtTheBottom]);
 
     function handleScroll(e) {
         const currentScrollTop = e.target.scrollTop;
         const scrollingUp = currentScrollTop < lastScrollTop;
         const reachedTheTop = currentScrollTop === 0;
 
-        const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
-        setScrollAtTheBottom(isBottom);
+        if (scrollingUp) {
+            setScrollAtTheBottom(false);
+        } else {
+            const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
+            setScrollAtTheBottom(isBottom);
+            console.log(isBottom);
+        }
 
+        // console.log(scrollingUp, Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight));
         if (scrollingUp && reachedTheTop && selectedConvo) {
             fetcher.submit(
                 objectToFormData({
@@ -52,21 +62,20 @@ function ChatMaximizedBody({ mobileView = false }) {
                 </>
             )}
             <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
-                <div className="d-flex flex-column mb-6">
+                <div className="d-flex flex-column mb-6 position-relative">
                     {fetcher.state !== "idle" && (
-                        <p className="text-center">
+                        <p className="position-absolute top-0 start-50 translate-middle mt-2">
                             <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
-                            <span className="text-muted fs-7">Loading ...</span>
                         </p>
                     )}
                     {selectedConvo &&
                         selectedConvo.messages.length > 0 &&
-                        selectedConvo.messages.map(({ messageId, message, userId, updatedAt }) => {
+                        selectedConvo.messages.map(({ _id, messageId, message, userId, updatedAt }) => {
                             const isUser = userId == user?.id;
 
                             return (
                                 <>
-                                    <ConvoMessage key={messageId} date={new Date(updatedAt)} isUser={isUser} message={message} />
+                                    <ConvoMessage messageId={messageId ?? _id} date={new Date(updatedAt)} isUser={isUser} message={message} />
                                 </>
                             );
                         })}
