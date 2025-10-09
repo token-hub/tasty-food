@@ -8,10 +8,14 @@ import { usePagination } from "../../../hooks/usePagination";
 import { useChatStore } from "../../../stores/useChatStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
+import { useEffect } from "react";
 
 function ChatMaximized({ chatCount, isOpen, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
+    const setConversations = useChatStore((state) => state.setConversations);
+    const conversations = useChatStore((state) => state.conversations);
+
     const user = useUserStore((state) => state.user);
     const { fetcher } = useMarkUnreadMessagesFetcher();
     const { pagination } = usePagination();
@@ -21,6 +25,12 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
         queryFn: ({ signal }) => getConversations({ signal, userId: user?.id, pagination }),
         enabled: Boolean(isOpen && user?.id)
     });
+
+    useEffect(() => {
+        if (details.length && !isLoading) {
+            setConversations(details);
+        }
+    }, [details, isLoading, setConversations]);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -50,8 +60,8 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
                         )}
 
                         {!isLoading &&
-                            details.length > 0 &&
-                            details.map((convo) => {
+                            conversations.length > 0 &&
+                            conversations.map((convo) => {
                                 const { _id, participants, updatedAt, messages } = convo;
                                 const convoWith = participants.find((u) => u.userId != user.id);
                                 const latestMessage = messages[messages.length - 1];
