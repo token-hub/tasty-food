@@ -35,10 +35,8 @@ function ChatMaximizedBody({ mobileView = false }) {
         } else {
             const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
             setScrollAtTheBottom(isBottom);
-            console.log(isBottom);
         }
 
-        // console.log(scrollingUp, Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight));
         if (scrollingUp && reachedTheTop && selectedConvo) {
             fetcher.submit(
                 objectToFormData({
