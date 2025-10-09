@@ -48,7 +48,10 @@ export function trimTextAddEllipsis(text, index) {
     if (text.length < 5) return text;
     if (!text || !index) return;
     let trimText = text.slice(0, index);
-    trimText += "...";
+    if (text.length > index) {
+        trimText += "...";
+    }
+
     return trimText;
 }
 
