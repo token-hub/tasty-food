@@ -5,8 +5,8 @@ export const useChatStore = create((set) => ({
     selectedConvo: undefined,
     conversations: [],
     setConversations: (conversations) =>
-        set(() => ({
-            conversations
+        set((state) => ({
+            conversations: [...state.conversations, ...conversations]
         })),
     updateSelectedConvo: (updateFnc) =>
         set((state) => ({

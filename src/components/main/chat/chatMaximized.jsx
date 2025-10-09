@@ -6,14 +6,16 @@ import { useChatStore } from "../../../stores/useChatStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
 import { useGetConversations } from "../../../hooks/useGetConversations";
+import { useState } from "react";
 
 function ChatMaximized({ chatCount, isOpen, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
     const conversations = useChatStore((state) => state.conversations);
+    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
     const user = useUserStore((state) => state.user);
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { isLoading } = useGetConversations(user, isOpen);
+    const { isLoading } = useGetConversations(user, isOpen, scrollAtTheBottom);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -29,12 +31,17 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
         }
     }
 
+    function onScroll(e) {
+        const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
+        setScrollAtTheBottom(isBottom);
+    }
+
     return (
         <div className={`chat-maximized z-3 position-fixed bottom-0 end-0 bg-light rounded-top shadow ${isOpen ? "chat-maximized-open" : ""} `}>
             <ChatMaximizedHeader onClick={onClick} chatCount={chatCount} />
             <div className="chat-body">
                 <div className="row h-100">
-                    <div className="col-4 h-100 border-end pe-0 overflow-auto">
+                    <div onScroll={onScroll} className="col-4 h-100 border-end pe-0 overflow-auto">
                         {isLoading && (
                             <p className="text-center">
                                 <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
