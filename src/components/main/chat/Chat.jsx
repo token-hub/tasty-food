@@ -1,12 +1,18 @@
 import ChatMinimized from "./chatMinimized";
 import ChatMaximized from "./chatMaximized";
 import { useChatStore } from "../../../stores/useChatStore";
+import { useUserStore } from "../../../stores/useUserStore";
 
 function Chat() {
     const openChat = useChatStore((state) => state.openChat);
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
     const handleCloseChat = useChatStore((state) => state.handleCloseChat);
-    let chatCount = 99;
+    const conversations = useChatStore((state) => state.conversations);
+    const user = useUserStore((state) => state.user);
+    let chatCount = conversations.reduce((prev, current) => {
+        const total = prev + +current?.messages.filter((m) => !m.isReadBy?.includes(user.id)).length;
+        return total;
+    }, 0);
 
     return (
         <>
