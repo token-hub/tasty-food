@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const useChatStore = create((set) => ({
+const store = (set) => ({
     openChat: false,
     selectedConvo: undefined,
     conversations: [],
@@ -15,4 +16,6 @@ export const useChatStore = create((set) => ({
     setSelectedConvo: (convo) => set(() => ({ selectedConvo: convo })),
     handleOpenChat: () => set(() => ({ openChat: true })),
     handleCloseChat: () => set(() => ({ openChat: false, selectedConvo: false }))
-}));
+});
+
+export const useChatStore = create(devtools(store));

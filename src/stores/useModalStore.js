@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 import { MODAL_MODES } from "../lib/constants";
 
 const defaultModal = {
@@ -7,10 +8,12 @@ const defaultModal = {
     show: false
 };
 
-export const useModalStore = create((set) => ({
+const store = (set) => ({
     modal: defaultModal,
     setCurrentModal: (name, mode) => {
         set(({ modal }) => ({ modal: { ...modal, name, mode, show: true } }));
     },
     reset: () => set(() => defaultModal)
-}));
+});
+
+export const useModalStore = create(devtools(store));

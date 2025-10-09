@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const useUserStore = create((set) => ({
+const store = (set) => ({
     user: undefined,
     isLoading: false,
     setUser: (user) => set(() => ({ user })),
@@ -8,4 +9,6 @@ export const useUserStore = create((set) => ({
         set(() => ({
             isLoading
         }))
-}));
+});
+
+export const useUserStore = create(devtools(store));

@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const useToastStore = create((set) => ({
+const store = (set) => ({
     toasts: [],
     updateToast: (id) =>
         set(({ toasts }) => ({
@@ -33,4 +34,6 @@ export const useToastStore = create((set) => ({
 
             return { toasts };
         })
-}));
+});
+
+export const useToastStore = create(devtools(store));

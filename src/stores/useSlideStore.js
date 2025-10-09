@@ -1,12 +1,12 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 export const slide = {
     open: false,
     header: "",
     component: ""
 };
-
-export const useSlideStore = create((set) => ({
+const store = (set) => ({
     slides: [],
     openSlide: (data) => {
         if (!data) return;
@@ -34,4 +34,6 @@ export const useSlideStore = create((set) => ({
             set(({ slides }) => ({ slides: slides.filter((slide, index) => index != slides.length - 1) }));
         }, 400);
     }
-}));
+});
+
+export const useSlideStore = create(devtools(store));

@@ -1,6 +1,7 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const useRecipeStore = create((set) => ({
+const store = (set) => ({
     filters: [],
     query: "",
     setQuery: (query) => set(() => ({ query })),
@@ -17,4 +18,6 @@ export const useRecipeStore = create((set) => ({
 
             return { filters: newfilters };
         })
-}));
+});
+
+export const useRecipeStore = create(devtools(store));

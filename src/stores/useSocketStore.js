@@ -1,8 +1,11 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-export const useSocketStore = create((set) => ({
+const store = (set) => ({
     users: [],
     socket: null,
     setSocket: (socket) => set(() => ({ socket })),
     setUsers: (users) => set(() => ({ users }))
-}));
+});
+
+export const useSocketStore = create(devtools(store));
