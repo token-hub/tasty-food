@@ -1,36 +1,19 @@
 import ChatConvo from "./chatConvo";
 import ChatMaximizedHeader from "./chatMaximizedHeader";
 import ChatMaximizedBody from "./chatMaximizedBody";
-import { useQuery } from "@tanstack/react-query";
-import { getConversations } from "../../../queries/getConversations";
 import { useUserStore } from "../../../stores/useUserStore";
-import { usePagination } from "../../../hooks/usePagination";
 import { useChatStore } from "../../../stores/useChatStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
-import { useEffect } from "react";
+import { useGetConversations } from "../../../hooks/useGetConversations";
 
 function ChatMaximized({ chatCount, isOpen, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
-    const setConversations = useChatStore((state) => state.setConversations);
     const conversations = useChatStore((state) => state.conversations);
-
     const user = useUserStore((state) => state.user);
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { pagination } = usePagination();
-
-    const { data: { details = [] } = {}, isLoading } = useQuery({
-        queryKey: ["chat", "conversations"],
-        queryFn: ({ signal }) => getConversations({ signal, userId: user?.id, pagination }),
-        enabled: Boolean(isOpen && user?.id)
-    });
-
-    useEffect(() => {
-        if (details.length && !isLoading) {
-            setConversations(details);
-        }
-    }, [details, isLoading, setConversations]);
+    const { isLoading } = useGetConversations(user, isOpen);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
