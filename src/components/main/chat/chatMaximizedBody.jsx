@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import ConvoMessage from "./convoMessage";
 import ChatArea from "./chatArea";
+import ChatConvoWithTopic from "./chatConvoWithTopic";
 import { useUserStore } from "../../../stores/useUserStore";
-import { objectToFormData, trimTextAddEllipsis } from "../../../lib/utilities";
+import { objectToFormData } from "../../../lib/utilities";
 import { useMessagesFetcher } from "../../../hooks/useMessagesFetcher";
 
 function ChatMaximizedBody({ mobileView = false }) {
@@ -11,11 +12,10 @@ function ChatMaximizedBody({ mobileView = false }) {
     const { fetcher, pagination, selectedConvo } = useMessagesFetcher();
 
     const user = useUserStore((state) => state.user);
-    const convoWith = selectedConvo?.participants?.find((u) => u.userId != user.id)?.name;
+
     const bottomRef = useRef();
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
     const convoMessagesLength = +selectedConvo?.messages?.length;
-    const topicLength = +selectedConvo?.recipes?.length;
 
     useEffect(() => {
         const isInitialLoad = convoMessagesLength <= 6;
@@ -54,27 +54,7 @@ function ChatMaximizedBody({ mobileView = false }) {
 
     return (
         <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
-            {!mobileView && (
-                <>
-                    <div className="d-flex align-items-center">
-                        <span className="fs-7 m-0 fw-bold ps-3">{convoWith}</span>
-                        <span className="mx-2 fs-7">*</span>
-                        {topicLength == 1 && <span className="fs-7">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>}
-                        {topicLength > 1 && (
-                            <select
-                                class="form-select p-2 mb-2"
-                                aria-label="Recipe Topics"
-                                value={selectedConvo.recipes.find((r) => r.isLatest).recipeId}
-                            >
-                                {selectedConvo.recipes.map((recipe) => {
-                                    return <option value={recipe.recipeId}>{trimTextAddEllipsis(recipe.name, 20)}</option>;
-                                })}
-                            </select>
-                        )}
-                    </div>
-                    <hr className="m-0" />
-                </>
-            )}
+            {!mobileView && <ChatConvoWithTopic />}
             <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
                 <div className="d-flex flex-column mb-6 position-relative">
                     {fetcher.state !== "idle" && (
