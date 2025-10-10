@@ -3,30 +3,17 @@ import UserIcon from "../assets/icons/userIcon";
 import ChatDotsIcon from "../assets/icons/chatDotsIcon";
 import SearchBar from "../components/header/searchBar";
 import SignInIcon from "../assets/icons/signInIcon";
-import { SUBMENU_HEADERS } from "../lib/constants";
 import MenuDropDown from "../components/header/menuDropDown";
-import ChatConvo from "../components/main/chat/chatConvo";
 import { useUserStore } from "../stores/useUserStore";
-import { useSlideStore } from "../stores/useSlideStore";
+import { useChatStore } from "../stores/useChatStore";
 
 function BaseHeader({ chatCount = 20 }) {
-    const openSlide = useSlideStore((state) => state.openSlide);
+    const handleOpenChat = useChatStore((state) => state.handleOpenChat);
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate();
 
     function handleSignIn() {
         navigate("/auth");
-    }
-
-    function handleChatClick() {
-        openSlide({
-            open: true,
-            header: SUBMENU_HEADERS[2],
-            component: [
-                <ChatConvo key={1} name="john doe doe doe" date="2022/11/17" text="very important message" convoCount={5} mobileView />,
-                <ChatConvo key={4} name="jane doe doe doe" date="2022/11/17" text="message important very very" convoCount={0} mobileView />
-            ]
-        });
     }
 
     return (
@@ -44,7 +31,7 @@ function BaseHeader({ chatCount = 20 }) {
 
                         {user?.name ? (
                             <>
-                                <div className="d-sm-none position-relative" role="button" onClick={handleChatClick}>
+                                <div className="d-sm-none position-relative" role="button" onClick={() => handleOpenChat(true)}>
                                     <ChatDotsIcon className="text-white me-2" height="20" width="20" />
                                     <span
                                         className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
