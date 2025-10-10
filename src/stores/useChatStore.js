@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 
 const store = (set) => ({
     openChat: false,
+    openChatSmall: false,
     selectedConvo: undefined,
     conversations: [],
     setConversations: (updateFnc) =>
@@ -15,8 +16,8 @@ const store = (set) => ({
             selectedConvo: updateFnc(state.selectedConvo)
         })),
     setSelectedConvo: (convo) => set(() => ({ selectedConvo: convo })),
-    handleOpenChat: () => set(() => ({ openChat: true })),
-    handleCloseChat: () => set(() => ({ openChat: false, selectedConvo: false }))
+    handleOpenChat: (isSmallScreen = false) => set(() => ({ [isSmallScreen ? "openChatSmall" : "openChat"]: true })),
+    handleCloseChat: (isSmallScreen = false) => set(() => ({ [isSmallScreen ? "openChatSmall" : "openChat"]: false, selectedConvo: undefined }))
 });
 
 export const useChatStore = create(devtools(store));
