@@ -4,11 +4,12 @@ import { getConversations } from "../queries/getConversations";
 import { useEffect } from "react";
 import { useChatStore } from "../stores/useChatStore";
 
-export function useGetConversations(user, isOpen, scrollsAtBottom) {
-    const { pagination, setPagination } = usePagination({ limit: 8 });
+export function useGetConversations(user, scrollsAtBottom, isSmallScreen = false) {
+    const { pagination, setPagination } = usePagination({ limit: isSmallScreen ? 10 : 8 });
+    const openChat = useChatStore((state) => (isSmallScreen ? state.openChatSmall : state.openChat));
     const setConversations = useChatStore((state) => state.setConversations);
 
-    const isOpenAndTheresUser = isOpen && user?.id;
+    const isOpenAndTheresUser = openChat && user?.id;
     const userScrollsDown = isOpenAndTheresUser && scrollsAtBottom;
 
     const { data: { details = [] } = {}, isLoading } = useQuery({
