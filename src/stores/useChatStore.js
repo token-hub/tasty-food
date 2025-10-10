@@ -5,10 +5,11 @@ const store = (set) => ({
     openChat: false,
     selectedConvo: undefined,
     conversations: [],
-    setConversations: (conversations) =>
+    setConversations: (updateFnc) =>
         set((state) => ({
-            conversations: [...state.conversations, ...conversations]
+            conversations: updateFnc(state.conversations)
         })),
+
     updateSelectedConvo: (updateFnc) =>
         set((state) => ({
             selectedConvo: updateFnc(state.selectedConvo)
