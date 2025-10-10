@@ -8,14 +8,15 @@ import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessag
 import { useGetConversations } from "../../../hooks/useGetConversations";
 import { useState } from "react";
 
-function ChatMaximized({ chatCount, isOpen, onClick }) {
+function ChatMaximized({ chatCount, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
+    const openChat = useChatStore((state) => state.openChat);
     const conversations = useChatStore((state) => state.conversations);
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
     const user = useUserStore((state) => state.user);
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { isLoading } = useGetConversations(user, isOpen, scrollAtTheBottom);
+    const { isLoading } = useGetConversations(user, scrollAtTheBottom);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -37,7 +38,7 @@ function ChatMaximized({ chatCount, isOpen, onClick }) {
     }
 
     return (
-        <div className={`chat-maximized z-3 position-fixed bottom-0 end-0 bg-light rounded-top shadow ${isOpen ? "chat-maximized-open" : ""} `}>
+        <div className={`chat-maximized z-3 position-fixed bottom-0 end-0 bg-light rounded-top shadow ${openChat ? "chat-maximized-open" : ""} `}>
             <ChatMaximizedHeader onClick={onClick} chatCount={chatCount} />
             <div className="chat-body">
                 <div className="row h-100">
