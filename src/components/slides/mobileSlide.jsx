@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import LeftIcon from "../../assets/icons/leftIcon";
 import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
 import { useSlideStore } from "../../stores/useSlideStore";
+import { useChatStore } from "../../stores/useChatStore";
 
 function MobileSlide({ index, children }) {
     const slides = useSlideStore((state) => state.slides);
     const closeSlide = useSlideStore((state) => state.closeSlide);
+    const openChatSmall = useChatStore((state) => state.openChatSmall);
+    const handleCloseChat = useChatStore((state) => state.handleCloseChat);
 
     const currentSlide = slides[index];
     const isSlideOpen = currentSlide?.open;
@@ -37,10 +40,17 @@ function MobileSlide({ index, children }) {
         };
     }, [isSlideOpen, index]);
 
+    function handleCloseSlide() {
+        if (slides.length === 1 && openChatSmall) {
+            handleCloseChat(true);
+        }
+        closeSlide();
+    }
+
     return (
         <div className={`slide slide-${index + 1} hidden-from-left-to-right d-md-none`}>
             <div className="d-flex align-items-center justify-content-between p-3 shadow-sm">
-                <button className="btn p-0" onClick={closeSlide}>
+                <button className="btn p-0" onClick={handleCloseSlide}>
                     <LeftIcon className="text-secondary" height="26" width="26" />
                 </button>
                 <h5 className="m-0 text-capitalize">{currentSlide.header}</h5>
