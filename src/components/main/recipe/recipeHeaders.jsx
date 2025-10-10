@@ -10,6 +10,7 @@ import { objectToFormData } from "../../../lib/utilities";
 import { useSlideStore } from "../../../stores/useSlideStore";
 import { useModalStore } from "../../../stores/useModalStore";
 import { useArchiveFetcher } from "../../../hooks/useArchiveFetcher";
+import { useCreateConversation } from "../../../hooks/useCreateConversation";
 import { useNavigate } from "react-router";
 
 function RecipeHeaders({ recipe }) {
@@ -23,6 +24,7 @@ function RecipeHeaders({ recipe }) {
     const isAuthor = user?.id === recipe.author.userId;
     const navigate = useNavigate();
     const { fetcher } = useArchiveFetcher();
+    const { fetcher: chatFetcher } = useCreateConversation();
 
     function handleEdit() {
         setCurrentModal("recipe", MODAL_MODES[1]);
@@ -50,7 +52,7 @@ function RecipeHeaders({ recipe }) {
 
     function handleChat() {
         handleOpenChat();
-        fetcher.submit(
+        chatFetcher.submit(
             objectToFormData({
                 recipe: {
                     recipeId: recipe._id,
