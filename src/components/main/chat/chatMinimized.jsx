@@ -33,7 +33,8 @@ function ChatMinimized({ chatCount, onClick }) {
     }
 
     const getComponents = useEffectEvent(() => {
-        const currentSlide = slides[slides.length - 1];
+        const chatSlideIndex = slides.findIndex((slide) => slide.header.includes("chat"));
+        const currentSlide = slides[chatSlideIndex];
         const seenChatConvoLength = currentSlide?.component.length || 0;
 
         return conversations.slice(seenChatConvoLength).map((convo, index) => {
@@ -61,13 +62,14 @@ function ChatMinimized({ chatCount, onClick }) {
     });
 
     const processSlides = useEffectEvent((component) => {
-        const currentSlide = slides[slides.length - 1];
-        if (currentSlide && currentSlide.header.includes("chat")) {
+        const chatSlideIndex = slides.findIndex((slide) => slide.header.includes("chat"));
+        const currentSlide = slides[chatSlideIndex];
+        if (currentSlide) {
             const updatedSlide = {
                 ...currentSlide,
                 component: [...currentSlide.component, ...component]
             };
-            updateSlide(slides.length - 1, updatedSlide);
+            updateSlide(chatSlideIndex, updatedSlide);
         } else {
             openSlide({
                 open: true,
