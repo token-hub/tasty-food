@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usePagination } from "./usePagination";
 import { getConversations } from "../queries/getConversations";
-import { useEffect } from "react";
+import { useEffect, useEffectEvent } from "react";
 import { useChatStore } from "../stores/useChatStore";
 import { useUserStore } from "../stores/useUserStore";
 
@@ -22,15 +22,29 @@ export function useGetConversations() {
         enabled: Boolean(isOpenAndTheresUser)
     });
 
+    const processConversations = useEffectEvent(() => {
+        const isExist = conversations.some((convo) => convo._id === details[0]._id);
+        if (!isExist) {
+            setConversations((conversations) => [...conversations, ...details]);
+        } else {
+            const updatedConvos = conversations.map((convo) => {
+                const convoFromRequest = details.find((nconvo) => nconvo._id === convo._id);
+                if (convoFromRequest) {
+                    return convoFromRequest;
+                } else {
+                    return convo;
+                }
+            });
+
+            setConversations(() => updatedConvos);
+        }
+    });
+
     useEffect(() => {
         if (details.length && !isLoading) {
-            const isExist = conversations.some((convo) => convo._id === details[0]._id);
-            if (!isExist) {
-                setConversations((conversations) => [...conversations, ...details]);
-                setPagination((prev) => ({ ...prev, cursor: details[details.length - 1].updatedAt }));
-            }
+            processConversations();
         }
-    }, [details, isLoading, setConversations, conversations, setPagination]);
+    }, [details, isLoading]);
 
-    return { isLoading, user };
+    return { isLoading, user, setPagination };
 }

@@ -14,7 +14,7 @@ function ChatMaximized({ chatCount, onClick }) {
     const conversations = useChatStore((state) => state.conversations);
 
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { isLoading, user } = useGetConversations();
+    const { isLoading, user, setPagination } = useGetConversations();
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -33,6 +33,7 @@ function ChatMaximized({ chatCount, onClick }) {
     function onScroll(e) {
         const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
         if (isBottom) {
+            setPagination((prev) => ({ ...prev, cursor: conversations[conversations.length - 1].updatedAt }));
             queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
         }
     }
