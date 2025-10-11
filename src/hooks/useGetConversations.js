@@ -3,13 +3,17 @@ import { usePagination } from "./usePagination";
 import { getConversations } from "../queries/getConversations";
 import { useEffect } from "react";
 import { useChatStore } from "../stores/useChatStore";
+import { useUserStore } from "../stores/useUserStore";
 
-export function useGetConversations(user, scrollsAtBottom, isSmallScreen = false) {
-    const { pagination, setPagination } = usePagination({ limit: isSmallScreen ? 10 : 8 });
-    const openChat = useChatStore((state) => (isSmallScreen ? state.openChatSmall : state.openChat));
+export function useGetConversations(scrollsAtBottom) {
+    const { pagination, setPagination } = usePagination({ limit: 10 });
+    const user = useUserStore((state) => state.user);
+    const openChat = useChatStore((state) => state.openChat);
+    const openChatSmall = useChatStore((state) => state.openChatSmall);
+    const isOpen = openChatSmall ? openChatSmall : openChat;
     const setConversations = useChatStore((state) => state.setConversations);
 
-    const isOpenAndTheresUser = openChat && user?.id;
+    const isOpenAndTheresUser = isOpen && user?.id;
     const userScrollsDown = isOpenAndTheresUser && scrollsAtBottom;
 
     const { data: { details = [] } = {}, isLoading } = useQuery({
@@ -29,5 +33,5 @@ export function useGetConversations(user, scrollsAtBottom, isSmallScreen = false
         }
     }, [details, isLoading, setConversations, scrollsAtBottom, setPagination]);
 
-    return { isLoading };
+    return { isLoading, user };
 }

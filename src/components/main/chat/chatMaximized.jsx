@@ -1,7 +1,6 @@
 import ChatConvo from "./chatConvo";
 import ChatMaximizedHeader from "./chatMaximizedHeader";
 import ChatMaximizedBody from "./chatMaximizedBody";
-import { useUserStore } from "../../../stores/useUserStore";
 import { useChatStore } from "../../../stores/useChatStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
@@ -14,9 +13,9 @@ function ChatMaximized({ chatCount, onClick }) {
     const openChat = useChatStore((state) => state.openChat);
     const conversations = useChatStore((state) => state.conversations);
     const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
-    const user = useUserStore((state) => state.user);
+
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { isLoading } = useGetConversations(user, scrollAtTheBottom);
+    const { isLoading, user } = useGetConversations(scrollAtTheBottom);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
