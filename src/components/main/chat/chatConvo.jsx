@@ -30,7 +30,7 @@ function chatConvoContent(mobileView, trimName, trimText, convoDate, unreadCount
     );
 }
 
-function ChatConvo({ name, date, text, unreadCount = 0, mobileView = false, onClick }) {
+function ChatConvo({ name, date, text, unreadCount = 0, mobileView = false, onClick, isFirst = false }) {
     let trimNameLength = mobileView ? 27 : 8;
     let trimTextLength = mobileView ? 35 : 13;
     const convoDate = getDayAndMonthFromDate(date);
@@ -51,7 +51,11 @@ function ChatConvo({ name, date, text, unreadCount = 0, mobileView = false, onCl
     return (
         <>
             {/* Add open slide click event on small screen */}
-            <div className="d-flex align-items-center p-2 d-sm-none" onClick={handleSelectedConvo} role="button">
+            <div
+                className={`d-flex align-items-center p-2 d-sm-none ${mobileView && isFirst ? "mt-6" : ""}`}
+                onClick={handleSelectedConvo}
+                role="button"
+            >
                 {chatConvoContent(...toPass)}
             </div>
             {/* Add change convo click event on large screen */}

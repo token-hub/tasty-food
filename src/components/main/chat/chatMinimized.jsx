@@ -35,7 +35,7 @@ function ChatMinimized({ chatCount, onClick }) {
     }
 
     const getComponents = useEffectEvent(() => {
-        return conversations.map((convo) => {
+        return conversations.map((convo, index) => {
             const { _id, participants, updatedAt, messages } = convo;
             const convoWith = participants.find((u) => u.userId != user.id);
             const latestMessage = messages[messages.length - 1];
@@ -46,6 +46,7 @@ function ChatMinimized({ chatCount, onClick }) {
             const deepCopy = JSON.parse(JSON.stringify(convo));
             return (
                 <ChatConvo
+                    isFirst={index === 0}
                     onClick={() => handleConvoClick(deepCopy, unreadCount)}
                     name={convoWith.name}
                     date={updatedAt}
