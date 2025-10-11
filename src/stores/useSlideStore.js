@@ -14,6 +14,11 @@ const store = (set) => ({
             slides: [...slides, data]
         }));
     },
+    updateSlide: (index, slide) =>
+        set(({ slides }) => {
+            slides[index] = slide;
+            return { slides: [...slides] };
+        }),
     closeSlide: () => {
         set(({ slides }) => {
             const targetIndex = slides.length - 1;

@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LeftIcon from "../../assets/icons/leftIcon";
 import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
 import { useSlideStore } from "../../stores/useSlideStore";
 import { useChatStore } from "../../stores/useChatStore";
+import { useGetConversations } from "../../hooks/useGetConversations";
 
 function MobileSlide({ index, children }) {
     const slides = useSlideStore((state) => state.slides);
@@ -47,9 +48,17 @@ function MobileSlide({ index, children }) {
         closeSlide();
     }
 
+    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
+    const { isLoading } = useGetConversations(scrollAtTheBottom);
+
+    function onScroll(e) {
+        const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
+        setScrollAtTheBottom(isBottom);
+    }
+
     return (
         <div className={`slide slide-${index + 1} hidden-from-left-to-right d-md-none`}>
-            <div className="h-100 overflow-auto position-relative">
+            <div onScroll={onScroll} className="h-100 overflow-auto position-relative">
                 <div className="position-fixed bg-white top-0 w-100 d-flex align-items-center justify-content-between p-3 shadow-sm">
                     <button className="btn p-0" onClick={handleCloseSlide}>
                         <LeftIcon className="text-secondary" height="26" width="26" />
@@ -58,6 +67,12 @@ function MobileSlide({ index, children }) {
                     <ChatDotsIcon className="text-secondary invisible" height="22" width="22" />
                 </div>
                 {children}
+                {isLoading && (
+                    <p className="text-center">
+                        <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
+                        <span className="text-muted fs-7">Loading ...</span>
+                    </p>
+                )}
             </div>
         </div>
     );

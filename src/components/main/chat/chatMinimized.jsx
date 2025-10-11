@@ -1,7 +1,6 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useEffect, useEffectEvent } from "react";
 import ChatDotsIcon from "../../../assets/icons/chatDotsIcon";
 import { objectToFormData } from "../../../lib/utilities";
-import { useGetConversations } from "../../../hooks/useGetConversations";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
 import { useChatStore } from "../../../stores/useChatStore";
 import { useSlideStore } from "../../../stores/useSlideStore";
@@ -11,14 +10,13 @@ import ChatConvo from "./chatConvo";
 
 function ChatMinimized({ chatCount, onClick }) {
     const openSlide = useSlideStore((state) => state.openSlide);
+    const updateSlide = useSlideStore((state) => state.updateSlide);
+    const slides = useSlideStore((store) => store.slides);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
     const openChatSmall = useChatStore((state) => state.openChatSmall);
     const conversations = useChatStore((state) => state.conversations);
     const user = useUserStore((state) => state.user);
     const { fetcher } = useMarkUnreadMessagesFetcher();
-
-    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
-    const { isLoading } = useGetConversations(user, scrollAtTheBottom, true);
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -35,7 +33,10 @@ function ChatMinimized({ chatCount, onClick }) {
     }
 
     const getComponents = useEffectEvent(() => {
-        return conversations.map((convo, index) => {
+        const currentSlide = slides[slides.length - 1];
+        const seenChatConvoLength = currentSlide?.component.length || 0;
+
+        return conversations.slice(seenChatConvoLength).map((convo, index) => {
             const { _id, participants, updatedAt, messages } = convo;
             const convoWith = participants.find((u) => u.userId != user.id);
             const latestMessage = messages[messages.length - 1];
@@ -46,7 +47,7 @@ function ChatMinimized({ chatCount, onClick }) {
             const deepCopy = JSON.parse(JSON.stringify(convo));
             return (
                 <ChatConvo
-                    isFirst={index === 0}
+                    isFirst={index === 0 && seenChatConvoLength == 0}
                     onClick={() => handleConvoClick(deepCopy, unreadCount)}
                     name={convoWith.name}
                     date={updatedAt}
@@ -59,11 +60,16 @@ function ChatMinimized({ chatCount, onClick }) {
         });
     });
 
-    useEffect(() => {
-        if (openChatSmall && conversations) {
-            const component = getComponents();
-
-            if (component.length) {
+    const processSlides = useEffectEvent((component) => {
+        const currentSlide = slides[slides.length - 1];
+        if (component.length) {
+            if (currentSlide && currentSlide.header.includes("chat")) {
+                const updatedSlide = {
+                    ...currentSlide,
+                    component: [...currentSlide.component, ...component]
+                };
+                updateSlide(slides.length - 1, updatedSlide);
+            } else {
                 openSlide({
                     open: true,
                     header: SUBMENU_HEADERS[2],
@@ -71,7 +77,14 @@ function ChatMinimized({ chatCount, onClick }) {
                 });
             }
         }
-    }, [openChatSmall, conversations, openSlide]);
+    });
+
+    useEffect(() => {
+        if (openChatSmall && conversations) {
+            const component = getComponents();
+            processSlides(component);
+        }
+    }, [openChatSmall, conversations]);
 
     return (
         <div
