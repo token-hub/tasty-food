@@ -4,7 +4,6 @@ import { useChatStore } from "../../../stores/useChatStore";
 import { useUserStore } from "../../../stores/useUserStore";
 
 function Chat() {
-    const openChat = useChatStore((state) => state.openChat);
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
     const handleCloseChat = useChatStore((state) => state.handleCloseChat);
     const conversations = useChatStore((state) => state.conversations);
@@ -17,10 +16,10 @@ function Chat() {
     return (
         <>
             {/* minimized */}
-            <ChatMinimized isMaxChatOpen={openChat} chatCount={chatCount} onClick={handleOpenChat} />
+            <ChatMinimized chatCount={chatCount} onClick={() => handleOpenChat()} />
 
             {/* maximized */}
-            <ChatMaximized isOpen={openChat} onClick={handleCloseChat} chatCount={chatCount} />
+            <ChatMaximized onClick={() => handleCloseChat()} chatCount={chatCount} />
         </>
     );
 }
