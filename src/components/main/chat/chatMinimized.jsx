@@ -62,20 +62,18 @@ function ChatMinimized({ chatCount, onClick }) {
 
     const processSlides = useEffectEvent((component) => {
         const currentSlide = slides[slides.length - 1];
-        if (component.length) {
-            if (currentSlide && currentSlide.header.includes("chat")) {
-                const updatedSlide = {
-                    ...currentSlide,
-                    component: [...currentSlide.component, ...component]
-                };
-                updateSlide(slides.length - 1, updatedSlide);
-            } else {
-                openSlide({
-                    open: true,
-                    header: SUBMENU_HEADERS[2],
-                    component
-                });
-            }
+        if (currentSlide && currentSlide.header.includes("chat")) {
+            const updatedSlide = {
+                ...currentSlide,
+                component: [...currentSlide.component, ...component]
+            };
+            updateSlide(slides.length - 1, updatedSlide);
+        } else {
+            openSlide({
+                open: true,
+                header: SUBMENU_HEADERS[2],
+                component
+            });
         }
     });
 
@@ -89,7 +87,7 @@ function ChatMinimized({ chatCount, onClick }) {
     return (
         <div
             className={`chat-minimized d-none d-sm-block position-fixed bottom-0 end-0 me-3 bg-primary py-2 px-3 rounded-top text-white position-relative ${
-                openChatSmall ? "chat-minimized-open" : ""
+                !openChatSmall ? "chat-minimized-open" : ""
             } `}
             onClick={onClick}
             role="button"
