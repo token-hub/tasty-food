@@ -4,6 +4,7 @@ import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
 import { useSlideStore } from "../../stores/useSlideStore";
 import { useChatStore } from "../../stores/useChatStore";
 import { useGetConversations } from "../../hooks/useGetConversations";
+import { queryClient } from "../../lib/queryClient";
 
 function MobileSlide({ index, children }) {
     const slides = useSlideStore((state) => state.slides);
@@ -48,12 +49,14 @@ function MobileSlide({ index, children }) {
         closeSlide();
     }
 
-    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
-    const { isLoading } = useGetConversations(scrollAtTheBottom);
+    const { isLoading } = useGetConversations();
 
     function onScroll(e) {
         const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
-        setScrollAtTheBottom(isBottom);
+
+        if (isBottom) {
+            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+        }
     }
 
     return (

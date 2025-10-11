@@ -5,33 +5,32 @@ import { useEffect } from "react";
 import { useChatStore } from "../stores/useChatStore";
 import { useUserStore } from "../stores/useUserStore";
 
-export function useGetConversations(scrollsAtBottom) {
+export function useGetConversations() {
     const { pagination, setPagination } = usePagination({ limit: 10 });
     const user = useUserStore((state) => state.user);
     const openChat = useChatStore((state) => state.openChat);
     const openChatSmall = useChatStore((state) => state.openChatSmall);
     const isOpen = openChatSmall ? openChatSmall : openChat;
     const setConversations = useChatStore((state) => state.setConversations);
+    const conversations = useChatStore((state) => state.conversations);
 
     const isOpenAndTheresUser = isOpen && user?.id;
-    const userScrollsDown = isOpenAndTheresUser && scrollsAtBottom;
 
     const { data: { details = [] } = {}, isLoading } = useQuery({
         queryKey: ["chat", "conversations"],
         queryFn: ({ signal }) => getConversations({ signal, userId: user?.id, pagination }),
-        enabled: Boolean(isOpenAndTheresUser) || userScrollsDown
+        enabled: Boolean(isOpenAndTheresUser)
     });
 
     useEffect(() => {
         if (details.length && !isLoading) {
-            if (scrollsAtBottom) {
+            const isExist = conversations.some((convo) => convo._id === details[0]._id);
+            if (!isExist) {
                 setConversations((conversations) => [...conversations, ...details]);
-                setPagination((prev) => ({ ...prev, cursor: details[0].updatedAt }));
-            } else {
-                setConversations(() => details);
+                setPagination((prev) => ({ ...prev, cursor: details[details.length - 1].updatedAt }));
             }
         }
-    }, [details, isLoading, setConversations, scrollsAtBottom, setPagination]);
+    }, [details, isLoading, setConversations, conversations, setPagination]);
 
     return { isLoading, user };
 }

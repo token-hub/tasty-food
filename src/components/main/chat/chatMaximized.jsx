@@ -5,17 +5,16 @@ import { useChatStore } from "../../../stores/useChatStore";
 import { objectToFormData } from "../../../lib/utilities";
 import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
 import { useGetConversations } from "../../../hooks/useGetConversations";
-import { useState } from "react";
+import { queryClient } from "../../../lib/queryClient";
 
 function ChatMaximized({ chatCount, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const setSelectedConvo = useChatStore((state) => state.setSelectedConvo);
     const openChat = useChatStore((state) => state.openChat);
     const conversations = useChatStore((state) => state.conversations);
-    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
 
     const { fetcher } = useMarkUnreadMessagesFetcher();
-    const { isLoading, user } = useGetConversations(scrollAtTheBottom);
+    const { isLoading, user } = useGetConversations();
 
     function handleConvoClick(convo, unreadCount) {
         setSelectedConvo(convo);
@@ -33,7 +32,9 @@ function ChatMaximized({ chatCount, onClick }) {
 
     function onScroll(e) {
         const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
-        setScrollAtTheBottom(isBottom);
+        if (isBottom) {
+            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+        }
     }
 
     return (
