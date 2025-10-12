@@ -11,6 +11,7 @@ export function useMessagesFetcher() {
     const fetcher = useFetcher();
     const createToast = useToastStore((state) => state.createToast);
     const convoMessagesLength = +selectedConvo?.messages?.length;
+
     const loadMessages = useEffectEvent((messages) => {
         if (!selectedConvo) return;
         const lastMessage = messages[0];
@@ -29,7 +30,7 @@ export function useMessagesFetcher() {
         } else {
             if (totalFetchedMessages > 0) {
                 const previousTopMessage = selectedConvo.messages[totalFetchedMessages];
-                const id = previousTopMessage.messageId ?? previousTopMessage._id;
+                const id = previousTopMessage?.messageId ?? previousTopMessage._id;
                 const targetElement = document.getElementById(id);
 
                 if (targetElement) {
