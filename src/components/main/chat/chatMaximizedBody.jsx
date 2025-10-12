@@ -54,7 +54,8 @@ function ChatMaximizedBody({ mobileView = false }) {
 
     return (
         <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
-            {!mobileView && <ChatConvoWithTopic />}
+            {/* {!mobileView && <ChatConvoWithTopic />} */}
+            <ChatConvoWithTopic />
             <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
                 <div className="d-flex flex-column mb-6 position-relative">
                     {fetcher.state !== "idle" && (

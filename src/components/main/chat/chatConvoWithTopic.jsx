@@ -39,7 +39,8 @@ function ChatConvoWithTopic() {
 
     return (
         <>
-            <div className="d-flex align-items-center">
+            {/* For large screens */}
+            <div className="d-none d-sm-flex align-items-center ">
                 <span className="fs-7 m-0 fw-bold ps-3">{convoWith?.name}</span>
                 <span className="mx-2 fs-7">*</span>
                 {topicLength == 1 && <span className="fs-7">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>}
@@ -56,7 +57,33 @@ function ChatConvoWithTopic() {
                     </select>
                 )}
             </div>
-            <hr className="m-0" />
+            <hr className="m-0 d-none d-sm-flex" />
+            {/* For small screens */}
+            <div className="d-sm-none">
+                <div className="d-flex justify-content-center">
+                    {topicLength == 1 && (
+                        <>
+                            <span className="fs-7 text-muted">Topic: </span>
+                            <span className="fs-7 fw-bold ms-1">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>
+                        </>
+                    )}
+                    {topicLength > 1 && (
+                        <div className="form-floating  w-100 px-1">
+                            <select
+                                className="form-select"
+                                aria-label="Recipe Topics"
+                                onChange={handleChange}
+                                value={selectedConvo.recipes.find((r) => r.isLatest).recipeId}
+                            >
+                                {selectedConvo.recipes.map((recipe) => {
+                                    return <option value={recipe.recipeId}>{trimTextAddEllipsis(recipe.name, 20)}</option>;
+                                })}
+                            </select>
+                            <label htmlFor="floatingSelect">Topic</label>
+                        </div>
+                    )}
+                </div>
+            </div>
         </>
     );
 }
