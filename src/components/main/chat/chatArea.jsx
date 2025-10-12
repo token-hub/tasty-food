@@ -29,12 +29,11 @@ function ChatArea({ bottomRef }) {
         chatRef.current.value = "";
     }
     return (
-        <div className="position-absolute bottom-0 w-100 chat-area-container">
+        <div className="position-absolute bottom-0 w-100 chat-area-container bg-white">
             <textarea
                 className="w-100 border-0 border-top ps-2 py-2 pe-5 small chat-area lh-sm"
                 placeholder="Type your message here..."
-                name=""
-                id=""
+                name="chat"
                 ref={chatRef}
             ></textarea>
             <div onClick={handleSend} className="position-absolute top-50 start-95 translate-middle me-2" role="button">
