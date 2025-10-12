@@ -37,7 +37,7 @@ function ChatMinimized({ chatCount, onClick }) {
         const currentSlide = slides[chatSlideIndex];
         const seenChatConvoLength = currentSlide?.component.length || 0;
 
-        return conversations.slice(seenChatConvoLength).map((convo, index) => {
+        return conversations.map((convo, index) => {
             const { _id, participants, updatedAt, messages } = convo;
             const convoWith = participants.find((u) => u.userId != user.id);
             const latestMessage = messages[messages.length - 1];
@@ -67,7 +67,7 @@ function ChatMinimized({ chatCount, onClick }) {
         if (currentSlide) {
             const updatedSlide = {
                 ...currentSlide,
-                component: [...currentSlide.component, ...component]
+                component
             };
             updateSlide(chatSlideIndex, updatedSlide);
         } else {
