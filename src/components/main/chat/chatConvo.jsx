@@ -41,10 +41,11 @@ function ChatConvo({ name, date, text, unreadCount = 0, mobileView = false, onCl
     const openSlide = useSlideStore((state) => state.openSlide);
 
     function handleSelectedConvo() {
+        onClick();
         openSlide({
             open: true,
             header: trimName,
-            component: <ChatMaximizedBody convoWith="John Doe" mobileView />
+            component: <ChatMaximizedBody convoWith={trimName} mobileView />
         });
     }
 
