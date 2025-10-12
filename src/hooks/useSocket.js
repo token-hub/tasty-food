@@ -21,10 +21,14 @@ export function useSocket() {
         socket.on("private-message", (data) => {
             if (data.to === user.id) {
                 queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
-                updateSelectedConvo((prev) => ({
-                    ...prev,
-                    messages: [...prev.messages, data.message]
-                }));
+                updateSelectedConvo((prev) => {
+                    if (prev) {
+                        return {
+                            ...prev,
+                            messages: [...prev.messages, data.message]
+                        };
+                    }
+                });
             }
         });
     });
