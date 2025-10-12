@@ -30,28 +30,7 @@ function RecipeHeaders({ recipe }) {
         setCurrentModal("recipe", MODAL_MODES[1]);
     }
 
-    function handleOpenMobileChatSlide() {
-        openSlide({
-            open: true,
-            header: recipe.author.name,
-            component: <ChatMaximizedBody convoWith={recipe.author.name} mobileView />
-        });
-    }
-
-    function handleArchive() {
-        fetcher.submit(objectToFormData({ userId: user?.id, recipeId: recipe._id, isArchive: true }), {
-            method: "PUT",
-            action: "/me/recipes/create"
-        });
-    }
-
-    function handleUserRecipes() {
-        const linkPreFix = isAuthor ? "me" : recipe?.author?.name;
-        navigate(`/${linkPreFix}/recipes`, { state: { authorId: recipe?.author?.userId } });
-    }
-
-    function handleChat() {
-        handleOpenChat();
+    function createConversation() {
         chatFetcher.submit(
             objectToFormData({
                 recipe: {
@@ -72,6 +51,32 @@ function RecipeHeaders({ recipe }) {
             }),
             { action: "/:author/recipes/:recipeId/createConversation", method: "POST" }
         );
+    }
+
+    function handleOpenMobileChatSlide() {
+        openSlide({
+            open: true,
+            header: recipe.author.name,
+            component: <ChatMaximizedBody convoWith={recipe.author.name} mobileView />
+        });
+        createConversation();
+    }
+
+    function handleArchive() {
+        fetcher.submit(objectToFormData({ userId: user?.id, recipeId: recipe._id, isArchive: true }), {
+            method: "PUT",
+            action: "/me/recipes/create"
+        });
+    }
+
+    function handleUserRecipes() {
+        const linkPreFix = isAuthor ? "me" : recipe?.author?.name;
+        navigate(`/${linkPreFix}/recipes`, { state: { authorId: recipe?.author?.userId } });
+    }
+
+    function handleChat() {
+        handleOpenChat();
+        createConversation();
     }
 
     return (
