@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LeftIcon from "../../assets/icons/leftIcon";
 import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
 import { useSlideStore } from "../../stores/useSlideStore";
@@ -71,6 +71,7 @@ function MobileSlide({ index, children }) {
                     <h5 className="m-0 text-capitalize">{currentSlide.header}</h5>
                     <ChatDotsIcon className="text-secondary invisible" height="22" width="22" />
                 </div>
+                <div className="mt-6"></div>
                 {children}
                 {isLoading && (
                     <p className="text-center">

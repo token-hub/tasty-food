@@ -33,11 +33,7 @@ function ChatMinimized({ chatCount, onClick }) {
     }
 
     const getComponents = useEffectEvent(() => {
-        const chatSlideIndex = slides.findIndex((slide) => slide.header.includes("chat"));
-        const currentSlide = slides[chatSlideIndex];
-        const seenChatConvoLength = currentSlide?.component.length || 0;
-
-        return conversations.map((convo, index) => {
+        return conversations.map((convo) => {
             const { _id, participants, updatedAt, messages } = convo;
             const convoWith = participants.find((u) => u.userId != user.id);
             const latestMessage = messages[messages.length - 1];
@@ -48,7 +44,6 @@ function ChatMinimized({ chatCount, onClick }) {
             const deepCopy = JSON.parse(JSON.stringify(convo));
             return (
                 <ChatConvo
-                    isFirst={index === 0 && seenChatConvoLength == 0}
                     onClick={() => handleConvoClick(deepCopy, unreadCount)}
                     name={convoWith.name}
                     date={updatedAt}
