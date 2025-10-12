@@ -61,13 +61,7 @@ function ChatConvoWithTopic() {
             {/* For small screens */}
             <div className="d-sm-none">
                 <div className="d-flex justify-content-center">
-                    {topicLength == 1 && (
-                        <>
-                            <span className="fs-7 text-muted">Topic: </span>
-                            <span className="fs-7 fw-bold ms-1">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>
-                        </>
-                    )}
-                    {topicLength > 1 && (
+                    {topicLength > 0 && (
                         <div className="form-floating  w-100 px-1">
                             <select
                                 className="form-select"

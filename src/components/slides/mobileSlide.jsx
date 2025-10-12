@@ -63,7 +63,7 @@ function MobileSlide({ index, children }) {
 
     return (
         <div className={`slide slide-${index + 1} hidden-from-left-to-right d-md-none`}>
-            <div onScroll={onScroll} className="h-100 overflow-auto position-relative">
+            <div onScroll={onScroll} className="h-100 position-relative">
                 <div className="position-fixed bg-white top-0 w-100 d-flex align-items-center justify-content-between p-3 shadow-sm">
                     <button className="btn p-0" onClick={handleCloseSlide}>
                         <LeftIcon className="text-secondary" height="26" width="26" />

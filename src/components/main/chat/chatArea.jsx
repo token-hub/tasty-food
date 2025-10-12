@@ -36,7 +36,7 @@ function ChatArea({ bottomRef }) {
                 name="chat"
                 ref={chatRef}
             ></textarea>
-            <div onClick={handleSend} className="position-absolute top-50 start-95 translate-middle me-2" role="button">
+            <div onClick={handleSend} className="position-absolute top-50 start-95 translate-middle me-3" role="button">
                 <SendIcon className="send-icon text-primary" height="20" width="20" />
             </div>
         </div>

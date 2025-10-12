@@ -5,7 +5,7 @@ import { usePagination } from "./usePagination";
 import { useChatStore } from "../stores/useChatStore";
 
 export function useMessagesFetcher() {
-    const { pagination, setPagination } = usePagination({ limit: 6 });
+    const { pagination, setPagination } = usePagination({ limit: 10 });
     const selectedConvo = useChatStore((state) => state.selectedConvo);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
     const fetcher = useFetcher();

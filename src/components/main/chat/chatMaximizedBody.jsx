@@ -18,13 +18,13 @@ function ChatMaximizedBody({ mobileView = false }) {
     const convoMessagesLength = +selectedConvo?.messages?.length;
 
     useEffect(() => {
-        const isInitialLoad = convoMessagesLength <= 6;
+        const isInitialLoad = convoMessagesLength <= pagination.limit;
         const scrollAtBotAndSendingMessage = scrollAtTheBottom && !isInitialLoad;
 
         if (scrollAtTheBottom || isInitialLoad || scrollAtBotAndSendingMessage) {
             bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-    }, [convoMessagesLength, scrollAtTheBottom]);
+    }, [convoMessagesLength, scrollAtTheBottom, pagination.limit]);
 
     function handleScroll(e) {
         const currentScrollTop = e.target.scrollTop;
@@ -53,11 +53,10 @@ function ChatMaximizedBody({ mobileView = false }) {
     }
 
     return (
-        <div className={`mt-2 ${mobileView ? "h-90" : "h-100"} position-relative`}>
-            {/* {!mobileView && <ChatConvoWithTopic />} */}
+        <div style={{ height: mobileView ? "calc(100% - 4rem)" : "100%" }} className={`position-relative`}>
             <ChatConvoWithTopic />
-            <div className="h-100 p-3 overflow-auto" onScroll={handleScroll} ref={chatRef}>
-                <div className="d-flex flex-column mb-6 position-relative">
+            <div style={{ height: "calc(100% - 5rem)" }} className={`p-3 overflow-auto`} onScroll={handleScroll} ref={chatRef}>
+                <div className={`d-flex flex-column ${mobileView ? "mb-3" : "mb-2"} position-relative`}>
                     {fetcher.state !== "idle" && (
                         <p className="position-absolute top-0 start-50 translate-middle mt-2">
                             <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
