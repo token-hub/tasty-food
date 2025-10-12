@@ -12,8 +12,6 @@ export function useGetConversations() {
     const openChatSmall = useChatStore((state) => state.openChatSmall);
     const isOpen = openChatSmall ? openChatSmall : openChat;
     const setConversations = useChatStore((state) => state.setConversations);
-    const conversations = useChatStore((state) => state.conversations);
-
     const isOpenAndTheresUser = isOpen && user?.id;
 
     const { data: { details = [] } = {}, isLoading } = useQuery({
@@ -22,29 +20,25 @@ export function useGetConversations() {
         enabled: Boolean(isOpenAndTheresUser)
     });
 
-    const processConversations = useEffectEvent(() => {
-        const isExist = conversations.some((convo) => convo._id === details[0]._id);
-        if (!isExist) {
-            setConversations((conversations) => [...conversations, ...details]);
-        } else {
-            const updatedConvos = conversations.map((convo) => {
-                const convoFromRequest = details.find((nconvo) => nconvo._id === convo._id);
-                if (convoFromRequest) {
-                    return convoFromRequest;
-                } else {
-                    return convo;
-                }
-            });
-
-            setConversations(() => updatedConvos);
-        }
-    });
-
     useEffect(() => {
         if (details.length && !isLoading) {
-            processConversations();
+            setConversations((prev) => {
+                const isExist = prev.some((convo) => convo._id === details[0]._id);
+                if (!isExist) {
+                    return [...prev, ...details];
+                } else {
+                    return prev.map((convo) => {
+                        const convoFromRequest = details.find((nconvo) => nconvo._id === convo._id);
+                        if (convoFromRequest) {
+                            return convoFromRequest;
+                        } else {
+                            return convo;
+                        }
+                    });
+                }
+            });
         }
-    }, [details, isLoading]);
+    }, [details, isLoading, setConversations]);
 
     return { isLoading, user, setPagination };
 }
