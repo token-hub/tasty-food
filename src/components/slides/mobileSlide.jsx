@@ -11,6 +11,7 @@ function MobileSlide({ index, children }) {
     const closeSlide = useSlideStore((state) => state.closeSlide);
     const openChatSmall = useChatStore((state) => state.openChatSmall);
     const handleCloseChat = useChatStore((state) => state.handleCloseChat);
+    const conversations = useChatStore((state) => state.conversations);
 
     const currentSlide = slides[index];
     const isSlideOpen = currentSlide?.open;
@@ -49,12 +50,13 @@ function MobileSlide({ index, children }) {
         closeSlide();
     }
 
-    const { isLoading } = useGetConversations();
+    const { isLoading, setPagination } = useGetConversations();
 
     function onScroll(e) {
         const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
 
         if (isBottom) {
+            setPagination((prev) => ({ ...prev, cursor: conversations[conversations.length - 1].updatedAt }));
             queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
         }
     }
