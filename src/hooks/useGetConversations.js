@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { usePagination } from "./usePagination";
 import { getConversations } from "../queries/getConversations";
-import { useEffect, useEffectEvent } from "react";
+import { useEffect } from "react";
 import { useChatStore } from "../stores/useChatStore";
 import { useUserStore } from "../stores/useUserStore";
 

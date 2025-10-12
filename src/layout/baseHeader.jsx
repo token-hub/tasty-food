@@ -7,11 +7,15 @@ import MenuDropDown from "../components/header/menuDropDown";
 import { useUserStore } from "../stores/useUserStore";
 import { useChatStore } from "../stores/useChatStore";
 
-function BaseHeader({ chatCount = 20 }) {
+function BaseHeader() {
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
+    const conversations = useChatStore((state) => state.conversations);
     const user = useUserStore((state) => state.user);
     const navigate = useNavigate();
-
+    let chatCount = conversations.reduce((prev, current) => {
+        const total = prev + +current?.messages.filter((m) => !m.isReadBy?.includes(user.id)).length;
+        return total;
+    }, 0);
     function handleSignIn() {
         navigate("/auth");
     }
