@@ -3,8 +3,18 @@ import SidebarItem from "./sidebarItem";
 import UserIcon from "../../assets/icons/userIcon";
 import RecipeIcon from "../../assets/icons/recipeIcon";
 import NotificationIcon from "../../assets/icons/notificationIcon";
+import { useNotificationStore } from "../../stores/useNotificationStore";
 
 function Sidebar() {
+    const notifications = useNotificationStore((state) => state.notifications);
+
+    const notificationCount = notifications.reduce((prev, current) => {
+        if (!current.isRead) {
+            prev++;
+        }
+        return prev;
+    }, 0);
+
     return (
         <aside className="py-2">
             <SidebarGroup>
@@ -30,7 +40,7 @@ function Sidebar() {
                     <div className="d-flex">
                         <div className="notificationIcon position-relative">
                             <NotificationIcon />
-                            <span className="notificationIcon_text">99</span>
+                            <span className="notificationIcon_text">{notificationCount}</span>
                         </div>
                         <span className="ms-2">Notifications</span>
                     </div>
