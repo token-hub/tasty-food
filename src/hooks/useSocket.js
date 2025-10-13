@@ -31,6 +31,12 @@ export function useSocket() {
                 });
             }
         });
+
+        socket.on("notification", (data) => {
+            if (data.to === user.id) {
+                alert("You have a notification");
+            }
+        });
     });
 
     useEffect(() => {
