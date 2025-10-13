@@ -1,28 +1,35 @@
-import { useQuery } from "@tanstack/react-query";
 import Notification from "../components/main/notification";
 import { useNotificationStore } from "../stores/useNotificationStore";
-import { useUserStore } from "../stores/useUserStore";
-import { getNotifications } from "../queries/getNotifications";
-import { usePagination } from "../hooks/usePagination";
-import { useEffect } from "react";
+import Pagination from "../components/main/pagination";
+import { useGetNofitications } from "../hooks/useGetNotifications";
 
 function Notifications() {
-    const pagination = usePagination();
     const notifications = useNotificationStore((state) => state.notifications);
-    const setNotifications = useNotificationStore((state) => state.setNotifications);
-    const user = useUserStore((state) => state.user);
+    const { details, count, pagination, setPagination } = useGetNofitications();
 
-    const { data: { details = [] } = {}, isFetching } = useQuery({
-        queryKey: ["notifications"],
-        queryFn: ({ signal }) => getNotifications({ signal, userId: user?.id, pagination }),
-        enabled: Boolean(user?.id)
-    });
+    function handlePagination(page) {
+        let cursor = notifications[notifications.length - 1].updatedAt;
+        let order = -1;
+        let skip = 0;
+        const pageDifference = Math.abs(page - pagination.page);
 
-    useEffect(() => {
-        if (details.length && !isFetching) {
-            setNotifications(() => details);
+        if (page < pagination.page) {
+            order = 1;
+            cursor = notifications[0].updatedAt;
         }
-    }, [details, isFetching, setNotifications]);
+
+        if (pageDifference > 1) {
+            skip = pagination.limit;
+        }
+
+        setPagination((prev) => ({
+            ...prev,
+            page,
+            cursor,
+            skip,
+            order
+        }));
+    }
 
     return (
         <div className="container">
@@ -42,6 +49,9 @@ function Notifications() {
                     <p className="text-center my-3">No notifications yet</p>
                 </div>
             )}
+            <div className="mt-3">
+                <Pagination onChange={handlePagination} currentPage={pagination.page} total={count} />
+            </div>
         </div>
     );
 }

@@ -7,6 +7,7 @@ export function usePagination(options) {
         limit: 6,
         sortBy: "updatedAt",
         order: -1,
+        skip: 0,
         ...options
     });
 
