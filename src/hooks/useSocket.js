@@ -4,12 +4,14 @@ import { queryClient } from "../lib/queryClient";
 import { useChatStore } from "../stores/useChatStore";
 import { useSocketStore } from "../stores/useSocketStore";
 import { useUserStore } from "../stores/useUserStore";
+import { useNotificationStore } from "../stores/useNotificationStore";
 
 export function useSocket() {
     const user = useUserStore((state) => state.user);
     const setSocket = useSocketStore((state) => state.setSocket);
     const setUsers = useSocketStore((state) => state.setUsers);
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
+    const setNotifications = useNotificationStore((state) => state.setNotifications);
 
     const intializeListeners = useEffectEvent((socket) => {
         setSocket(socket);
@@ -34,7 +36,7 @@ export function useSocket() {
 
         socket.on("notification", (data) => {
             if (data.to === user.id) {
-                alert("You have a notification");
+                setNotifications((prevNotifications) => [...prevNotifications, data.notification]);
             }
         });
     });
