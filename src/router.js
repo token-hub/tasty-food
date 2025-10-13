@@ -29,6 +29,7 @@ import { createRecipeRatingAction } from "./actions/createRecipeRating";
 import { createConversationAction } from "./actions/createConversation";
 import { getMoreMessagesAction } from "./actions/getMoreMessagesAction";
 import { markUnreadMessagesAction } from "./actions/markUnreadMessagesAction";
+import { markUnreadNotificationsAction } from "./actions/markUnreadNotificationsAction";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 import { createMessageAction } from "./actions/createMessage";
@@ -93,7 +94,13 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "notifications",
-                        Component: Notifications
+                        Component: Notifications,
+                        children: [
+                            {
+                                path: "markUnreadNotifications",
+                                action: markUnreadNotificationsAction
+                            }
+                        ]
                     }
                 ],
                 errorElement: NotFound
