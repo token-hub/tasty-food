@@ -1,10 +1,15 @@
 import { Link } from "react-router";
+import { getFormattedDate } from "../../lib/utilities";
 
-function Notification({ imageSource = "https://placehold.co/300x300/png", imageAlt = "default", title = "", description = "", link, isNew = false }) {
+function Notification({ notification }) {
+    const { title = "", description = "", link, isRead = false, updatedAt = null } = notification;
     let classes = "notification border px-3 py-3 mb-2 ";
-    if (isNew) {
+    if (isRead) {
         classes += "bg-white";
     }
+
+    const imageSource = notification?.recipe?.imageLink ?? "https://placehold.co/300x300/png";
+    const imageAlt = notification?.recipe?.imageLink ? notification?.recipe.name : "default";
     return (
         <Link to={link} className="link-underline link-underline-opacity-0">
             <div className={classes}>
@@ -20,7 +25,7 @@ function Notification({ imageSource = "https://placehold.co/300x300/png", imageA
                                 <h5 className="fs-7 fw-semibold text-dark">{title}</h5>
                                 <p className="text-muted m-0 fs-7">{description}</p>
                             </div>
-                            <p className="fs-7 text-muted mb-0">07/28/2025</p>
+                            <p className="fs-7 text-muted mb-0">{getFormattedDate(new Date(updatedAt))}</p>
                         </div>
                     </div>
                 </div>
