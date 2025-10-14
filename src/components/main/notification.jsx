@@ -3,7 +3,7 @@ import { getFormattedDate } from "../../lib/utilities";
 
 function Notification({ notification, onclick }) {
     const { title = "", description = "", link, isRead = false, updatedAt = null } = notification;
-    let classes = "notification border px-3 py-3 mb-2 ";
+    let classes = "notification border px-3 py-3 mb-2 bg-gray-light ";
     if (isRead) {
         classes += "bg-white";
     }
