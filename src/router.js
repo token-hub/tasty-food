@@ -30,6 +30,7 @@ import { createConversationAction } from "./actions/createConversation";
 import { getMoreMessagesAction } from "./actions/getMoreMessagesAction";
 import { markUnreadMessagesAction } from "./actions/markUnreadMessagesAction";
 import { markUnreadNotificationsAction } from "./actions/markUnreadNotificationsAction";
+import { markAsReadNotificationAction } from "./actions/markAsReadNotificationAction";
 // loaders
 import { recipeLoader } from "./loaders/recipeLoader";
 import { createMessageAction } from "./actions/createMessage";
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
                             {
                                 path: "markUnreadNotifications",
                                 action: markUnreadNotificationsAction
+                            },
+                            {
+                                path: "markAsReadNotification",
+                                action: markAsReadNotificationAction
                             }
                         ]
                     }

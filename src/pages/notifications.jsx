@@ -2,10 +2,16 @@ import Notification from "../components/main/notification";
 import { useNotificationStore } from "../stores/useNotificationStore";
 import Pagination from "../components/main/pagination";
 import { useGetNofitications } from "../hooks/useGetNotifications";
+import { useFetcher } from "react-router";
+import { objectToFormData } from "../lib/utilities";
+import { useUserStore } from "../stores/useUserStore";
 
 function Notifications() {
     const notifications = useNotificationStore((state) => state.notifications);
     const { details, count, pagination, setPagination } = useGetNofitications();
+    const user = useUserStore((state) => state.user);
+
+    const fetcher = useFetcher();
 
     function handlePagination(page) {
         let cursor = notifications[notifications.length - 1].updatedAt;
@@ -31,12 +37,24 @@ function Notifications() {
         }));
     }
 
+    function markAsRead(notificationId) {
+        if (!notificationId || !user) return;
+        fetcher.submit(
+            objectToFormData({
+                notificationId,
+                userId: user.id
+            }),
+            { action: "/me/notifications/markAsReadNotification", method: "PUT" }
+        );
+    }
+
     return (
         <div className="container">
             {notifications.length > 0 ? (
                 notifications.map((notification) => {
                     return (
                         <Notification
+                            onclick={markAsRead}
                             key={notification._id}
                             notification={notification}
                             title={notification.title}
