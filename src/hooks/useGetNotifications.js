@@ -7,7 +7,7 @@ import { useUserStore } from "../stores/useUserStore";
 import { usePagination } from "./usePagination";
 
 export function useGetNofitications() {
-    const { pagination, setPagination } = usePagination();
+    const { pagination, setPagination } = usePagination({ sortBy: "createdAt" });
     const user = useUserStore((state) => state.user);
     const setNotifications = useNotificationStore((state) => state.setNotifications);
 
