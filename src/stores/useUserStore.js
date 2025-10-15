@@ -3,7 +3,7 @@ import { devtools } from "zustand/middleware";
 
 const store = (set) => ({
     user: undefined,
-    isLoading: false,
+    isLoading: true,
     setUser: (user) => set(() => ({ user })),
     setIsLoading: (isLoading) =>
         set(() => ({
