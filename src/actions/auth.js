@@ -1,7 +1,7 @@
 import { queryClient } from "../lib/queryClient";
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 
-export async function authAction({ request }) {
+async function authAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
@@ -20,3 +20,5 @@ export async function authAction({ request }) {
         }
     );
 }
+
+export default authAction;

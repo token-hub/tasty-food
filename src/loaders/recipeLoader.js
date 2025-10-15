@@ -1,7 +1,7 @@
 import { queryClient } from "../lib/queryClient";
 import { getRecipes } from "../queries/getRecipes";
 
-export async function recipeLoader() {
+async function recipeLoader() {
     const { data } = await queryClient.fetchQuery({
         queryKey: ["recipes"],
         queryFn: ({ signal }) => getRecipes({ signal })
@@ -11,3 +11,5 @@ export async function recipeLoader() {
         recipes: data?.recipes
     };
 }
+
+export default recipeLoader;

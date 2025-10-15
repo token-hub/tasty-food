@@ -1,6 +1,6 @@
 import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
 
-export async function getMoreMessagesAction({ request }) {
+async function getMoreMessagesAction({ request }) {
     const formData = await request.formData();
     const data = formDataToObject(formData);
     const url = "messages/getMessages";
@@ -15,3 +15,5 @@ export async function getMoreMessagesAction({ request }) {
 
     return result;
 }
+
+export default getMoreMessagesAction;

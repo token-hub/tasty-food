@@ -2,7 +2,7 @@ import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 import { queryClient } from "../lib/queryClient";
 import { data as responseData } from "react-router";
 
-export async function updateUserAction({ request }) {
+async function updateUserAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
@@ -27,3 +27,5 @@ export async function updateUserAction({ request }) {
         }
     );
 }
+
+export default updateUserAction;

@@ -1,7 +1,7 @@
 import { queryClient } from "../lib/queryClient";
 import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
 
-export async function markUnreadNotificationsAction({ request }) {
+async function markUnreadNotificationsAction({ request }) {
     const formData = await request.formData();
     const data = formDataToObject(formData);
     const url = `notifications/markAllUnread/${data.userId}`;
@@ -20,3 +20,5 @@ export async function markUnreadNotificationsAction({ request }) {
 
     return result;
 }
+
+export default markUnreadNotificationsAction;

@@ -1,7 +1,7 @@
 import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
 import { queryClient } from "../lib/queryClient";
 
-export async function createRecipeRatingAction({ request }) {
+async function createRecipeRatingAction({ request }) {
     const formData = await request.formData();
     const data = formDataToObject(formData);
 
@@ -20,3 +20,5 @@ export async function createRecipeRatingAction({ request }) {
 
     return result;
 }
+
+export default createRecipeRatingAction;

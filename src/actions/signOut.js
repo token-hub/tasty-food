@@ -1,7 +1,7 @@
 import { queryClient } from "../lib/queryClient";
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 
-export async function signOutAction() {
+async function signOutAction() {
     return await customTryCatchWrapper(
         () => {
             return customFetch({
@@ -14,3 +14,5 @@ export async function signOutAction() {
         "/auth"
     );
 }
+
+export default signOutAction;

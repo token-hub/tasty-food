@@ -1,156 +1,223 @@
-import AuthPage from "./pages/auth/auth";
-import SignUpLogin from "./layout/signUpLogin";
-import BaseLayout from "./layout/base";
-import AuthLayout from "./layout/auth";
 import { createBrowserRouter } from "react-router";
-import Profile from "./pages/profile";
-import Password from "./pages/password";
-import Me from "./pages/me";
-import Recipes from "./pages/recipes";
-import Archives from "./pages/archives";
-import Notifications from "./pages/notifications";
-import Recipe from "./pages/recipe";
-import Public from "./layout/public";
-import NotFound from "./pages/notFound";
-import ForgotPassword from "./pages/auth/forgotPassword";
-import ResetPassword from "./pages/auth/resetPassword";
-import EmailVerified from "./pages/auth/emailVerified";
 
-// actions
-import { authAction } from "./actions/auth";
-import { signOutAction } from "./actions/signOut";
-import { emailVerificationAction } from "./actions/emailVerification";
-import { forgotPasswordAction } from "./actions/forgotPassword";
-import { resetPasswordAction } from "./actions/resetPassword";
-import { updatePasswordAction } from "./actions/updatePassword";
-import { updateUserAction } from "./actions/updateUser";
-import { createRecipeAction } from "./actions/createRecipe";
-import { createRecipeRatingAction } from "./actions/createRecipeRating";
-import { createConversationAction } from "./actions/createConversation";
-import { getMoreMessagesAction } from "./actions/getMoreMessagesAction";
-import { markUnreadMessagesAction } from "./actions/markUnreadMessagesAction";
-import { markUnreadNotificationsAction } from "./actions/markUnreadNotificationsAction";
-import { markAsReadNotificationAction } from "./actions/markAsReadNotificationAction";
-// loaders
-import { recipeLoader } from "./loaders/recipeLoader";
-import { createMessageAction } from "./actions/createMessage";
-
-const router = createBrowserRouter([
-    {
-        Component: BaseLayout,
-        children: [
-            {
-                path: "/",
-                Component: Public,
-                children: [
-                    { index: true, Component: Recipes, loader: recipeLoader },
-                    {
-                        path: ":author",
-                        children: [
-                            {
-                                path: "recipes",
-                                children: [
-                                    { index: true, Component: Recipes },
-                                    {
-                                        path: ":recipeId",
-                                        Component: Recipe,
-                                        children: [
-                                            { path: "createRecipeRating", action: createRecipeRatingAction },
-                                            { path: "createConversation", action: createConversationAction },
-                                            { path: "createMessage", action: createMessageAction }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                path: "/me",
-                Component: AuthLayout,
-                children: [
-                    { index: true, Component: Me },
-                    {
-                        path: "profile",
-                        Component: Profile,
-                        action: updateUserAction
-                    },
-                    {
-                        path: "recipes",
-                        children: [
-                            { index: true, Component: Recipes },
-                            { path: "create", action: createRecipeAction },
-                            { path: ":recipeId", Component: Recipe }
-                        ]
-                    },
-                    {
-                        path: "archives",
-                        Component: Archives
-                    },
-                    {
-                        path: "password",
-                        Component: Password,
-                        action: updatePasswordAction
-                    },
-                    {
-                        path: "notifications",
-                        Component: Notifications,
-                        children: [
-                            {
-                                path: "markUnreadNotifications",
-                                action: markUnreadNotificationsAction
-                            },
-                            {
-                                path: "markAsReadNotification",
-                                action: markAsReadNotificationAction
-                            }
-                        ]
-                    }
-                ],
-                errorElement: NotFound
-            },
-            {
-                path: "/auth",
-                Component: SignUpLogin,
-                children: [
-                    { index: true, Component: AuthPage, action: authAction },
-                    {
-                        path: "forgot-password",
-                        Component: ForgotPassword,
-                        action: forgotPasswordAction
-                    },
-                    {
-                        path: "reset-password",
-                        Component: ResetPassword,
-                        action: resetPasswordAction
-                    },
-                    {
-                        path: "email-verified",
-                        Component: EmailVerified
-                    }
-                ]
+const publicRoutes = {
+    path: "/",
+    lazy: {
+        Component: async () => (await import("./layout/public")).default
+    },
+    children: [
+        {
+            index: true,
+            lazy: {
+                Component: async () => (await import("./pages/recipes")).default,
+                loader: async () => (await import("./loaders/recipeLoader")).default
             }
-        ]
+        },
+        {
+            path: ":author",
+            children: [
+                {
+                    path: "recipes",
+                    children: [
+                        {
+                            index: true,
+                            lazy: {
+                                Component: async () => (await import("./pages/recipes")).default
+                            }
+                        },
+                        {
+                            path: ":recipeId",
+                            lazy: {
+                                Component: async () => (await import("./pages/recipe")).default
+                            },
+                            children: [
+                                {
+                                    path: "createRecipeRating",
+                                    lazy: {
+                                        action: async () => (await import("./actions/createRecipeRating")).default
+                                    }
+                                },
+                                {
+                                    path: "createConversation",
+                                    lazy: {
+                                        action: async () => (await import("./actions/createConversation")).default
+                                    }
+                                },
+                                {
+                                    path: "createMessage",
+                                    lazy: {
+                                        action: async () => (await import("./actions/createMessage")).default
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+const unauthenticationRoutes = {
+    path: "/auth",
+    lazy: {
+        Component: async () => (await import("./layout/signUpLogin")).default
     },
-    {
-        path: "/chat",
-        children: [
-            { path: "getMoreMessages", action: getMoreMessagesAction },
-            { path: "markUnreadMessages", action: markUnreadMessagesAction }
-        ]
+    children: [
+        {
+            index: true,
+            lazy: {
+                Component: async () => (await import("./pages/auth/auth")).default,
+                action: async () => (await import("./actions/auth")).default
+            }
+        },
+        {
+            path: "forgot-password",
+            lazy: {
+                Component: async () => (await import("./pages/auth/forgotPassword")).default,
+                action: async () => (await import("./actions/forgotPassword")).default
+            }
+        },
+        {
+            path: "reset-password",
+            lazy: {
+                Component: async () => (await import("./pages/auth/resetPassword")).default,
+                action: async () => (await import("./actions/resetPassword")).default
+            }
+        },
+        {
+            path: "email-verified",
+            lazy: {
+                Component: async () => (await import("./pages/auth/emailVerified")).default
+            }
+        }
+    ]
+};
+
+const authenticatedRoutes = {
+    path: "/me",
+    lazy: {
+        Component: async () => (await import("./layout/auth")).default,
+        errorElement: async () => (await import("./pages/notFound")).default
     },
-    {
-        path: "/signOut",
-        action: signOutAction
+    children: [
+        {
+            index: true,
+            lazy: {
+                Component: async () => (await import("./pages/me")).default
+            }
+        },
+        {
+            path: "profile",
+            lazy: {
+                Component: async () => (await import("./pages/profile")).default,
+                action: async () => (await import("./actions/updateUser")).default
+            }
+        },
+        {
+            path: "recipes",
+            children: [
+                {
+                    index: true,
+                    lazy: {
+                        Component: async () => (await import("./pages/recipes")).default
+                    }
+                },
+                {
+                    path: "create",
+                    lazy: {
+                        action: async () => (await import("./actions/createRecipe")).default
+                    }
+                },
+                {
+                    path: ":recipeId",
+                    lazy: {
+                        Component: async () => (await import("./pages/recipe")).default
+                    }
+                }
+            ]
+        },
+        {
+            path: "archives",
+            lazy: {
+                Component: async () => (await import("./pages/archives")).default
+            }
+        },
+        {
+            path: "password",
+            lazy: {
+                Component: async () => (await import("./pages/password")).default,
+                action: async () => (await import("./actions/updatePassword")).default
+            }
+        },
+        {
+            path: "notifications",
+            lazy: {
+                Component: async () => (await import("./pages/notifications")).default
+            },
+            children: [
+                {
+                    path: "markUnreadNotifications",
+                    lazy: {
+                        action: async () => (await import("./actions/markUnreadNotificationsAction")).default
+                    }
+                },
+                {
+                    path: "markAsReadNotification",
+                    lazy: {
+                        action: async () => (await import("./actions/markAsReadNotificationAction")).default
+                    }
+                }
+            ]
+        }
+    ]
+};
+
+const baseRoutes = {
+    lazy: {
+        Component: async () => (await import("./layout/base")).default
     },
-    {
-        path: "/emailVerification",
-        action: emailVerificationAction
-    },
-    {
-        path: "*",
-        Component: NotFound
+    children: [publicRoutes, authenticatedRoutes, unauthenticationRoutes]
+};
+
+const chatRoutes = {
+    path: "/chat",
+    children: [
+        {
+            path: "getMoreMessages",
+            lazy: {
+                action: async () => (await import("./actions/getMoreMessagesAction")).default
+            }
+        },
+        {
+            path: "markUnreadMessages",
+            lazy: {
+                action: async () => (await import("./actions/markUnreadMessagesAction")).default
+            }
+        }
+    ]
+};
+
+const signOutRoute = {
+    path: "/signOut",
+    lazy: {
+        action: async () => (await import("./actions/signOut")).default
     }
-]);
+};
+
+const emailVerificationRoute = {
+    path: "/emailVerification",
+    lazy: {
+        action: async () => (await import("./actions/emailVerification")).default
+    }
+};
+
+const notFoundRoute = {
+    path: "*",
+    lazy: {
+        Component: async () => (await import("./pages/notFound")).default
+    }
+};
+
+const router = createBrowserRouter([baseRoutes, chatRoutes, signOutRoute, emailVerificationRoute, notFoundRoute]);
 export default router;

@@ -1,6 +1,6 @@
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 
-export async function forgotPasswordAction({ request }) {
+async function forgotPasswordAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
@@ -11,3 +11,5 @@ export async function forgotPasswordAction({ request }) {
         });
     });
 }
+
+forgotPasswordAction;

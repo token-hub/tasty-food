@@ -2,7 +2,7 @@ import { queryClient } from "../lib/queryClient";
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 import { data as responseData } from "react-router";
 
-export async function emailVerificationAction({ request }) {
+async function emailVerificationAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
@@ -28,3 +28,5 @@ export async function emailVerificationAction({ request }) {
         "/me/profile"
     );
 }
+
+export default emailVerificationAction;

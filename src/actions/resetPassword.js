@@ -1,7 +1,7 @@
 import { customFetch, customTryCatchWrapper } from "../lib/utilities";
 import { data as responseData } from "react-router";
 
-export async function resetPasswordAction({ request }) {
+async function resetPasswordAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
     let errors = [];
@@ -30,3 +30,5 @@ export async function resetPasswordAction({ request }) {
         });
     });
 }
+
+export default resetPasswordAction;
