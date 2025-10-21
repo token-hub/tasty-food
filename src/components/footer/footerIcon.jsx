@@ -21,7 +21,7 @@ function FooterIcon({ text, Icon, to }) {
             <div className="position-relative d-flex flex-column align-items-center">
                 <Icon height="20" width="20" />
                 <span className="small-text ">{text}</span>
-                {isNotification && <span className="notificationIcon_text">2</span>}
+                {isNotification && <span className="notificationIcon_text">0</span>}
             </div>
         </NavLink>
     );

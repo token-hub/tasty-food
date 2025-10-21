@@ -59,9 +59,5 @@ export function useRecipes(pagination) {
             })
     });
 
-<<<<<<< HEAD
     return { data, dataCount };
-=======
-    return { data, error, dataCount, dataCountError };
->>>>>>> 6e6ee6b (enforce format to the project)
 }
