@@ -11,7 +11,6 @@ const publicRoutes = {
             index: true,
             lazy: {
                 Component: async () => (await import("./pages/recipes")).default,
-                loader: async () => (await import("./loaders/recipeLoader")).default
             }
         },
         {
