@@ -3,7 +3,8 @@ import { createBrowserRouter } from "react-router";
 const publicRoutes = {
     path: "/",
     lazy: {
-        Component: async () => (await import("./layout/public")).default
+        Component: async () => (await import("./layout/public")).default,
+		ErrorBoundary: async () => (await import("./pages/ErrorBoundary")).default
     },
     children: [
         {
