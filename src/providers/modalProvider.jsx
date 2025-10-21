@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
-import { MODAL_MODES } from "../lib/constants";
+import { createContext, useContext, useState } from 'react';
+import { MODAL_MODES } from '../lib/constants';
 
 const ModalContext = createContext({
-    modal: { name: "", mode: "", show: false },
+    modal: { name: '', mode: '', show: false },
     setCurrentModal: () => {},
     reset: () => {}
 });
@@ -13,7 +13,7 @@ export function useModalContext() {
 
 function ModalProvider({ children }) {
     const [modal, setModal] = useState({
-        name: "recipe",
+        name: 'recipe',
         mode: MODAL_MODES[0],
         show: false
     });
@@ -24,7 +24,7 @@ function ModalProvider({ children }) {
 
     function reset() {
         setModal({
-            name: "recipe",
+            name: 'recipe',
             mode: MODAL_MODES[0],
             show: false
         });

@@ -1,7 +1,7 @@
-import { Outlet, useNavigate } from "react-router";
-import Header from "./authHeader";
-import { useUserStore } from "../stores/useUserStore";
-import { useEffect } from "react";
+import { Outlet, useNavigate } from 'react-router';
+import Header from './authHeader';
+import { useUserStore } from '../stores/useUserStore';
+import { useEffect } from 'react';
 
 function SignUpLogin() {
     const user = useUserStore((state) => state.user);
@@ -11,7 +11,7 @@ function SignUpLogin() {
 
     useEffect(() => {
         if (!isLoading && user) {
-            navigate("/");
+            navigate('/');
         }
     }, [isLoading, user, navigate]);
 

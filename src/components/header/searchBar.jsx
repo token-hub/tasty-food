@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import SearchIcon from "../../assets/icons/searchIcon";
-import { useRecipeStore } from "../../stores/useRecipeStore";
-import { useNavigate } from "react-router";
+import { useRef } from 'react';
+import SearchIcon from '../../assets/icons/searchIcon';
+import { useRecipeStore } from '../../stores/useRecipeStore';
+import { useNavigate } from 'react-router';
 
-function SearchBar({ inputWidth = "vw-40", maxWidth = "mw-65" }) {
+function SearchBar({ inputWidth = 'vw-40', maxWidth = 'mw-65' }) {
     const searchRef = useRef();
     const setQuery = useRecipeStore((state) => state.setQuery);
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ function SearchBar({ inputWidth = "vw-40", maxWidth = "mw-65" }) {
     function handleSubmit(e) {
         e.preventDefault();
         setQuery(searchRef.current.value);
-        navigate("/");
+        navigate('/');
     }
 
     return (

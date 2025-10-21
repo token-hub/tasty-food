@@ -1,10 +1,10 @@
-import { createContext, useContext, useState } from "react";
-import MobileSlide from "../components/slides/mobileSlide";
+import { createContext, useContext, useState } from 'react';
+import MobileSlide from '../components/slides/mobileSlide';
 
 export const slide = {
     open: false,
-    header: "",
-    component: ""
+    header: '',
+    component: ''
 };
 
 const SlideContext = createContext({

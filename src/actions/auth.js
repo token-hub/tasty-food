@@ -1,12 +1,12 @@
-import { queryClient } from "../lib/queryClient";
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
+import { queryClient } from '../lib/queryClient';
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
 
 async function authAction({ request }) {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
     const isSignUp = data.confirmPassword;
-    const urlPostFix = isSignUp ? "signUp" : "signIn";
+    const urlPostFix = isSignUp ? 'signUp' : 'signIn';
 
     return await customTryCatchWrapper(
         () => {
@@ -16,7 +16,7 @@ async function authAction({ request }) {
             });
         },
         () => {
-            queryClient.invalidateQueries({ queryKey: ["session"] });
+            queryClient.invalidateQueries({ queryKey: ['session'] });
         }
     );
 }

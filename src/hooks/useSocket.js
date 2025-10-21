@@ -1,10 +1,10 @@
-import { useEffect, useEffectEvent } from "react";
-import { io } from "socket.io-client";
-import { queryClient } from "../lib/queryClient";
-import { useChatStore } from "../stores/useChatStore";
-import { useSocketStore } from "../stores/useSocketStore";
-import { useUserStore } from "../stores/useUserStore";
-import { useNotificationStore } from "../stores/useNotificationStore";
+import { useEffect, useEffectEvent } from 'react';
+import { io } from 'socket.io-client';
+import { queryClient } from '../lib/queryClient';
+import { useChatStore } from '../stores/useChatStore';
+import { useSocketStore } from '../stores/useSocketStore';
+import { useUserStore } from '../stores/useUserStore';
+import { useNotificationStore } from '../stores/useNotificationStore';
 
 export function useSocket() {
     const user = useUserStore((state) => state.user);
@@ -16,13 +16,13 @@ export function useSocket() {
     const intializeListeners = useEffectEvent((socket) => {
         setSocket(socket);
 
-        socket.on("users", (data) => {
+        socket.on('users', (data) => {
             setUsers(data);
         });
 
-        socket.on("private-message", (data) => {
+        socket.on('private-message', (data) => {
             if (data.to === user.id) {
-                queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+                queryClient.invalidateQueries({ queryKey: ['chat', 'conversations'] });
                 updateSelectedConvo((prev) => {
                     if (prev) {
                         return {
@@ -34,7 +34,7 @@ export function useSocket() {
             }
         });
 
-        socket.on("notification", (data) => {
+        socket.on('notification', (data) => {
             if (data.to === user.id) {
                 setNotifications((prevNotifications) => [...prevNotifications, data.notification]);
             }
@@ -43,7 +43,7 @@ export function useSocket() {
 
     useEffect(() => {
         if (user) {
-            const newSocket = io("http://localhost:3001", {
+            const newSocket = io('http://localhost:3001', {
                 auth: { userId: user.id }
             });
 

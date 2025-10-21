@@ -1,6 +1,6 @@
-import RightIcon from "../../assets/icons/rightIcon";
+import RightIcon from '../../assets/icons/rightIcon';
 
-function Submenu({ clickHandler, text = "" }) {
+function Submenu({ clickHandler, text = '' }) {
     return (
         <>
             <div className="d-flex justify-content-between align-items-center border-bottom mb-2">

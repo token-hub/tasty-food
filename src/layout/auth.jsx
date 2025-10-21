@@ -1,13 +1,13 @@
-import { Outlet, useNavigate } from "react-router";
-import { useEffect } from "react";
+import { Outlet, useNavigate } from 'react-router';
+import { useEffect } from 'react';
 
 // Components
-import Chat from "../components/main/chat/chat";
-import BaseHeader from "./baseHeader";
-import Sidebar from "../components/sidebar/sidebar";
-import MobileFooter from "./mobileFooter";
-import Main from "./main";
-import { useUserStore } from "../stores/useUserStore";
+import Chat from '../components/main/chat/chat';
+import BaseHeader from './baseHeader';
+import Sidebar from '../components/sidebar/sidebar';
+import MobileFooter from './mobileFooter';
+import Main from './main';
+import { useUserStore } from '../stores/useUserStore';
 
 function AuthLayout() {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function AuthLayout() {
 
     useEffect(() => {
         if (!isLoading && !user) {
-            navigate("/auth");
+            navigate('/auth');
         }
     }, [user, navigate, isLoading]);
 

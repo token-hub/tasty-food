@@ -8,7 +8,7 @@ $default-bg: #f1f1f1;
 $body-bg: $default-bg;
 
 // Font
-$font-family-base: "Sansation", sans-serif;
+$font-family-base: 'Sansation', sans-serif;
 
 // SPACES
 $spacer: 1rem !default;
@@ -36,6 +36,6 @@ $list-group-border-color: transparent;
 
 // Position
 
-$position-values-percent: generate-position-values("%");
-$position-values-vh: generate-position-values("vh");
-$position-values-vw: generate-position-values("vw");
+$position-values-percent: generate-position-values('%');
+$position-values-vh: generate-position-values('vh');
+$position-values-vw: generate-position-values('vw');

@@ -1,12 +1,12 @@
-import UserIcon from "../../../assets/icons/userIcon";
-import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from "../../../lib/utilities";
-import { useSlideStore } from "../../../stores/useSlideStore";
-import ChatMaximizedBody from "./chatMaximizedBody";
+import UserIcon from '../../../assets/icons/userIcon';
+import { getDayAndMonthFromDate, trimTextAddEllipsis, capitalizeFirstLetter } from '../../../lib/utilities';
+import { useSlideStore } from '../../../stores/useSlideStore';
+import ChatMaximizedBody from './chatMaximizedBody';
 
 function chatConvoContent(mobileView, trimName, trimText, convoDate, unreadCount) {
     return (
         <>
-            <div className={`border rounded-circle ${mobileView ? "me-2" : ""}`}>
+            <div className={`border rounded-circle ${mobileView ? 'me-2' : ''}`}>
                 <UserIcon height="28" width="28" />
             </div>
             <div className="fs-7 px-2 py-1 w-100 w-sm-0 border-bottom">
@@ -19,7 +19,7 @@ function chatConvoContent(mobileView, trimName, trimText, convoDate, unreadCount
                     {unreadCount > 0 && (
                         <span
                             className="convo-count small bg-secondary text-white  rounded-circle d-inline-block text-center"
-                            style={{ width: "15px" }}
+                            style={{ width: '15px' }}
                         >
                             {unreadCount}
                         </span>

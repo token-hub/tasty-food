@@ -1,14 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "../stores/useUserStore";
-import { getSession } from "../queries/getSession";
-import { useEffect } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { useUserStore } from '../stores/useUserStore';
+import { getSession } from '../queries/getSession';
+import { useEffect } from 'react';
 
 export function useUser() {
     const setUser = useUserStore((state) => state.setUser);
     const setIsLoading = useUserStore((state) => state.setIsLoading);
 
     const { data: session, isLoading } = useQuery({
-        queryKey: ["session"],
+        queryKey: ['session'],
         queryFn: ({ signal }) => getSession(signal),
         staleTime: 1000 * 60 * 60 // 1 hour,
     });

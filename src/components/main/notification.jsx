@@ -1,15 +1,15 @@
-import { Link } from "react-router";
-import { getFormattedDate } from "../../lib/utilities";
+import { Link } from 'react-router';
+import { getFormattedDate } from '../../lib/utilities';
 
 function Notification({ notification, onclick }) {
-    const { title = "", description = "", link, isRead = false, updatedAt = null } = notification;
-    let classes = "notification border px-3 py-3 mb-2 bg-gray-light ";
+    const { title = '', description = '', link, isRead = false, updatedAt = null } = notification;
+    let classes = 'notification border px-3 py-3 mb-2 bg-gray-light ';
     if (isRead) {
-        classes += "bg-white";
+        classes += 'bg-white';
     }
 
-    const imageSource = notification?.recipe?.imageLink ?? "https://placehold.co/300x300/png";
-    const imageAlt = notification?.recipe?.imageLink ? notification?.recipe.name : "default";
+    const imageSource = notification?.recipe?.imageLink ?? 'https://placehold.co/300x300/png';
+    const imageAlt = notification?.recipe?.imageLink ? notification?.recipe.name : 'default';
     return (
         <div onClick={() => onclick(notification._id)}>
             <Link to={link} className="link-underline link-underline-opacity-0">

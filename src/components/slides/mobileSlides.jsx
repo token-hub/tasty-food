@@ -1,5 +1,5 @@
-import { useSlideStore } from "../../stores/useSlideStore";
-import MobileSlide from "./mobileSlide";
+import { useSlideStore } from '../../stores/useSlideStore';
+import MobileSlide from './mobileSlide';
 
 function MobileSlides() {
     const slides = useSlideStore((state) => state.slides);

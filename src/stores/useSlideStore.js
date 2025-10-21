@@ -1,10 +1,10 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 export const slide = {
     open: false,
-    header: "",
-    component: ""
+    header: '',
+    component: ''
 };
 const store = (set) => ({
     slides: [],

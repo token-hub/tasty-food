@@ -1,24 +1,24 @@
-import { Link, useLocation } from "react-router";
-import { objectToFormData, removeSpacesFromText } from "../../../lib/utilities";
-import { DEFAULT_IMAGE } from "../../../lib/constants";
-import UnarchiveIcon from "../../../assets/icons/unarchiveIcon";
+import { Link, useLocation } from 'react-router';
+import { objectToFormData, removeSpacesFromText } from '../../../lib/utilities';
+import { DEFAULT_IMAGE } from '../../../lib/constants';
+import UnarchiveIcon from '../../../assets/icons/unarchiveIcon';
 
 function Recipe({ recipe, isArchived = false, fetcher }) {
     const { image, name } = recipe;
     const { pathname } = useLocation();
-    const linkPreFix = pathname.includes("me") ? "me" : removeSpacesFromText(recipe.author.name);
+    const linkPreFix = pathname.includes('me') ? 'me' : removeSpacesFromText(recipe.author.name);
     const recipeLinkToUse = `/${linkPreFix}/recipes/${recipe._id}`;
     const imageSource = image ?? DEFAULT_IMAGE;
 
-    let classes = "card recipe bg-white shadow ";
+    let classes = 'card recipe bg-white shadow ';
     if (isArchived) {
-        classes += "archived";
+        classes += 'archived';
     }
 
     function handleUnarchiveRecipe() {
         fetcher.submit(objectToFormData({ recipeId: recipe._id, isArchive: false }), {
-            method: "PUT",
-            action: "/me/recipes/create"
+            method: 'PUT',
+            action: '/me/recipes/create'
         });
     }
 

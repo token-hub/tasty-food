@@ -1,7 +1,7 @@
-import RcPagination from "rc-pagination";
-import LeftCaretIcon from "../../assets/icons/leftCaretIcon";
-import RightCaretIcon from "../../assets/icons/rightCaretIcon";
-import { useState } from "react";
+import RcPagination from 'rc-pagination';
+import LeftCaretIcon from '../../assets/icons/leftCaretIcon';
+import RightCaretIcon from '../../assets/icons/rightCaretIcon';
+import { useState } from 'react';
 
 function Pagination({ pageSize = 6, total = 6, currentPage = 1, onChange }) {
     const [makeFirstPageHidden, setMakeFirstPageHidden] = useState(false);
@@ -31,7 +31,7 @@ function Pagination({ pageSize = 6, total = 6, currentPage = 1, onChange }) {
                         }
                     }
 
-                    if (current == firstPage && element.type === "a" && makeFirstPageHidden) {
+                    if (current == firstPage && element.type === 'a' && makeFirstPageHidden) {
                         return null;
                     }
 
@@ -43,7 +43,7 @@ function Pagination({ pageSize = 6, total = 6, currentPage = 1, onChange }) {
                         }
                     }
 
-                    if (current == lastPage && element.type === "a" && makeLastPageHidden) {
+                    if (current == lastPage && element.type === 'a' && makeLastPageHidden) {
                         return null;
                     }
 

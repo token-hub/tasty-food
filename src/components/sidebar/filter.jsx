@@ -1,6 +1,6 @@
-import FilterIcon from "../../assets/icons/filterIcon";
-import { RECIPE_CATEGORIES } from "../../lib/constants";
-import { useRecipeStore } from "../../stores/useRecipeStore";
+import FilterIcon from '../../assets/icons/filterIcon';
+import { RECIPE_CATEGORIES } from '../../lib/constants';
+import { useRecipeStore } from '../../stores/useRecipeStore';
 
 function Filter() {
     const categories = Object.values(RECIPE_CATEGORIES);

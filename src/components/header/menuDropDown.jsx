@@ -1,6 +1,6 @@
-import { Link, useSubmit } from "react-router";
-import { useUserStore } from "../../stores/useUserStore";
-import { useSocketStore } from "../../stores/useSocketStore";
+import { Link, useSubmit } from 'react-router';
+import { useUserStore } from '../../stores/useUserStore';
+import { useSocketStore } from '../../stores/useSocketStore';
 
 function MenuDropDown({ children }) {
     const user = useUserStore((state) => state.user);
@@ -9,10 +9,10 @@ function MenuDropDown({ children }) {
 
     async function handleLogout() {
         if (socket) {
-            socket.emit("logout", { id: user?.id });
+            socket.emit('logout', { id: user?.id });
         }
 
-        submit(null, { action: "/signOut", method: "POST" });
+        submit(null, { action: '/signOut', method: 'POST' });
     }
 
     return (

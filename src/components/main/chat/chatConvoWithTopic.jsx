@@ -1,7 +1,7 @@
-import { useCreateConversation } from "../../../hooks/useCreateConversation";
-import { objectToFormData, trimTextAddEllipsis } from "../../../lib/utilities";
-import { useChatStore } from "../../../stores/useChatStore";
-import { useUserStore } from "../../../stores/useUserStore";
+import { useCreateConversation } from '../../../hooks/useCreateConversation';
+import { objectToFormData, trimTextAddEllipsis } from '../../../lib/utilities';
+import { useChatStore } from '../../../stores/useChatStore';
+import { useUserStore } from '../../../stores/useUserStore';
 
 function ChatConvoWithTopic() {
     const user = useUserStore((state) => state.user);
@@ -33,7 +33,7 @@ function ChatConvoWithTopic() {
                     }
                 ]
             }),
-            { action: "/:author/recipes/:recipeId/createConversation", method: "POST" }
+            { action: '/:author/recipes/:recipeId/createConversation', method: 'POST' }
         );
     }
 
@@ -43,7 +43,9 @@ function ChatConvoWithTopic() {
             <div className="d-none d-sm-flex align-items-center ">
                 <span className="fs-7 m-0 fw-bold ps-3">{convoWith?.name}</span>
                 <span className="mx-2 fs-7">*</span>
-                {topicLength == 1 && <span className="fs-7">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>}
+                {topicLength == 1 && (
+                    <span className="fs-7">{trimTextAddEllipsis(selectedConvo.recipes[0].name, 20)}</span>
+                )}
                 {topicLength > 1 && (
                     <select
                         class="form-select p-2 mb-2"
@@ -70,7 +72,9 @@ function ChatConvoWithTopic() {
                                 value={selectedConvo.recipes.find((r) => r.isLatest).recipeId}
                             >
                                 {selectedConvo.recipes.map((recipe) => {
-                                    return <option value={recipe.recipeId}>{trimTextAddEllipsis(recipe.name, 20)}</option>;
+                                    return (
+                                        <option value={recipe.recipeId}>{trimTextAddEllipsis(recipe.name, 20)}</option>
+                                    );
                                 })}
                             </select>
                             <label htmlFor="floatingSelect">Topic</label>

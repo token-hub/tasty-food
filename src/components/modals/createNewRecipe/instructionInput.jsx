@@ -1,4 +1,4 @@
-import XIcon from "../../../assets/icons/xIcon";
+import XIcon from '../../../assets/icons/xIcon';
 
 function InstructionInput({ instruction, id, index, setInputs, onChange, removeInstruction }) {
     function handleChange(e, id) {

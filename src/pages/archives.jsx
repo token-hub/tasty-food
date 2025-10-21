@@ -1,18 +1,18 @@
-import Recipe from "../components/main/recipe/recipeClickable";
-import Pagination from "../components/main/pagination";
-import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "../stores/useUserStore";
-import { getOwnRecipes } from "../queries/getOwnRecipes";
-import { useArchiveFetcher } from "../hooks/useArchiveFetcher";
-import { usePagination } from "../hooks/usePagination";
-import { getRecipesTotalCount } from "../queries/getRecipesTotalCount";
+import Recipe from '../components/main/recipe/recipeClickable';
+import Pagination from '../components/main/pagination';
+import { useQuery } from '@tanstack/react-query';
+import { useUserStore } from '../stores/useUserStore';
+import { getOwnRecipes } from '../queries/getOwnRecipes';
+import { useArchiveFetcher } from '../hooks/useArchiveFetcher';
+import { usePagination } from '../hooks/usePagination';
+import { getRecipesTotalCount } from '../queries/getRecipesTotalCount';
 
 function Archives() {
     const { pagination, setPagination } = usePagination();
     const user = useUserStore((state) => state.user);
     const { fetcher } = useArchiveFetcher();
     const { data } = useQuery({
-        queryKey: ["recipes", "archives"],
+        queryKey: ['recipes', 'archives'],
         queryFn: ({ signal }) =>
             getOwnRecipes({
                 signal,
@@ -26,7 +26,7 @@ function Archives() {
     });
 
     const { data: dataCount } = useQuery({
-        queryKey: ["recipes", "count"],
+        queryKey: ['recipes', 'count'],
         queryFn: ({ signal }) =>
             getRecipesTotalCount({
                 signal,
@@ -57,7 +57,11 @@ function Archives() {
                         );
                     })}
             </div>
-            <Pagination onChange={handlePagination} currentPage={pagination.page} total={dataCount?.details?.recipeTotalCount} />
+            <Pagination
+                onChange={handlePagination}
+                currentPage={pagination.page}
+                total={dataCount?.details?.recipeTotalCount}
+            />
         </div>
     );
 }

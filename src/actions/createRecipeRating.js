@@ -1,5 +1,5 @@
-import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
-import { queryClient } from "../lib/queryClient";
+import { customTryCatchWrapper, customFetch, formDataToObject } from '../lib/utilities';
+import { queryClient } from '../lib/queryClient';
 
 async function createRecipeRatingAction({ request }) {
     const formData = await request.formData();
@@ -8,13 +8,13 @@ async function createRecipeRatingAction({ request }) {
     const result = await customTryCatchWrapper(
         () => {
             return customFetch({
-                url: "ratings",
+                url: 'ratings',
                 data
             });
         },
         async () => {
-            await queryClient.invalidateQueries({ queryKey: ["recipes", "single"], exact: true });
-            await queryClient.invalidateQueries({ queryKey: ["rating"], exact: true });
+            await queryClient.invalidateQueries({ queryKey: ['recipes', 'single'], exact: true });
+            await queryClient.invalidateQueries({ queryKey: ['rating'], exact: true });
         }
     );
 

@@ -1,19 +1,19 @@
-import { useState, useCallback, useEffect, useRef } from "react";
-import UploadImage from "./uploadImage";
-import UploadVideo from "./uploadVideo";
-import Ingredients from "./ingredients";
-import Instructions from "./instructions";
-import Categories from "./categories";
-import Timers from "./timers";
-import NameAndDiscription from "./nameAndDiscription";
-import ProgressBar from "./progressBar";
-import { MODAL_MODES } from "../../../lib/constants";
-import { useProgress } from "../../../hooks/useProgress";
-import { useUserStore } from "../../../stores/useUserStore";
-import { objectToFormData } from "../../../lib/utilities";
-import { useRecipeFetcher } from "../../../hooks/useRecipeFetcher";
-import { useRecipeState } from "../../../hooks/useRecipeState";
-import { useModalStore } from "../../../stores/useModalStore";
+import { useState, useCallback, useEffect, useRef } from 'react';
+import UploadImage from './uploadImage';
+import UploadVideo from './uploadVideo';
+import Ingredients from './ingredients';
+import Instructions from './instructions';
+import Categories from './categories';
+import Timers from './timers';
+import NameAndDiscription from './nameAndDiscription';
+import ProgressBar from './progressBar';
+import { MODAL_MODES } from '../../../lib/constants';
+import { useProgress } from '../../../hooks/useProgress';
+import { useUserStore } from '../../../stores/useUserStore';
+import { objectToFormData } from '../../../lib/utilities';
+import { useRecipeFetcher } from '../../../hooks/useRecipeFetcher';
+import { useRecipeState } from '../../../hooks/useRecipeState';
+import { useModalStore } from '../../../stores/useModalStore';
 
 function CreateRecipeModal() {
     const { recipeState, setRecipeState, recipeId, data, initialState } = useRecipeState();
@@ -24,10 +24,17 @@ function CreateRecipeModal() {
     const show = useModalStore((state) => state.modal.show);
     const reset = useModalStore((state) => state.reset);
 
-    const { handleNext, handlePrevious, showPrevButton, hideNextButton, firstPart, secondPart, thirdPart, fourthPart, progress } = useProgress(
-        show,
-        recipeState
-    );
+    const {
+        handleNext,
+        handlePrevious,
+        showPrevButton,
+        hideNextButton,
+        firstPart,
+        secondPart,
+        thirdPart,
+        fourthPart,
+        progress
+    } = useProgress(show, recipeState);
     const isEditting = mode === MODAL_MODES[1];
 
     useEffect(() => {
@@ -42,43 +49,43 @@ function CreateRecipeModal() {
             let value = event.target.value;
 
             setRecipeState((state) => {
-                if (name === "image") {
+                if (name === 'image') {
                     value = event.target.files[0];
                 }
 
-                if (name === "video") {
+                if (name === 'video') {
                     value = event.target.files[0];
                 }
 
-                if (name === "prepHours") {
-                    name = "prepTime";
+                if (name === 'prepHours') {
+                    name = 'prepTime';
                     value = { ...state.prepTime, hours: +value };
                 }
 
-                if (name === "prepMinutes") {
-                    name = "prepTime";
+                if (name === 'prepMinutes') {
+                    name = 'prepTime';
                     value = { ...state.prepTime, minutes: +value };
                 }
 
-                if (name === "cookHours") {
-                    name = "cookTime";
+                if (name === 'cookHours') {
+                    name = 'cookTime';
                     value = { ...state.cookTime, hours: +value };
                 }
 
-                if (name === "cookMinutes") {
-                    name = "cookTime";
+                if (name === 'cookMinutes') {
+                    name = 'cookTime';
                     value = { ...state.cookTime, minutes: +value };
                 }
 
-                if (name === "categories") {
+                if (name === 'categories') {
                     value = state.categories.includes(event.target.id)
                         ? state.categories.filter((c) => c !== event.target.id)
                         : [...state.categories, event.target.id];
                 }
 
-                if (name === "unit" || name === "quantity" || name === "ingredient") {
-                    const targetField = name == "ingredient" ? "name" : name;
-                    name = "ingredients";
+                if (name === 'unit' || name === 'quantity' || name === 'ingredient') {
+                    const targetField = name == 'ingredient' ? 'name' : name;
+                    name = 'ingredients';
 
                     value = state.ingredients.map((ing) => {
                         if (ing.id === event.target.id) {
@@ -89,8 +96,8 @@ function CreateRecipeModal() {
                     });
                 }
 
-                if (name === "instruction") {
-                    name = name + "s";
+                if (name === 'instruction') {
+                    name = name + 's';
                     value = state.instructions.map((ins) => {
                         if (ins.id === event.target.id) {
                             return { ...ins, instruction: value };
@@ -117,19 +124,32 @@ function CreateRecipeModal() {
             },
             recipeId
         };
-        fetcher.submit(objectToFormData(prepData), { method: "POST", action: "/me/recipes/create" });
+        fetcher.submit(objectToFormData(prepData), { method: 'POST', action: '/me/recipes/create' });
     }
 
     return (
         <>
-            <div className="modal modal-lg fade" id="createRecipe" tabIndex={-1} aria-labelledby="createRecipe" aria-hidden="true">
+            <div
+                className="modal modal-lg fade"
+                id="createRecipe"
+                tabIndex={-1}
+                aria-labelledby="createRecipe"
+                aria-hidden="true"
+            >
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">
-                                {isEditting ? "Edit recipe" : "Create new recipe"}
+                                {isEditting ? 'Edit recipe' : 'Create new recipe'}
                             </h1>
-                            <button type="button" ref={closeRef} onClick={reset} className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+                            <button
+                                type="button"
+                                ref={closeRef}
+                                onClick={reset}
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            />
                         </div>
                         <div className="modal-body min-vh-70">
                             {show && (
@@ -174,13 +194,13 @@ function CreateRecipeModal() {
                                 </button>
                             ) : (
                                 <button type="submit" className="btn btn-primary text-white" onClick={handleSubmit}>
-                                    {fetcher.state === "submitting" ? (
+                                    {fetcher.state === 'submitting' ? (
                                         <>
                                             <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
                                             <span role="status">Submitting ...</span>
                                         </>
                                     ) : (
-                                        "Submit"
+                                        'Submit'
                                     )}
                                 </button>
                             )}

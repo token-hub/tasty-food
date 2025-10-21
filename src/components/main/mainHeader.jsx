@@ -1,6 +1,6 @@
 function MainHeader({ text, button }) {
     return (
-        <div className={`${text ? "border-bottom  mb-3" : ""}`}>
+        <div className={`${text ? 'border-bottom  mb-3' : ''}`}>
             {text && (
                 <>
                     <div className="d-flex align-items-center px-3">

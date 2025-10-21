@@ -1,17 +1,17 @@
-import ChatIcon from "../../../assets/icons/chatIcon";
-import ArchiveIcon from "../../../assets/icons/archiveIcon";
-import EditIcon from "../../../assets/icons/editIcon";
-import { DEFAULT_IMAGE } from "../../../lib/constants";
-import { useChatStore } from "../../../stores/useChatStore";
-import { MODAL_MODES } from "../../../lib/constants";
-import ChatMaximizedBody from "../chat/chatMaximizedBody";
-import { useUserStore } from "../../../stores/useUserStore";
-import { objectToFormData } from "../../../lib/utilities";
-import { useSlideStore } from "../../../stores/useSlideStore";
-import { useModalStore } from "../../../stores/useModalStore";
-import { useArchiveFetcher } from "../../../hooks/useArchiveFetcher";
-import { useCreateConversation } from "../../../hooks/useCreateConversation";
-import { useNavigate } from "react-router";
+import ChatIcon from '../../../assets/icons/chatIcon';
+import ArchiveIcon from '../../../assets/icons/archiveIcon';
+import EditIcon from '../../../assets/icons/editIcon';
+import { DEFAULT_IMAGE } from '../../../lib/constants';
+import { useChatStore } from '../../../stores/useChatStore';
+import { MODAL_MODES } from '../../../lib/constants';
+import ChatMaximizedBody from '../chat/chatMaximizedBody';
+import { useUserStore } from '../../../stores/useUserStore';
+import { objectToFormData } from '../../../lib/utilities';
+import { useSlideStore } from '../../../stores/useSlideStore';
+import { useModalStore } from '../../../stores/useModalStore';
+import { useArchiveFetcher } from '../../../hooks/useArchiveFetcher';
+import { useCreateConversation } from '../../../hooks/useCreateConversation';
+import { useNavigate } from 'react-router';
 
 function RecipeHeaders({ recipe }) {
     let { image, goodForPeopleCount, description, name } = recipe;
@@ -20,14 +20,14 @@ function RecipeHeaders({ recipe }) {
     const user = useUserStore((state) => state.user);
     const { openSlide } = useSlideStore();
     const imageSource = image ?? DEFAULT_IMAGE;
-    const alt = image ? name : "default image";
+    const alt = image ? name : 'default image';
     const isAuthor = user?.id === recipe.author.userId;
     const navigate = useNavigate();
     const { fetcher } = useArchiveFetcher();
     const { fetcher: chatFetcher } = useCreateConversation();
 
     function handleEdit() {
-        setCurrentModal("recipe", MODAL_MODES[1]);
+        setCurrentModal('recipe', MODAL_MODES[1]);
     }
 
     function createConversation() {
@@ -49,7 +49,7 @@ function RecipeHeaders({ recipe }) {
                     }
                 ]
             }),
-            { action: "/:author/recipes/:recipeId/createConversation", method: "POST" }
+            { action: '/:author/recipes/:recipeId/createConversation', method: 'POST' }
         );
     }
 
@@ -64,13 +64,13 @@ function RecipeHeaders({ recipe }) {
 
     function handleArchive() {
         fetcher.submit(objectToFormData({ userId: user?.id, recipeId: recipe._id, isArchive: true }), {
-            method: "PUT",
-            action: "/me/recipes/create"
+            method: 'PUT',
+            action: '/me/recipes/create'
         });
     }
 
     function handleUserRecipes() {
-        const linkPreFix = isAuthor ? "me" : recipe?.author?.name;
+        const linkPreFix = isAuthor ? 'me' : recipe?.author?.name;
         navigate(`/${linkPreFix}/recipes`, { state: { authorId: recipe?.author?.userId } });
     }
 
@@ -91,7 +91,12 @@ function RecipeHeaders({ recipe }) {
                     <h2 className="fw-bold mb-0 mb-md-3 text-capitalize flex-md-grow-1">{recipe.name}</h2>
                     {isAuthor && (
                         <div className=" d-md-block">
-                            <button className="btn px-2 border-0" onClick={handleEdit} data-bs-toggle="modal" data-bs-target="#createRecipe">
+                            <button
+                                className="btn px-2 border-0"
+                                onClick={handleEdit}
+                                data-bs-toggle="modal"
+                                data-bs-target="#createRecipe"
+                            >
                                 <EditIcon className="text-secondary" height="18" width="18" />
                             </button>
                             <button className="btn px-2 border-0" onClick={handleArchive}>
@@ -102,14 +107,17 @@ function RecipeHeaders({ recipe }) {
                 </div>
                 <p className="lead">{description}</p>
                 <p className="m-0">
-                    Good for <span className="fw-bold">{goodForPeopleCount}</span> {goodForPeopleCount > 1 ? "people" : "person"}
+                    Good for <span className="fw-bold">{goodForPeopleCount}</span>{' '}
+                    {goodForPeopleCount > 1 ? 'people' : 'person'}
                 </p>
                 <div className="timers my-2">
                     <p className="m-0 me-2">
-                        <span className="fw-bold">Prep: </span> {recipe?.prepTime.hours} hour/s {recipe?.prepTime.minutes} minutes
+                        <span className="fw-bold">Prep: </span> {recipe?.prepTime.hours} hour/s{' '}
+                        {recipe?.prepTime.minutes} minutes
                     </p>
                     <p className="m-0 me-2">
-                        <span className="fw-bold">Cook: </span> {recipe?.cookTime.hours} hour/s {recipe?.cookTime.minutes} minutes
+                        <span className="fw-bold">Cook: </span> {recipe?.cookTime.hours} hour/s{' '}
+                        {recipe?.cookTime.minutes} minutes
                     </p>
                 </div>
 
@@ -126,7 +134,11 @@ function RecipeHeaders({ recipe }) {
                             <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleChat}>
                                 <ChatIcon className="mt-n1 text-secondary" />
                             </button>
-                            <button type="button" className="btn border-0 p-0 d-block d-md-none" onClick={handleOpenMobileChatSlide}>
+                            <button
+                                type="button"
+                                className="btn border-0 p-0 d-block d-md-none"
+                                onClick={handleOpenMobileChatSlide}
+                            >
                                 <ChatIcon className="mt-n1 text-secondary" />
                             </button>
                         </>

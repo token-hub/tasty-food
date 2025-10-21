@@ -1,9 +1,9 @@
-import RecipeRating from "./recipeRating";
-import RecipeForm from "./recipeForm";
-import Pagination from "../pagination";
-import { useUserStore } from "../../../stores/useUserStore";
-import { usePagination } from "../../../hooks/usePagination";
-import { useGetRatings } from "../../../hooks/useGetRatings";
+import RecipeRating from './recipeRating';
+import RecipeForm from './recipeForm';
+import Pagination from '../pagination';
+import { useUserStore } from '../../../stores/useUserStore';
+import { usePagination } from '../../../hooks/usePagination';
+import { useGetRatings } from '../../../hooks/useGetRatings';
 
 function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
     const user = useUserStore((state) => state.user);
@@ -39,9 +39,13 @@ function RecipeRatings({ recipe, ratings, recipeAuthorId }) {
             )}
 
             {isThereTopFiveRatings && ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)}
-            {isThereNextPageRatings && nextRatings?.ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)}
+            {isThereNextPageRatings &&
+                nextRatings?.ratings.map((rating) => <RecipeRating rating={rating} key={rating.id} />)}
             {isNoRatingsFound && (
-                <div style={{ height: "15rem" }} className="d-flex w-100 justify-content-center align-items-center text-muted">
+                <div
+                    style={{ height: '15rem' }}
+                    className="d-flex w-100 justify-content-center align-items-center text-muted"
+                >
                     No ratings found
                 </div>
             )}

@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import DownChevronIcon from "../../assets/icons/downChevronIcon";
-import { RECIPE_CATEGORIES } from "../../lib/constants";
+import { useState, useRef } from 'react';
+import DownChevronIcon from '../../assets/icons/downChevronIcon';
+import { RECIPE_CATEGORIES } from '../../lib/constants';
 
 function FilterMobile() {
     const categoriesRef = useRef();
@@ -69,7 +69,10 @@ function FilterMobile() {
                                     id={name}
                                     autoComplete="off"
                                 />
-                                <label className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize" htmlFor={name}>
+                                <label
+                                    className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize"
+                                    htmlFor={name}
+                                >
                                     {name}
                                 </label>
                             </div>

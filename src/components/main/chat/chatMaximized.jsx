@@ -1,11 +1,11 @@
-import ChatConvo from "./chatConvo";
-import ChatMaximizedHeader from "./chatMaximizedHeader";
-import ChatMaximizedBody from "./chatMaximizedBody";
-import { useChatStore } from "../../../stores/useChatStore";
-import { objectToFormData } from "../../../lib/utilities";
-import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
-import { useGetConversations } from "../../../hooks/useGetConversations";
-import { queryClient } from "../../../lib/queryClient";
+import ChatConvo from './chatConvo';
+import ChatMaximizedHeader from './chatMaximizedHeader';
+import ChatMaximizedBody from './chatMaximizedBody';
+import { useChatStore } from '../../../stores/useChatStore';
+import { objectToFormData } from '../../../lib/utilities';
+import { useMarkUnreadMessagesFetcher } from '../../../hooks/useMarkUnreadMessagesFetcher';
+import { useGetConversations } from '../../../hooks/useGetConversations';
+import { queryClient } from '../../../lib/queryClient';
 
 function ChatMaximized({ chatCount, onClick }) {
     const selectedConvo = useChatStore((state) => state.selectedConvo);
@@ -25,7 +25,7 @@ function ChatMaximized({ chatCount, onClick }) {
                     conversationId: convo._id,
                     userId: user.id
                 }),
-                { action: "/chat/markUnreadMessages", method: "PUT" }
+                { action: '/chat/markUnreadMessages', method: 'PUT' }
             );
         }
     }
@@ -34,14 +34,14 @@ function ChatMaximized({ chatCount, onClick }) {
         const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
         if (isBottom) {
             setPagination((prev) => ({ ...prev, cursor: conversations[conversations.length - 1].updatedAt }));
-            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+            queryClient.invalidateQueries({ queryKey: ['chat', 'conversations'] });
         }
     }
 
     return (
         <div
             className={`chat-maximized z-3 d-none d-sm-block position-fixed bottom-0 end-0 bg-light rounded-top shadow ${
-                openChat ? "chat-maximized-open" : ""
+                openChat ? 'chat-maximized-open' : ''
             } `}
         >
             <ChatMaximizedHeader onClick={onClick} chatCount={chatCount} />
@@ -61,7 +61,7 @@ function ChatMaximized({ chatCount, onClick }) {
                                 const { _id, participants, updatedAt, messages } = convo;
                                 const convoWith = participants.find((u) => u.userId != user.id);
                                 const latestMessage = messages[messages.length - 1];
-                                const text = latestMessage ? latestMessage.message : "...";
+                                const text = latestMessage ? latestMessage.message : '...';
                                 const unreadCount = messages.filter((m) => !m.isReadBy?.includes(user.id)).length;
                                 // so that text in the convo sidebar won't change if
                                 // error happened during optimistic update

@@ -1,7 +1,7 @@
-import { Fragment, useEffect } from "react";
-import { generateInput } from "../../../lib/utilities";
-import IngredientsInputs from "./ingredientsInputs";
-import { useIngredients } from "../../../hooks/useIngredients";
+import { Fragment, useEffect } from 'react';
+import { generateInput } from '../../../lib/utilities';
+import IngredientsInputs from './ingredientsInputs';
+import { useIngredients } from '../../../hooks/useIngredients';
 
 function Ingredients({ recipe, onChange }) {
     const { inputs, setInputs, addIngredient, removeIngredient } = useIngredients(onChange);
@@ -10,7 +10,7 @@ function Ingredients({ recipe, onChange }) {
         if (!inputs.length) {
             const initialInputs = generateInput(recipe.ingredients);
             setInputs(initialInputs);
-            onChange({ target: { name: "ingredients", value: initialInputs } });
+            onChange({ target: { name: 'ingredients', value: initialInputs } });
         }
     }, [inputs, setInputs, recipe, onChange]);
 
@@ -21,7 +21,12 @@ function Ingredients({ recipe, onChange }) {
             {inputs.map((data) => {
                 return (
                     <Fragment key={data.id}>
-                        <IngredientsInputs {...data} setInputs={setInputs} onChange={onChange} removeIngredient={removeIngredient} />
+                        <IngredientsInputs
+                            {...data}
+                            setInputs={setInputs}
+                            onChange={onChange}
+                            removeIngredient={removeIngredient}
+                        />
                     </Fragment>
                 );
             })}

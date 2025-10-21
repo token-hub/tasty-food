@@ -1,5 +1,5 @@
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
-import { data as responseData } from "react-router";
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
+import { data as responseData } from 'react-router';
 
 async function updatePasswordAction({ request }) {
     const formData = await request.formData();
@@ -8,11 +8,11 @@ async function updatePasswordAction({ request }) {
     let errors = [];
 
     if (!data.password || !data.confirmPassword || !data.oldPassword) {
-        errors.push("All password must not be empty ");
+        errors.push('All password must not be empty ');
     }
 
     if (data.password && data.confirmPassword && data.password !== data.confirmPassword) {
-        errors.push("New password and confirm password must match");
+        errors.push('New password and confirm password must match');
     }
 
     if (errors.length) {
@@ -26,7 +26,7 @@ async function updatePasswordAction({ request }) {
 
     return await customTryCatchWrapper(() => {
         return customFetch({
-            url: "auth/changePassword",
+            url: 'auth/changePassword',
             data
         });
     });

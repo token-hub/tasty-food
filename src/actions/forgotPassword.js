@@ -1,4 +1,4 @@
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
 
 async function forgotPasswordAction({ request }) {
     const formData = await request.formData();
@@ -6,7 +6,7 @@ async function forgotPasswordAction({ request }) {
 
     return await customTryCatchWrapper(() => {
         return customFetch({
-            url: "auth/requestResetPassword",
+            url: 'auth/requestResetPassword',
             data
         });
     });

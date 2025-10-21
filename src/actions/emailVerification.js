@@ -1,6 +1,6 @@
-import { queryClient } from "../lib/queryClient";
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
-import { data as responseData } from "react-router";
+import { queryClient } from '../lib/queryClient';
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
+import { data as responseData } from 'react-router';
 
 async function emailVerificationAction({ request }) {
     const formData = await request.formData();
@@ -8,7 +8,7 @@ async function emailVerificationAction({ request }) {
 
     if (!data.email) {
         return responseData(
-            { error: "Email is required" },
+            { error: 'Email is required' },
             {
                 status: 400
             }
@@ -18,14 +18,14 @@ async function emailVerificationAction({ request }) {
     return await customTryCatchWrapper(
         () => {
             return customFetch({
-                url: "auth/sendEmailVerification",
+                url: 'auth/sendEmailVerification',
                 data
             });
         },
         () => {
-            queryClient.invalidateQueries({ queryKey: ["session"] });
+            queryClient.invalidateQueries({ queryKey: ['session'] });
         },
-        "/me/profile"
+        '/me/profile'
     );
 }
 

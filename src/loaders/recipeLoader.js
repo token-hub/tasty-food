@@ -1,9 +1,9 @@
-import { queryClient } from "../lib/queryClient";
-import { getRecipes } from "../queries/getRecipes";
+import { queryClient } from '../lib/queryClient';
+import { getRecipes } from '../queries/getRecipes';
 
 async function recipeLoader() {
     const { data } = await queryClient.fetchQuery({
-        queryKey: ["recipes"],
+        queryKey: ['recipes'],
         queryFn: ({ signal }) => getRecipes({ signal })
     });
 

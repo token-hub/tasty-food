@@ -1,5 +1,5 @@
-import { queryClient } from "../lib/queryClient";
-import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
+import { queryClient } from '../lib/queryClient';
+import { customTryCatchWrapper, customFetch, formDataToObject } from '../lib/utilities';
 
 async function markAsReadNotificationAction({ request }) {
     const formData = await request.formData();
@@ -14,7 +14,7 @@ async function markAsReadNotificationAction({ request }) {
             });
         },
         () => {
-            queryClient.invalidateQueries({ queryKey: ["notifications"] });
+            queryClient.invalidateQueries({ queryKey: ['notifications'] });
         }
     );
 

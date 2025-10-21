@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import LeftIcon from "../../assets/icons/leftIcon";
-import ChatDotsIcon from "../../assets/icons/chatDotsIcon";
-import { useSlideStore } from "../../stores/useSlideStore";
-import { useChatStore } from "../../stores/useChatStore";
-import { useGetConversations } from "../../hooks/useGetConversations";
-import { queryClient } from "../../lib/queryClient";
+import { useEffect } from 'react';
+import LeftIcon from '../../assets/icons/leftIcon';
+import ChatDotsIcon from '../../assets/icons/chatDotsIcon';
+import { useSlideStore } from '../../stores/useSlideStore';
+import { useChatStore } from '../../stores/useChatStore';
+import { useGetConversations } from '../../hooks/useGetConversations';
+import { queryClient } from '../../lib/queryClient';
 
 function MobileSlide({ index, children }) {
     const slides = useSlideStore((state) => state.slides);
@@ -18,23 +18,23 @@ function MobileSlide({ index, children }) {
 
     useEffect(() => {
         const slideElem = document.querySelector(`.slide-${index + 1}`);
-        const html = document.querySelector("html");
-        const body = document.querySelector("body");
+        const html = document.querySelector('html');
+        const body = document.querySelector('body');
 
         // need to wrap with setTimeout because the component is
         // being mounted as the slide is being added in the state,
         // without wrapping, there will be no animation
         let timer = setTimeout(() => {
             if (isSlideOpen) {
-                slideElem.classList.remove("hidden-from-left-to-right");
-                slideElem.classList.add("show-from-right-to-left");
-                html.classList.add("overflow-y-hidden");
-                body.classList.add("overflow-y-hidden");
+                slideElem.classList.remove('hidden-from-left-to-right');
+                slideElem.classList.add('show-from-right-to-left');
+                html.classList.add('overflow-y-hidden');
+                body.classList.add('overflow-y-hidden');
             } else {
-                html.classList.remove("overflow-y-hidden");
-                body.classList.remove("overflow-y-hidden");
-                slideElem.classList.add("hidden-from-left-to-right");
-                slideElem.classList.remove("show-from-right-to-left");
+                html.classList.remove('overflow-y-hidden');
+                body.classList.remove('overflow-y-hidden');
+                slideElem.classList.add('hidden-from-left-to-right');
+                slideElem.classList.remove('show-from-right-to-left');
             }
         }, 200);
 
@@ -57,7 +57,7 @@ function MobileSlide({ index, children }) {
 
         if (isBottom) {
             setPagination((prev) => ({ ...prev, cursor: conversations[conversations.length - 1].updatedAt }));
-            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+            queryClient.invalidateQueries({ queryKey: ['chat', 'conversations'] });
         }
     }
 

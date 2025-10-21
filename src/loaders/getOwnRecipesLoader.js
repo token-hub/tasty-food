@@ -1,6 +1,6 @@
-import { queryClient } from "../lib/queryClient";
-import { getOwnRecipes } from "../queries/getOwnRecipes";
-import { getSession } from "../queries/getSession";
+import { queryClient } from '../lib/queryClient';
+import { getOwnRecipes } from '../queries/getOwnRecipes';
+import { getSession } from '../queries/getSession';
 
 export async function getOwnRecipesLoader() {
     // needed to use a different queryKey from the userProvider
@@ -8,7 +8,7 @@ export async function getOwnRecipesLoader() {
     // condition since, loaders runs first before the
     // providers
     const session = await queryClient.ensureQueryData({
-        queryKey: ["userSession"],
+        queryKey: ['userSession'],
         queryFn: ({ signal }) => getSession(signal),
         staleTime: 1000 * 60 * 60 // 1 hour,
     });
@@ -18,7 +18,7 @@ export async function getOwnRecipesLoader() {
     };
 
     const { data } = await queryClient.fetchQuery({
-        queryKey: ["ownRecipes"],
+        queryKey: ['ownRecipes'],
         queryFn: ({ signal }) => getOwnRecipes({ signal, author })
     });
 

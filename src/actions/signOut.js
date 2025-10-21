@@ -1,17 +1,17 @@
-import { queryClient } from "../lib/queryClient";
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
+import { queryClient } from '../lib/queryClient';
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
 
 async function signOutAction() {
     return await customTryCatchWrapper(
         () => {
             return customFetch({
-                url: "auth/signOut"
+                url: 'auth/signOut'
             });
         },
         () => {
-            queryClient.invalidateQueries({ queryKey: ["session"] });
+            queryClient.invalidateQueries({ queryKey: ['session'] });
         },
-        "/auth"
+        '/auth'
     );
 }
 

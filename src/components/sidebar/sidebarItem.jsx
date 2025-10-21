@@ -1,13 +1,13 @@
-import { NavLink } from "react-router";
+import { NavLink } from 'react-router';
 
 function SidebarItem({ children, isHeader, to }) {
     let className = `list-group-item border-0 text-muted`;
-    let headerClass = " border-bottom fs-6 fw-bold d-flex align-items-center";
+    let headerClass = ' border-bottom fs-6 fw-bold d-flex align-items-center';
 
     if (isHeader) {
         className += headerClass;
     } else {
-        className += " ms-4";
+        className += ' ms-4';
     }
 
     return (
@@ -16,11 +16,11 @@ function SidebarItem({ children, isHeader, to }) {
                 <NavLink
                     to={to}
                     className={({ isActive }) => {
-                        let classes = "link-underline link-underline-opacity-0 ";
+                        let classes = 'link-underline link-underline-opacity-0 ';
                         if (isActive) {
-                            classes += "text-tertiary";
+                            classes += 'text-tertiary';
                         } else {
-                            classes += "text-muted";
+                            classes += 'text-muted';
                         }
                         return classes;
                     }}

@@ -1,9 +1,9 @@
-import SidebarGroup from "./sidebarGroup";
-import SidebarItem from "./sidebarItem";
-import UserIcon from "../../assets/icons/userIcon";
-import RecipeIcon from "../../assets/icons/recipeIcon";
-import NotificationIcon from "../../assets/icons/notificationIcon";
-import { useNotificationStore } from "../../stores/useNotificationStore";
+import SidebarGroup from './sidebarGroup';
+import SidebarItem from './sidebarItem';
+import UserIcon from '../../assets/icons/userIcon';
+import RecipeIcon from '../../assets/icons/recipeIcon';
+import NotificationIcon from '../../assets/icons/notificationIcon';
+import { useNotificationStore } from '../../stores/useNotificationStore';
 
 function Sidebar() {
     const notifications = useNotificationStore((state) => state.notifications);

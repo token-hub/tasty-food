@@ -1,4 +1,4 @@
-import UserIcon from "../../../assets/icons/userIcon";
+import UserIcon from '../../../assets/icons/userIcon';
 
 function RecipeReport({ report }) {
     return (

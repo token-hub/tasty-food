@@ -1,11 +1,11 @@
-import { Link, useNavigate } from "react-router";
-import UserIcon from "../assets/icons/userIcon";
-import ChatDotsIcon from "../assets/icons/chatDotsIcon";
-import SearchBar from "../components/header/searchBar";
-import SignInIcon from "../assets/icons/signInIcon";
-import MenuDropDown from "../components/header/menuDropDown";
-import { useUserStore } from "../stores/useUserStore";
-import { useChatStore } from "../stores/useChatStore";
+import { Link, useNavigate } from 'react-router';
+import UserIcon from '../assets/icons/userIcon';
+import ChatDotsIcon from '../assets/icons/chatDotsIcon';
+import SearchBar from '../components/header/searchBar';
+import SignInIcon from '../assets/icons/signInIcon';
+import MenuDropDown from '../components/header/menuDropDown';
+import { useUserStore } from '../stores/useUserStore';
+import { useChatStore } from '../stores/useChatStore';
 
 function BaseHeader() {
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);
@@ -17,7 +17,7 @@ function BaseHeader() {
         return total;
     }, 0);
     function handleSignIn() {
-        navigate("/auth");
+        navigate('/auth');
     }
 
     return (
@@ -35,11 +35,15 @@ function BaseHeader() {
 
                         {user?.name ? (
                             <>
-                                <div className="d-sm-none position-relative" role="button" onClick={() => handleOpenChat(true)}>
+                                <div
+                                    className="d-sm-none position-relative"
+                                    role="button"
+                                    onClick={() => handleOpenChat(true)}
+                                >
                                     <ChatDotsIcon className="text-white me-2" height="20" width="20" />
                                     <span
                                         className="extra-small-text border border-light position-absolute top-0 bg-white text-secondary rounded-circle mt-n2 ms-n3 text-center"
-                                        style={{ width: "17px" }}
+                                        style={{ width: '17px' }}
                                     >
                                         {chatCount}
                                     </span>
@@ -51,14 +55,17 @@ function BaseHeader() {
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                     >
-                                        <span className="text-white fs-6 me-2 text-capitalize">{user ? user?.name : "no name"}</span>{" "}
+                                        <span className="text-white fs-6 me-2 text-capitalize">
+                                            {user ? user?.name : 'no name'}
+                                        </span>{' '}
                                         <UserIcon className="text-white" height="20" width="20" />
                                     </div>
                                 </MenuDropDown>
                             </>
                         ) : (
                             <button className="btn d-flex align-items-center border-0" onClick={handleSignIn}>
-                                <span className="text-white fs-6 me-2">Sign In</span> <SignInIcon className="text-white" height="20" width="20" />
+                                <span className="text-white fs-6 me-2">Sign In</span>{' '}
+                                <SignInIcon className="text-white" height="20" width="20" />
                             </button>
                         )}
                     </div>

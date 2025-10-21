@@ -1,4 +1,4 @@
-import DownArrowIcon from "../../../assets/icons/downArrowIcon";
+import DownArrowIcon from '../../../assets/icons/downArrowIcon';
 function ChatMaximizedHeader({ chatCount, onClick }) {
     return (
         <>

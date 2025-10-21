@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import ConvoMessage from "./convoMessage";
-import ChatArea from "./chatArea";
-import ChatConvoWithTopic from "./chatConvoWithTopic";
-import { useUserStore } from "../../../stores/useUserStore";
-import { objectToFormData } from "../../../lib/utilities";
-import { useMessagesFetcher } from "../../../hooks/useMessagesFetcher";
+import { useEffect, useRef, useState } from 'react';
+import ConvoMessage from './convoMessage';
+import ChatArea from './chatArea';
+import ChatConvoWithTopic from './chatConvoWithTopic';
+import { useUserStore } from '../../../stores/useUserStore';
+import { objectToFormData } from '../../../lib/utilities';
+import { useMessagesFetcher } from '../../../hooks/useMessagesFetcher';
 
 function ChatMaximizedBody({ mobileView = false }) {
     const chatRef = useRef();
@@ -22,7 +22,7 @@ function ChatMaximizedBody({ mobileView = false }) {
         const scrollAtBotAndSendingMessage = scrollAtTheBottom && !isInitialLoad;
 
         if (scrollAtTheBottom || isInitialLoad || scrollAtBotAndSendingMessage) {
-            bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, [convoMessagesLength, scrollAtTheBottom, pagination.limit]);
 
@@ -46,18 +46,23 @@ function ChatMaximizedBody({ mobileView = false }) {
                     skipFirstConvoMessages: true,
                     pagination
                 }),
-                { action: "/chat/getMoreMessages", method: "POST" }
+                { action: '/chat/getMoreMessages', method: 'POST' }
             );
         }
         setLastScrollTop(currentScrollTop);
     }
 
     return (
-        <div style={{ height: mobileView ? "calc(100% - 4rem)" : "100%" }} className={`position-relative`}>
+        <div style={{ height: mobileView ? 'calc(100% - 4rem)' : '100%' }} className={`position-relative`}>
             <ChatConvoWithTopic />
-            <div style={{ height: "calc(100% - 5rem)" }} className={`p-3 overflow-auto`} onScroll={handleScroll} ref={chatRef}>
-                <div className={`d-flex flex-column ${mobileView ? "mb-3" : "mb-2"} position-relative`}>
-                    {fetcher.state !== "idle" && (
+            <div
+                style={{ height: 'calc(100% - 5rem)' }}
+                className={`p-3 overflow-auto`}
+                onScroll={handleScroll}
+                ref={chatRef}
+            >
+                <div className={`d-flex flex-column ${mobileView ? 'mb-3' : 'mb-2'} position-relative`}>
+                    {fetcher.state !== 'idle' && (
                         <p className="position-absolute top-0 start-50 translate-middle mt-2">
                             <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
                         </p>
@@ -69,7 +74,12 @@ function ChatMaximizedBody({ mobileView = false }) {
 
                             return (
                                 <>
-                                    <ConvoMessage messageId={messageId ?? _id} date={new Date(updatedAt)} isUser={isUser} message={message} />
+                                    <ConvoMessage
+                                        messageId={messageId ?? _id}
+                                        date={new Date(updatedAt)}
+                                        isUser={isUser}
+                                        message={message}
+                                    />
                                 </>
                             );
                         })}

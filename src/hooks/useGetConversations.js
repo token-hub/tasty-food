@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { usePagination } from "./usePagination";
-import { getConversations } from "../queries/getConversations";
-import { useEffect } from "react";
-import { useChatStore } from "../stores/useChatStore";
-import { useUserStore } from "../stores/useUserStore";
+import { useQuery } from '@tanstack/react-query';
+import { usePagination } from './usePagination';
+import { getConversations } from '../queries/getConversations';
+import { useEffect } from 'react';
+import { useChatStore } from '../stores/useChatStore';
+import { useUserStore } from '../stores/useUserStore';
 
 export function useGetConversations() {
     const { pagination, setPagination } = usePagination({ limit: 10 });
@@ -15,7 +15,7 @@ export function useGetConversations() {
     const isOpenAndTheresUser = isOpen && user?.id;
 
     const { data: { details = [] } = {}, isLoading } = useQuery({
-        queryKey: ["chat", "conversations"],
+        queryKey: ['chat', 'conversations'],
         queryFn: ({ signal }) => getConversations({ signal, userId: user?.id, pagination }),
         enabled: Boolean(isOpenAndTheresUser)
     });

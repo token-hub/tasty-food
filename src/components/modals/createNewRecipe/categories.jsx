@@ -1,4 +1,4 @@
-import { RECIPE_CATEGORIES } from "../../../lib/constants";
+import { RECIPE_CATEGORIES } from '../../../lib/constants';
 
 function Categories({ recipe, onChange }) {
     return (

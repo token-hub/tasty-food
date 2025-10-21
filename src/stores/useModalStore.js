@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
-import { MODAL_MODES } from "../lib/constants";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { MODAL_MODES } from '../lib/constants';
 
 const defaultModal = {
-    name: "recipe",
+    name: 'recipe',
     mode: MODAL_MODES[0],
     show: false
 };

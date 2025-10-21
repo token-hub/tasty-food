@@ -1,4 +1,4 @@
-function SignInIcon({ className, height = "16", width = "16" }) {
+function SignInIcon({ className, height = '16', width = '16' }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

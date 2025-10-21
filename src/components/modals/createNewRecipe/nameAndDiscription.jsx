@@ -18,7 +18,7 @@ function NameAndDiscription({ recipe, onChange }) {
                 <textarea
                     onChange={onChange}
                     className="form-control mb-3"
-                    style={{ height: "10rem" }}
+                    style={{ height: '10rem' }}
                     placeholder="Leave a comment here"
                     id="desciption"
                     name="description"

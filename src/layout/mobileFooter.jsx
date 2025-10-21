@@ -1,9 +1,9 @@
-import HomeIcon from "../assets/icons/homeIcon";
-import RecipeIcon from "../assets/icons/recipeIcon";
-import ArchiveIcon from "../assets/icons/archiveIcon";
-import NotificationIcon from "../assets/icons/notificationIcon";
-import UserIcon from "../assets/icons/userIcon";
-import FooterIcon from "../components/footer/footerIcon";
+import HomeIcon from '../assets/icons/homeIcon';
+import RecipeIcon from '../assets/icons/recipeIcon';
+import ArchiveIcon from '../assets/icons/archiveIcon';
+import NotificationIcon from '../assets/icons/notificationIcon';
+import UserIcon from '../assets/icons/userIcon';
+import FooterIcon from '../components/footer/footerIcon';
 
 function MobileFooter() {
     return (

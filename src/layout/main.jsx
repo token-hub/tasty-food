@@ -1,14 +1,14 @@
-import { useLocation } from "react-router";
-import MainHeader from "../components/main/mainHeader";
-import { getMainHeaderText } from "../lib/utilities";
-import RecipeAddButton from "../components/main/recipe/recipeAddButton";
+import { useLocation } from 'react-router';
+import MainHeader from '../components/main/mainHeader';
+import { getMainHeaderText } from '../lib/utilities';
+import RecipeAddButton from '../components/main/recipe/recipeAddButton';
 
 function Main({ children }) {
     let { pathname } = useLocation();
     let currentHeader = getMainHeaderText(pathname);
     let button;
 
-    if (pathname.includes("me/recipes")) {
+    if (pathname.includes('me/recipes')) {
         button = <RecipeAddButton />;
     }
 

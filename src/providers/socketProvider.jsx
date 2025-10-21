@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import { useChatStore } from "../stores/useChatStore";
-import { queryClient } from "../lib/queryClient";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
+import { useChatStore } from '../stores/useChatStore';
+import { queryClient } from '../lib/queryClient';
 
 const SocketContext = createContext({
     socket: {}
@@ -17,15 +17,15 @@ export function SocketProvider({ children }) {
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
 
     useEffect(() => {
-        const newSocket = io("http://localhost:3001");
+        const newSocket = io('http://localhost:3001');
         setSocket(newSocket);
 
-        newSocket.on("users", (data) => {
+        newSocket.on('users', (data) => {
             setUsers(data);
         });
 
-        newSocket.on("private-message", (message) => {
-            queryClient.invalidateQueries({ queryKey: ["chat", "conversations"] });
+        newSocket.on('private-message', (message) => {
+            queryClient.invalidateQueries({ queryKey: ['chat', 'conversations'] });
             updateSelectedConvo((prev) => ({
                 ...prev,
                 messages: [...prev.messages, message]

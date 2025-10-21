@@ -1,6 +1,6 @@
-import RecipeReport from "../recipe/recipeReport";
-import Pagination from "../pagination";
-import { sampleReports } from "../../../lib/constants";
+import RecipeReport from '../recipe/recipeReport';
+import Pagination from '../pagination';
+import { sampleReports } from '../../../lib/constants';
 
 function RecipeReports({ recipe }) {
     // fetch the report using the recipe props
@@ -12,7 +12,10 @@ function RecipeReports({ recipe }) {
             {reports.length ? (
                 reports.map((report) => <RecipeReport report={report} key={report.id} />)
             ) : (
-                <div style={{ height: "15rem" }} className="d-flex w-100 justify-content-center align-items-center text-muted">
+                <div
+                    style={{ height: '15rem' }}
+                    className="d-flex w-100 justify-content-center align-items-center text-muted"
+                >
                     No reports found
                 </div>
             )}

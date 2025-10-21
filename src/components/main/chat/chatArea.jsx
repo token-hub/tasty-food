@@ -1,7 +1,7 @@
-import { useRef } from "react";
-import SendIcon from "../../../assets/icons/sendIcon";
-import { objectToFormData } from "../../../lib/utilities";
-import { useSendMessageFetcher } from "../../../hooks/useSendMessageFetcher";
+import { useRef } from 'react';
+import SendIcon from '../../../assets/icons/sendIcon';
+import { objectToFormData } from '../../../lib/utilities';
+import { useSendMessageFetcher } from '../../../hooks/useSendMessageFetcher';
 
 function ChatArea({ bottomRef }) {
     const chatRef = useRef();
@@ -22,11 +22,11 @@ function ChatArea({ bottomRef }) {
         updateSelectedConvo((prev) => ({ ...prev, messages }));
 
         fetcher.submit(objectToFormData(newMessage), {
-            action: "/:authorId/recipes/:recipeId/createMessage",
-            method: "POST"
+            action: '/:authorId/recipes/:recipeId/createMessage',
+            method: 'POST'
         });
 
-        chatRef.current.value = "";
+        chatRef.current.value = '';
     }
     return (
         <div className="position-absolute bottom-0 w-100 chat-area-container bg-white">

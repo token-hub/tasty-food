@@ -1,13 +1,13 @@
-import { SERVER_API_URL } from "../lib/constants";
+import { SERVER_API_URL } from '../lib/constants';
 
-export async function getRecipes({ signal, pagination = {}, filters = { categories: [] }, query = "" }) {
+export async function getRecipes({ signal, pagination = {}, filters = { categories: [] }, query = '' }) {
     const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         signal,
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({
             pagination,
             filters,
@@ -20,6 +20,6 @@ export async function getRecipes({ signal, pagination = {}, filters = { categori
     if (result.ok) {
         return responseData;
     } else {
-        throw new Error(responseData.error || "Something went wrong");
+        throw new Error(responseData.error || 'Something went wrong');
     }
 }

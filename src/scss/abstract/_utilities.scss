@@ -1,45 +1,45 @@
 $utilities: map-merge(
     $utilities,
     (
-        "viewport-width": (
+        'viewport-width': (
             property: width,
             class: vw,
             values: $position-values-vw
         ),
-        "max-width": (
+        'max-width': (
             property: max-width,
             class: mw,
             values: $position-values-percent
         ),
-        "height": (
+        'height': (
             property: height,
             class: h,
             values: $position-values-percent
         ),
-        "viewport-height": (
+        'viewport-height': (
             property: height,
             class: vh,
             values: $position-values-vh
         ),
-        "min-viewport-height": (
+        'min-viewport-height': (
             property: min-height,
             class: min-vh,
             values: $position-values-vh
         ),
-        "top": (
+        'top': (
             property: top,
             values: $position-values-percent
         ),
-        "bottom": (
+        'bottom': (
             property: bottom,
             values: $position-values-percent
         ),
-        "start": (
+        'start': (
             property: left,
             class: start,
             values: $position-values-percent
         ),
-        "end": (
+        'end': (
             property: right,
             class: end,
             values: $position-values-percent

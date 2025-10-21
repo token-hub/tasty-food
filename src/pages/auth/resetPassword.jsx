@@ -1,29 +1,31 @@
-import { Form, useActionData, useNavigate, useSearchParams } from "react-router";
-import AuthSubmitButton from "../../components/auth/authSubmitButton";
-import { useToastStore } from "../../stores/useToastStore";
-import { useEffect, useRef } from "react";
+import { Form, useActionData, useNavigate, useSearchParams } from 'react-router';
+import AuthSubmitButton from '../../components/auth/authSubmitButton';
+import { useToastStore } from '../../stores/useToastStore';
+import { useEffect, useRef } from 'react';
 
 function ResetPassword() {
     const actionData = useActionData();
     const createToast = useToastStore((state) => state.createToast);
     const [searchParams] = useSearchParams();
-    const token = searchParams.get("token");
+    const token = searchParams.get('token');
     const formRef = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (actionData?.errors) {
-            actionData.errors.forEach((error) => createToast({ headerText: "Invalid fields", bodyText: error, isSuccess: false }));
+            actionData.errors.forEach((error) =>
+                createToast({ headerText: 'Invalid fields', bodyText: error, isSuccess: false })
+            );
             formRef.current.reset();
         }
         if (actionData?.error) {
-            createToast({ headerText: "Server Error", bodyText: actionData?.error, isSuccess: false });
+            createToast({ headerText: 'Server Error', bodyText: actionData?.error, isSuccess: false });
             formRef.current.reset();
         }
         if (actionData?.result) {
-            createToast({ headerText: "Password Updated", bodyText: "Password successfully updated" });
+            createToast({ headerText: 'Password Updated', bodyText: 'Password successfully updated' });
             formRef.current.reset();
-            navigate("/auth");
+            navigate('/auth');
         }
     }, [actionData, createToast, navigate]);
 
@@ -31,7 +33,7 @@ function ResetPassword() {
         <div className="auth bg-secondary ">
             <div className="container h-100">
                 <div className="d-flex justify-content-center align-items-center align-items-sm-baseline h-100 pt-sm-7">
-                    <div className="card" style={{ width: "25rem" }}>
+                    <div className="card" style={{ width: '25rem' }}>
                         <div className="card-body">
                             <h6 className="card-title mb-4">Reset password</h6>
 

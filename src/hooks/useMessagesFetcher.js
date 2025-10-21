@@ -1,8 +1,8 @@
-import { useFetcher } from "react-router";
-import { useToastStore } from "../stores/useToastStore";
-import { useLayoutEffect, useEffectEvent } from "react";
-import { usePagination } from "./usePagination";
-import { useChatStore } from "../stores/useChatStore";
+import { useFetcher } from 'react-router';
+import { useToastStore } from '../stores/useToastStore';
+import { useLayoutEffect, useEffectEvent } from 'react';
+import { usePagination } from './usePagination';
+import { useChatStore } from '../stores/useChatStore';
 
 export function useMessagesFetcher() {
     const { pagination, setPagination } = usePagination({ limit: 10 });
@@ -42,7 +42,7 @@ export function useMessagesFetcher() {
 
     useLayoutEffect(() => {
         if (fetcher.data?.error) {
-            createToast({ headerText: "Server Error", bodyText: fetcher?.data?.error, isSuccess: false });
+            createToast({ headerText: 'Server Error', bodyText: fetcher?.data?.error, isSuccess: false });
         }
 
         if (fetcher.data?.result && fetcher.data?.result.length) {

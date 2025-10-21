@@ -1,4 +1,4 @@
-import { customTryCatchWrapper, customFetch, formDataToObject } from "../lib/utilities";
+import { customTryCatchWrapper, customFetch, formDataToObject } from '../lib/utilities';
 
 async function markUnreadMessagesAction({ request }) {
     const formData = await request.formData();

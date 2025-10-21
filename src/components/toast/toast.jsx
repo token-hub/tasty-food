@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { useToastStore } from "../../stores/useToastStore";
-import { Toast as bootstrapToast } from "bootstrap";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useToastStore } from '../../stores/useToastStore';
+import { Toast as bootstrapToast } from 'bootstrap';
 
 function Toast({ toast, delay = 3000 }) {
     const updateToast = useToastStore((state) => state.updateToast);
@@ -49,9 +49,16 @@ function Toast({ toast, delay = 3000 }) {
 
     return (
         shouldRender && (
-            <div className="toast" ref={toastRef} data-bs-autohide="false" role="alert" aria-live="assertive" aria-atomic="true">
+            <div
+                className="toast"
+                ref={toastRef}
+                data-bs-autohide="false"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
                 <div className="toast-header">
-                    <strong className={`me-auto ${isSuccess ? "text-success" : "text-danger"}`}>{headerText}</strong>
+                    <strong className={`me-auto ${isSuccess ? 'text-success' : 'text-danger'}`}>{headerText}</strong>
                     <button type="button" onClick={() => updateToast(id)} className="btn-close" aria-label="Close" />
                 </div>
                 <div className="toast-body">{bodyText}</div>

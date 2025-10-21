@@ -1,13 +1,20 @@
-import { SERVER_API_URL } from "../lib/constants";
+import { SERVER_API_URL } from '../lib/constants';
 
-export async function getOwnRecipes({ signal, pagination = {}, author, isArchive = false, filter = { categories: [] }, query = "" }) {
+export async function getOwnRecipes({
+    signal,
+    pagination = {},
+    author,
+    isArchive = false,
+    filter = { categories: [] },
+    query = ''
+}) {
     const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         signal,
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({
             pagination,
             author,
@@ -22,6 +29,6 @@ export async function getOwnRecipes({ signal, pagination = {}, author, isArchive
     if (result.ok) {
         return responseData;
     } else {
-        throw new Error(responseData.error || "Something went wrong");
+        throw new Error(responseData.error || 'Something went wrong');
     }
 }

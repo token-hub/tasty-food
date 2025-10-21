@@ -1,7 +1,7 @@
-import { Fragment, useEffect } from "react";
-import { generateInput } from "../../../lib/utilities";
-import InstructionInput from "./instructionInput";
-import { useInstructions } from "../../../hooks/useInstructions";
+import { Fragment, useEffect } from 'react';
+import { generateInput } from '../../../lib/utilities';
+import InstructionInput from './instructionInput';
+import { useInstructions } from '../../../hooks/useInstructions';
 
 function Instructions({ recipe, onChange }) {
     const { inputs, setInputs, addInstruction, removeInstruction } = useInstructions(onChange);
@@ -10,7 +10,7 @@ function Instructions({ recipe, onChange }) {
         if (!inputs.length) {
             const initialInputs = generateInput(recipe.instructions, false);
             setInputs(initialInputs);
-            onChange({ target: { name: "instructions", value: initialInputs } });
+            onChange({ target: { name: 'instructions', value: initialInputs } });
         }
     }, [inputs, setInputs, recipe, onChange]);
 
@@ -20,7 +20,13 @@ function Instructions({ recipe, onChange }) {
             {inputs.map((data, index) => {
                 return (
                     <Fragment key={data.id}>
-                        <InstructionInput index={index} {...data} onChange={onChange} setInputs={setInputs} removeInstruction={removeInstruction} />
+                        <InstructionInput
+                            index={index}
+                            {...data}
+                            onChange={onChange}
+                            setInputs={setInputs}
+                            removeInstruction={removeInstruction}
+                        />
                     </Fragment>
                 );
             })}

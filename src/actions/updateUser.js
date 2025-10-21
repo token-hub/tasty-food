@@ -1,6 +1,6 @@
-import { customFetch, customTryCatchWrapper } from "../lib/utilities";
-import { queryClient } from "../lib/queryClient";
-import { data as responseData } from "react-router";
+import { customFetch, customTryCatchWrapper } from '../lib/utilities';
+import { queryClient } from '../lib/queryClient';
+import { data as responseData } from 'react-router';
 
 async function updateUserAction({ request }) {
     const formData = await request.formData();
@@ -8,7 +8,7 @@ async function updateUserAction({ request }) {
 
     if (!data.name) {
         return responseData(
-            { error: "Name must not be empty" },
+            { error: 'Name must not be empty' },
             {
                 status: 400
             }
@@ -18,12 +18,12 @@ async function updateUserAction({ request }) {
     return await customTryCatchWrapper(
         () => {
             return customFetch({
-                url: "auth/updateUser",
+                url: 'auth/updateUser',
                 data
             });
         },
         () => {
-            queryClient.invalidateQueries({ queryKey: ["session"] });
+            queryClient.invalidateQueries({ queryKey: ['session'] });
         }
     );
 }

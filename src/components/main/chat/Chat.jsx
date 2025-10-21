@@ -1,7 +1,7 @@
-import ChatMinimized from "./chatMinimized";
-import ChatMaximized from "./chatMaximized";
-import { useChatStore } from "../../../stores/useChatStore";
-import { useUserStore } from "../../../stores/useUserStore";
+import ChatMinimized from './chatMinimized';
+import ChatMaximized from './chatMaximized';
+import { useChatStore } from '../../../stores/useChatStore';
+import { useUserStore } from '../../../stores/useUserStore';
 
 function Chat() {
     const handleOpenChat = useChatStore((state) => state.handleOpenChat);

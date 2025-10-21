@@ -1,10 +1,10 @@
-import Notification from "../components/main/notification";
-import { useNotificationStore } from "../stores/useNotificationStore";
-import Pagination from "../components/main/pagination";
-import { useGetNofitications } from "../hooks/useGetNotifications";
-import { useFetcher } from "react-router";
-import { objectToFormData } from "../lib/utilities";
-import { useUserStore } from "../stores/useUserStore";
+import Notification from '../components/main/notification';
+import { useNotificationStore } from '../stores/useNotificationStore';
+import Pagination from '../components/main/pagination';
+import { useGetNofitications } from '../hooks/useGetNotifications';
+import { useFetcher } from 'react-router';
+import { objectToFormData } from '../lib/utilities';
+import { useUserStore } from '../stores/useUserStore';
 
 function Notifications() {
     const notifications = useNotificationStore((state) => state.notifications);
@@ -44,7 +44,7 @@ function Notifications() {
                 notificationId,
                 userId: user.id
             }),
-            { action: "/me/notifications/markAsReadNotification", method: "PUT" }
+            { action: '/me/notifications/markAsReadNotification', method: 'PUT' }
         );
     }
 

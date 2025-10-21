@@ -1,12 +1,12 @@
-import { useEffect, useEffectEvent } from "react";
-import ChatDotsIcon from "../../../assets/icons/chatDotsIcon";
-import { objectToFormData } from "../../../lib/utilities";
-import { useMarkUnreadMessagesFetcher } from "../../../hooks/useMarkUnreadMessagesFetcher";
-import { useChatStore } from "../../../stores/useChatStore";
-import { useSlideStore } from "../../../stores/useSlideStore";
-import { useUserStore } from "../../../stores/useUserStore";
-import { SUBMENU_HEADERS } from "../../../lib/constants";
-import ChatConvo from "./chatConvo";
+import { useEffect, useEffectEvent } from 'react';
+import ChatDotsIcon from '../../../assets/icons/chatDotsIcon';
+import { objectToFormData } from '../../../lib/utilities';
+import { useMarkUnreadMessagesFetcher } from '../../../hooks/useMarkUnreadMessagesFetcher';
+import { useChatStore } from '../../../stores/useChatStore';
+import { useSlideStore } from '../../../stores/useSlideStore';
+import { useUserStore } from '../../../stores/useUserStore';
+import { SUBMENU_HEADERS } from '../../../lib/constants';
+import ChatConvo from './chatConvo';
 
 function ChatMinimized({ chatCount, onClick }) {
     const openSlide = useSlideStore((state) => state.openSlide);
@@ -27,7 +27,7 @@ function ChatMinimized({ chatCount, onClick }) {
                     conversationId: convo._id,
                     userId: user.id
                 }),
-                { action: "/chat/markUnreadMessages", method: "PUT" }
+                { action: '/chat/markUnreadMessages', method: 'PUT' }
             );
         }
     }
@@ -37,7 +37,7 @@ function ChatMinimized({ chatCount, onClick }) {
             const { _id, participants, updatedAt, messages } = convo;
             const convoWith = participants.find((u) => u.userId != user.id);
             const latestMessage = messages[messages.length - 1];
-            const text = latestMessage ? latestMessage.message : "...";
+            const text = latestMessage ? latestMessage.message : '...';
             const unreadCount = messages.filter((m) => !m.isReadBy?.includes(user.id)).length;
             // so that text in the convo sidebar won't change if
             // error happened during optimistic update
@@ -57,7 +57,7 @@ function ChatMinimized({ chatCount, onClick }) {
     });
 
     const processSlides = useEffectEvent((component) => {
-        const chatSlideIndex = slides.findIndex((slide) => slide.header.includes("chat"));
+        const chatSlideIndex = slides.findIndex((slide) => slide.header.includes('chat'));
         const currentSlide = slides[chatSlideIndex];
         if (currentSlide) {
             const updatedSlide = {
@@ -84,7 +84,7 @@ function ChatMinimized({ chatCount, onClick }) {
     return (
         <div
             className={`chat-minimized d-none d-sm-block position-fixed bottom-0 end-0 me-3 bg-primary py-2 px-3 rounded-top text-white position-relative ${
-                !openChatSmall ? "chat-minimized-open" : ""
+                !openChatSmall ? 'chat-minimized-open' : ''
             } `}
             onClick={onClick}
             role="button"
@@ -94,7 +94,7 @@ function ChatMinimized({ chatCount, onClick }) {
             {chatCount > 0 && (
                 <span
                     className="fs-7 border border-light position-absolute top-0 bg-secondary  rounded-circle p-1 mt-n3 ms-n2 text-center"
-                    style={{ width: "30px" }}
+                    style={{ width: '30px' }}
                 >
                     {chatCount}
                 </span>

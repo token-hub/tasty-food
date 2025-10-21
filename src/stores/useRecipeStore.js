@@ -1,9 +1,9 @@
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 const store = (set) => ({
     filters: [],
-    query: "",
+    query: '',
     setQuery: (query) => set(() => ({ query })),
     handleFilters: (filter) =>
         set(({ filters }) => {

@@ -1,8 +1,8 @@
-import { PATHS, SERVER_API_URL } from "./constants";
-import { data as responseData, redirect } from "react-router";
+import { PATHS, SERVER_API_URL } from './constants';
+import { data as responseData, redirect } from 'react-router';
 
 export function getMainHeaderText(pathname) {
-    let currentHeader = "";
+    let currentHeader = '';
 
     if (pathname.includes(PATHS.password.name)) {
         currentHeader = PATHS.password.toDisplay;
@@ -21,26 +21,26 @@ export function getDayAndMonthFromDate(date) {
     if (!date) return;
     const newDate = new Date(date);
 
-    return newDate.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric"
+    return newDate.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
     });
 }
 
 export function getTimeFromDate(date) {
     if (!date) return;
-    return date.toLocaleTimeString("en-us", { hour: "2-digit", minute: "2-digit" });
+    return date.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' });
 }
 
 export function getFormattedDate(date) {
     if (!date) return;
 
-    return date.toLocaleString("en-US", {
-        year: "2-digit",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit"
+    return date.toLocaleString('en-US', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
     });
 }
 
@@ -49,7 +49,7 @@ export function trimTextAddEllipsis(text, index) {
     if (!text || !index) return;
     let trimText = text.slice(0, index);
     if (text.length > index) {
-        trimText += "...";
+        trimText += '...';
     }
 
     return trimText;
@@ -58,21 +58,21 @@ export function trimTextAddEllipsis(text, index) {
 export function capitalizeFirstLetter(text) {
     if (!text) return;
     let firstLetter = text.slice(0)[0].toUpperCase();
-    return [firstLetter, ...text.slice(1)].join("");
+    return [firstLetter, ...text.slice(1)].join('');
 }
 
 export function removeSpacesFromText(text) {
     if (!text) return;
-    return text.replaceAll(" ", "");
+    return text.replaceAll(' ', '');
 }
 
-export function customFetch({ url, data, method = "POST" }) {
+export function customFetch({ url, data, method = 'POST' }) {
     return fetch(`${SERVER_API_URL}/${url}`, {
         method: method,
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify(data)
     });
 }
@@ -93,7 +93,7 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
         } else {
             return responseData(
                 {
-                    error: data.error || "Something went wrong"
+                    error: data.error || 'Something went wrong'
                 },
                 { status: result.status }
             );
@@ -101,7 +101,7 @@ export async function customTryCatchWrapper(fetchCB, successCB, redirectTo) {
     } catch (error) {
         return responseData(
             {
-                error: error?.message || "Something went wrong"
+                error: error?.message || 'Something went wrong'
             },
             { status: 500 }
         );
@@ -124,15 +124,15 @@ export function generateInput(arr = [], isIngredient = true) {
             {
                 id: newId,
                 quantity: 0,
-                unit: "",
-                name: ""
+                unit: '',
+                name: ''
             }
         ];
     } else {
         return [
             {
                 id: newId,
-                instruction: ""
+                instruction: ''
             }
         ];
     }
@@ -143,7 +143,7 @@ export function validateRecipeState(state) {
     const keys = Object.keys(state);
     let values = Object.values(state);
 
-    if (keys.includes("ingredients")) {
+    if (keys.includes('ingredients')) {
         values = values.map((data) => {
             data = data.filter((inner) => {
                 return inner.quantity && inner.unit && inner.name;
@@ -153,7 +153,7 @@ export function validateRecipeState(state) {
         });
     }
 
-    if (keys.includes("instructions")) {
+    if (keys.includes('instructions')) {
         values = values.map((data) => {
             data = data.filter((inner) => {
                 return inner.instruction;
@@ -171,18 +171,18 @@ export function validateRecipeState(state) {
         const isValueIsEmptyArr = isValueAnArray && !currentValue.length;
         const isValueAnArrayLessThan2 = !isValueIsEmptyArr && currentValue.length < 2;
 
-        if (isValueIsEmptyArr && currentKey === "categories") {
-            errors.push({ key: keys[i], message: "You must select at least 1 category" });
+        if (isValueIsEmptyArr && currentKey === 'categories') {
+            errors.push({ key: keys[i], message: 'You must select at least 1 category' });
             continue;
         }
 
-        if (isValueAnArrayLessThan2 && currentKey === "ingredients") {
-            errors.push({ key: keys[i], message: "You must select at least add 2 ingredients" });
+        if (isValueAnArrayLessThan2 && currentKey === 'ingredients') {
+            errors.push({ key: keys[i], message: 'You must select at least add 2 ingredients' });
             continue;
         }
 
-        if (isValueAnArrayLessThan2 && currentKey === "instructions") {
-            errors.push({ key: keys[i], message: "You must select at least add 2 instructions" });
+        if (isValueAnArrayLessThan2 && currentKey === 'instructions') {
+            errors.push({ key: keys[i], message: 'You must select at least add 2 instructions' });
             continue;
         }
 
@@ -194,7 +194,7 @@ export function validateRecipeState(state) {
     return errors;
 }
 
-export function objectToFormData(obj, formData = new FormData(), parentKey = "") {
+export function objectToFormData(obj, formData = new FormData(), parentKey = '') {
     if (obj === null || obj === undefined) return formData;
 
     if (obj instanceof File) {
@@ -206,7 +206,7 @@ export function objectToFormData(obj, formData = new FormData(), parentKey = "")
             const key = parentKey ? `${parentKey}[${index}]` : index;
             objectToFormData(value, formData, key);
         });
-    } else if (typeof obj === "object") {
+    } else if (typeof obj === 'object') {
         // Handle objects
         Object.keys(obj).forEach((key) => {
             const value = obj[key];
@@ -223,8 +223,8 @@ export function objectToFormData(obj, formData = new FormData(), parentKey = "")
 
 function setValue(obj, path, value) {
     const parts = path
-        .replace(/\[(\d+)\]/g, ".$1") // convert [0] → .0 for easy splitting
-        .split(".");
+        .replace(/\[(\d+)\]/g, '.$1') // convert [0] → .0 for easy splitting
+        .split('.');
 
     let current = obj;
 

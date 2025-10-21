@@ -1,18 +1,18 @@
-import { NavLink } from "react-router";
+import { NavLink } from 'react-router';
 
 function FooterIcon({ text, Icon, to }) {
-    const isNotification = text.toLowerCase().includes("notification");
+    const isNotification = text.toLowerCase().includes('notification');
     return (
         <NavLink
             to={to}
             end
             className={({ isActive }) => {
-                let classes = "link-underline link-underline-opacity-0 ";
+                let classes = 'link-underline link-underline-opacity-0 ';
 
                 if (isActive) {
-                    classes += "text-tertiary";
+                    classes += 'text-tertiary';
                 } else {
-                    classes += "text-muted";
+                    classes += 'text-muted';
                 }
 
                 return classes;

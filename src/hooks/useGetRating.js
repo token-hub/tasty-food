@@ -1,13 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getRating } from "../queries/getRating";
-import { useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { getRating } from '../queries/getRating';
+import { useEffect, useState } from 'react';
 const defaultRating = {
-    recipeId: "",
-    comment: "",
+    recipeId: '',
+    comment: '',
     rate: 0,
     rater: {
-        raterId: "",
-        name: ""
+        raterId: '',
+        name: ''
     },
     likes: []
 };
@@ -15,7 +15,7 @@ export function useGetRating(recipeId, userId) {
     const [rating, setRating] = useState(defaultRating);
 
     const { data, isLoading } = useQuery({
-        queryKey: ["rating"],
+        queryKey: ['rating'],
         queryFn: ({ signal }) => getRating({ signal, recipeId, userId }),
         enabled: Boolean(recipeId && userId)
     });

@@ -1,7 +1,7 @@
-import { useSubmit, Form, useActionData } from "react-router";
-import { useUserStore } from "../stores/useUserStore";
-import { useEffect } from "react";
-import { useToastStore } from "../stores/useToastStore";
+import { useSubmit, Form, useActionData } from 'react-router';
+import { useUserStore } from '../stores/useUserStore';
+import { useEffect } from 'react';
+import { useToastStore } from '../stores/useToastStore';
 
 function Profile() {
     const submit = useSubmit();
@@ -10,16 +10,19 @@ function Profile() {
     const user = useUserStore((state) => state.user);
 
     function handleEmailVerification() {
-        submit({ email: user.email }, { method: "POST", action: "/emailVerification" });
+        submit({ email: user.email }, { method: 'POST', action: '/emailVerification' });
     }
 
     useEffect(() => {
         if (actionData?.error) {
-            createToast({ headerText: "Server Error", bodyText: actionData?.error, isSuccess: false });
+            createToast({ headerText: 'Server Error', bodyText: actionData?.error, isSuccess: false });
         }
 
         if (actionData?.result) {
-            createToast({ headerText: "Update user information", bodyText: "User information was successfully updated" });
+            createToast({
+                headerText: 'Update user information',
+                bodyText: 'User information was successfully updated'
+            });
         }
     }, [actionData, createToast]);
 
@@ -31,7 +34,7 @@ function Profile() {
                     required
                     className="form-control bg-gray-light mb-3"
                     id="email"
-                    defaultValue={user?.email ?? ""}
+                    defaultValue={user?.email ?? ''}
                     placeholder="johndoe@gmail.com"
                     disabled={user?.email ?? false}
                 />
@@ -45,13 +48,13 @@ function Profile() {
                     name="name"
                     className="form-control bg-light mb-3"
                     id="name"
-                    defaultValue={user?.name ?? ""}
+                    defaultValue={user?.name ?? ''}
                     placeholder="John"
                 />
                 <label htmlFor="name">Name</label>
             </div>
 
-            <div className={`d-flex ${user?.emailVerified ? "justify-content-end" : "justify-content-between"} `}>
+            <div className={`d-flex ${user?.emailVerified ? 'justify-content-end' : 'justify-content-between'} `}>
                 {!user?.emailVerified && (
                     <button className="btn btn-primary text-white" type="button" onClick={handleEmailVerification}>
                         Verify your email

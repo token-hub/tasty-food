@@ -1,14 +1,14 @@
-import { Rating } from "react-simple-star-rating";
-import EditIcon from "../../../assets/icons/editIcon";
-import LikeFillIcon from "../../../assets/icons/likeFillIcon";
-import XIcon from "../../../assets/icons/xIcon";
-import { useState } from "react";
-import { useParams } from "react-router";
-import { useUserStore } from "../../../stores/useUserStore";
-import { objectToFormData } from "../../../lib/utilities";
-import { useCreateRating } from "../../../hooks/useCreateRating";
-import { useGetRating } from "../../../hooks/useGetRating";
-import dayjs from "dayjs";
+import { Rating } from 'react-simple-star-rating';
+import EditIcon from '../../../assets/icons/editIcon';
+import LikeFillIcon from '../../../assets/icons/likeFillIcon';
+import XIcon from '../../../assets/icons/xIcon';
+import { useState } from 'react';
+import { useParams } from 'react-router';
+import { useUserStore } from '../../../stores/useUserStore';
+import { objectToFormData } from '../../../lib/utilities';
+import { useCreateRating } from '../../../hooks/useCreateRating';
+import { useGetRating } from '../../../hooks/useGetRating';
+import dayjs from 'dayjs';
 
 function RecipeForm() {
     const { recipeId } = useParams();
@@ -39,7 +39,10 @@ function RecipeForm() {
             }
         };
 
-        fetcher.submit(objectToFormData(newRating), { action: "/:author/recipes/:recipeId/createRecipeRating", method: "POST" });
+        fetcher.submit(objectToFormData(newRating), {
+            action: '/:author/recipes/:recipeId/createRecipeRating',
+            method: 'POST'
+        });
         setIsEditting();
     }
 
@@ -49,23 +52,33 @@ function RecipeForm() {
                 <label htmlFor="rating" className="form-label w-100 d-flex m-0">
                     <span className="flex-grow-1">Your rating for this recipe:</span>
                     {userHasData && (
-                        <button type="button" onClick={handleEdit} className="btn p-1 mb-1 text-primary border-0 ms-auto">
+                        <button
+                            type="button"
+                            onClick={handleEdit}
+                            className="btn p-1 mb-1 text-primary border-0 ms-auto"
+                        >
                             {!isEditting ? <EditIcon /> : <XIcon />}
                         </button>
                     )}
                 </label>
-                <Rating readonly={disabled} onClick={(rate) => handleRating("rate", rate)} initialValue={rating ? rating.rate : 0} />
-                <p className="m-0 text-muted fs-7 ms-2">{rating ? dayjs(rating.createdAt).format("YYYY-MM-DD HH:mm") : null}</p>
+                <Rating
+                    readonly={disabled}
+                    onClick={(rate) => handleRating('rate', rate)}
+                    initialValue={rating ? rating.rate : 0}
+                />
+                <p className="m-0 text-muted fs-7 ms-2">
+                    {rating ? dayjs(rating.createdAt).format('YYYY-MM-DD HH:mm') : null}
+                </p>
             </div>
             <div className="form-floating">
                 <textarea
-                    className={`form-control ${disabled ? "" : "bg-light"}`}
+                    className={`form-control ${disabled ? '' : 'bg-light'}`}
                     placeholder="Leave a comment here ..."
                     id="floatingTextarea2"
                     style={{ height: 100 }}
                     disabled={disabled}
-                    onChange={(e) => handleRating("comment", e.target.value)}
-                    defaultValue={rating ? rating.comment : ""}
+                    onChange={(e) => handleRating('comment', e.target.value)}
+                    defaultValue={rating ? rating.comment : ''}
                 />
             </div>
 

@@ -1,6 +1,6 @@
-import { useFetcher } from "react-router";
-import { useToastStore } from "../stores/useToastStore";
-import { useEffect, useRef } from "react";
+import { useFetcher } from 'react-router';
+import { useToastStore } from '../stores/useToastStore';
+import { useEffect, useRef } from 'react';
 
 export function useRecipeFetcher(recipeId) {
     const fetcher = useFetcher();
@@ -8,17 +8,17 @@ export function useRecipeFetcher(recipeId) {
     const closeRef = useRef();
 
     useEffect(() => {
-        if (fetcher.state === "idle" && fetcher.data) {
+        if (fetcher.state === 'idle' && fetcher.data) {
             closeRef.current.click();
         }
 
         if (fetcher?.data?.error) {
-            createToast({ headerText: "Server Error", bodyText: fetcher?.data?.error, isSuccess: false });
+            createToast({ headerText: 'Server Error', bodyText: fetcher?.data?.error, isSuccess: false });
         }
 
         if (fetcher?.data?.result) {
-            const headerText = !recipeId ? "Create recipe success" : "Update recipe success";
-            const bodyText = !recipeId ? "New recipe has been create" : "Recipe has been successfully update";
+            const headerText = !recipeId ? 'Create recipe success' : 'Update recipe success';
+            const bodyText = !recipeId ? 'New recipe has been create' : 'Recipe has been successfully update';
             createToast({ headerText, bodyText });
         }
     }, [fetcher, createToast, recipeId]);

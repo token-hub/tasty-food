@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useToastStore } from "../stores/useToastStore";
-import { validateRecipeState } from "../lib/utilities";
+import { useState, useEffect } from 'react';
+import { useToastStore } from '../stores/useToastStore';
+import { validateRecipeState } from '../lib/utilities';
 
 export function useProgress(show, recipeState) {
     const { name, description, cookTime, prepTime, categories, ingredients, instructions } = recipeState;
@@ -39,7 +39,7 @@ export function useProgress(show, recipeState) {
 
         if (errors.length) {
             errors.forEach((error) => {
-                createToast({ headerText: "Field Error", bodyText: error.message, isSuccess: false });
+                createToast({ headerText: 'Field Error', bodyText: error.message, isSuccess: false });
             });
         }
 

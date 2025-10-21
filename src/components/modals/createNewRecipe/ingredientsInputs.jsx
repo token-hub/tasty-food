@@ -1,4 +1,4 @@
-import XIcon from "../../../assets/icons/xIcon";
+import XIcon from '../../../assets/icons/xIcon';
 
 function IngredientsInputs({ quantity, unit, name, id, setInputs, onChange, removeIngredient }) {
     function handleChange(e, id) {
@@ -8,7 +8,7 @@ function IngredientsInputs({ quantity, unit, name, id, setInputs, onChange, remo
         setInputs((prev) =>
             prev.map((input) => {
                 if (input.id === id) {
-                    const nameToUse = name === "ingredient" ? "name" : name;
+                    const nameToUse = name === 'ingredient' ? 'name' : name;
                     return { ...input, [nameToUse]: value };
                 } else {
                     return input;

@@ -1,4 +1,4 @@
-@function generate-position-values($unit: "%") {
+@function generate-position-values($unit: '%') {
     $values: ();
 
     @for $i from 0 through 20 {

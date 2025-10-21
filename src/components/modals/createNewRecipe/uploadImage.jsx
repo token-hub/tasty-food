@@ -1,9 +1,9 @@
-import { useRef, useState } from "react";
-import UpArrowIcon from "../../../assets/icons/UpArrowIcon";
-import XIcon from "../../../assets/icons/xIcon";
+import { useRef, useState } from 'react';
+import UpArrowIcon from '../../../assets/icons/UpArrowIcon';
+import XIcon from '../../../assets/icons/xIcon';
 
 function CreateModalUploadImage({ recipe, onChange }) {
-    const defaultImage = "https://placehold.co/200x200?font=roboto&text=Recipe";
+    const defaultImage = 'https://placehold.co/200x200?font=roboto&text=Recipe';
 
     const uploadRef = useRef();
     const [recipeImage, setRecipeImage] = useState(recipe?.image?.link ?? defaultImage);
@@ -41,18 +41,26 @@ function CreateModalUploadImage({ recipe, onChange }) {
                         height="200"
                         width="200"
                         src={recipeImage}
-                        alt={recipe.name ?? "image of new recipe"}
+                        alt={recipe.name ?? 'image of new recipe'}
                         className=" rounded-circle"
                         role="button"
                         onClick={handleUploadClick}
                     />
 
                     {recipeImage == defaultImage ? (
-                        <div className="position-absolute bottom-10 end-10 bg-light rounded-circle" role="button" onClick={handleUploadClick}>
+                        <div
+                            className="position-absolute bottom-10 end-10 bg-light rounded-circle"
+                            role="button"
+                            onClick={handleUploadClick}
+                        >
                             <UpArrowIcon height="28" width="28" className="text-muted" />
                         </div>
                     ) : (
-                        <div className="position-absolute top-10 end-10 bg-light border-dark rounded-circle" role="button" onClick={handleReset}>
+                        <div
+                            className="position-absolute top-10 end-10 bg-light border-dark rounded-circle"
+                            role="button"
+                            onClick={handleReset}
+                        >
                             <XIcon height="28" width="28" className="text-secondary p-1" />
                         </div>
                     )}

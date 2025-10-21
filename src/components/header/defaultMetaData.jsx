@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet";
-import Metadata from "./metadata";
+import { Helmet } from 'react-helmet';
+import Metadata from './metadata';
 
 function DefaultMetaData() {
     return (

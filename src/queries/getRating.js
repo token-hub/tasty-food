@@ -1,13 +1,13 @@
-import { SERVER_API_URL } from "../lib/constants";
+import { SERVER_API_URL } from '../lib/constants';
 
 export async function getRating({ signal, recipeId, userId }) {
     const result = await fetch(`${SERVER_API_URL}/ratings/${recipeId}/${userId}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         signal,
-        credentials: "include"
+        credentials: 'include'
     });
 
     const responseData = await result.json();
@@ -15,6 +15,6 @@ export async function getRating({ signal, recipeId, userId }) {
     if (result.ok) {
         return responseData;
     } else {
-        throw new Error(responseData.error || "Something went wrong");
+        throw new Error(responseData.error || 'Something went wrong');
     }
 }

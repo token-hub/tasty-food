@@ -1,13 +1,13 @@
-import { SERVER_API_URL } from "../lib/constants";
+import { SERVER_API_URL } from '../lib/constants';
 
 export async function getConversations({ signal, userId, pagination = {} }) {
     const result = await fetch(`${SERVER_API_URL}/conversations/getConversations`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         signal,
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({
             pagination,
             userId
@@ -19,6 +19,6 @@ export async function getConversations({ signal, userId, pagination = {} }) {
     if (result.ok) {
         return responseData;
     } else {
-        throw new Error(responseData.error || "Something went wrong");
+        throw new Error(responseData.error || 'Something went wrong');
     }
 }
