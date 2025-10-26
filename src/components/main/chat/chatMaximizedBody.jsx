@@ -14,17 +14,17 @@ function ChatMaximizedBody({ mobileView = false }) {
     const user = useUserStore((state) => state.user);
 
     const bottomRef = useRef();
-    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(true);
+    const [scrollAtTheBottom, setScrollAtTheBottom] = useState(false);
     const convoMessagesLength = +selectedConvo?.messages?.length;
+    const [initialLoad, setInitialLoad] = useState(true);
 
     useEffect(() => {
-        const isInitialLoad = convoMessagesLength <= pagination.limit;
-        const scrollAtBotAndSendingMessage = scrollAtTheBottom && !isInitialLoad;
+        const scrollAtBotAndSendingMessage = scrollAtTheBottom && !initialLoad;
 
-        if (scrollAtTheBottom || isInitialLoad || scrollAtBotAndSendingMessage) {
+        if (scrollAtTheBottom || initialLoad || scrollAtBotAndSendingMessage) {
             bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-    }, [convoMessagesLength, scrollAtTheBottom, pagination.limit]);
+    }, [convoMessagesLength, scrollAtTheBottom, initialLoad]);
 
     function handleScroll(e) {
         const currentScrollTop = e.target.scrollTop;
@@ -33,6 +33,7 @@ function ChatMaximizedBody({ mobileView = false }) {
 
         if (scrollingUp) {
             setScrollAtTheBottom(false);
+            setInitialLoad(false);
         } else {
             const isBottom = Math.abs(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight) < 5;
             setScrollAtTheBottom(isBottom);
