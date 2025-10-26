@@ -28,9 +28,18 @@ function ChatArea({ bottomRef }) {
 
         chatRef.current.value = '';
     }
+
+    function handleKeyDown(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault(); // prevent new line
+            handleSend();
+        }
+    }
+
     return (
         <div className="position-absolute bottom-0 w-100 chat-area-container bg-white">
             <textarea
+                onKeyDown={handleKeyDown}
                 className="w-100 border-0 border-top ps-2 py-2 pe-5 small chat-area lh-sm"
                 placeholder="Type your message here..."
                 name="chat"
