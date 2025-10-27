@@ -27,45 +27,48 @@ function Profile() {
     }, [actionData, createToast]);
 
     return (
-        <Form className="form-floating p-3 p-md-0" method="POST">
-            <div className="form-floating w-100">
-                <input
-                    type="text"
-                    required
-                    className="form-control bg-gray-light mb-3"
-                    id="email"
-                    defaultValue={user?.email ?? ''}
-                    placeholder="johndoe@gmail.com"
-                    disabled={user?.email ?? false}
-                />
-                <label htmlFor="email">Email</label>
-            </div>
+        <>
+            <title>Profile</title>
+            <Form className="form-floating p-3 p-md-0" method="POST">
+                <div className="form-floating w-100">
+                    <input
+                        type="text"
+                        required
+                        className="form-control bg-gray-light mb-3"
+                        id="email"
+                        defaultValue={user?.email ?? ''}
+                        placeholder="johndoe@gmail.com"
+                        disabled={user?.email ?? false}
+                    />
+                    <label htmlFor="email">Email</label>
+                </div>
 
-            <div className="form-floating w-100">
-                <input
-                    type="text"
-                    required
-                    name="name"
-                    className="form-control bg-light mb-3"
-                    id="name"
-                    defaultValue={user?.name ?? ''}
-                    placeholder="John"
-                />
-                <label htmlFor="name">Name</label>
-            </div>
+                <div className="form-floating w-100">
+                    <input
+                        type="text"
+                        required
+                        name="name"
+                        className="form-control bg-light mb-3"
+                        id="name"
+                        defaultValue={user?.name ?? ''}
+                        placeholder="John"
+                    />
+                    <label htmlFor="name">Name</label>
+                </div>
 
-            <div className={`d-flex ${user?.emailVerified ? 'justify-content-end' : 'justify-content-between'} `}>
-                {!user?.emailVerified && (
-                    <button className="btn btn-primary text-white" type="button" onClick={handleEmailVerification}>
-                        Verify your email
+                <div className={`d-flex ${user?.emailVerified ? 'justify-content-end' : 'justify-content-between'} `}>
+                    {!user?.emailVerified && (
+                        <button className="btn btn-primary text-white" type="button" onClick={handleEmailVerification}>
+                            Verify your email
+                        </button>
+                    )}
+
+                    <button type="submit" className="btn btn-primary text-light">
+                        Submit
                     </button>
-                )}
-
-                <button type="submit" className="btn btn-primary text-light">
-                    Submit
-                </button>
-            </div>
-        </Form>
+                </div>
+            </Form>
+        </>
     );
 }
 

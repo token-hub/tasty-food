@@ -46,32 +46,35 @@ function Archives() {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                {data?.details?.recipes.length > 0 ? (
-                    data?.details?.recipes &&
-                    data?.details?.recipes.map((recipe) => {
-                        return (
-                            <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
-                                <Recipe recipe={recipe} isArchived fetcher={fetcher} />
-                            </div>
-                        );
-                    })
-                ) : (
-                    <div
-                        style={{ height: '15rem' }}
-                        className="d-flex w-100 justify-content-center align-items-center text-muted"
-                    >
-                        No data found
-                    </div>
-                )}
+        <>
+            <title>Archives</title>
+            <div className="container">
+                <div className="row">
+                    {data?.details?.recipes.length > 0 ? (
+                        data?.details?.recipes &&
+                        data?.details?.recipes.map((recipe) => {
+                            return (
+                                <div key={recipe.name} className=" col-md-6 col-xl-4 mb-3">
+                                    <Recipe recipe={recipe} isArchived fetcher={fetcher} />
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <div
+                            style={{ height: '15rem' }}
+                            className="d-flex w-100 justify-content-center align-items-center text-muted"
+                        >
+                            No data found
+                        </div>
+                    )}
+                </div>
+                <Pagination
+                    onChange={handlePagination}
+                    currentPage={pagination.page}
+                    total={dataCount?.details?.recipeTotalCount}
+                />
             </div>
-            <Pagination
-                onChange={handlePagination}
-                currentPage={pagination.page}
-                total={dataCount?.details?.recipeTotalCount}
-            />
-        </div>
+        </>
     );
 }
 

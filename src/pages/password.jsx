@@ -27,49 +27,52 @@ function Password() {
     }, [actionData, createToast]);
 
     return (
-        <Form ref={formRef} className="form-floating p-3 p-md-0" method="POST">
-            <div className="form-floating w-100">
-                <input
-                    type="password"
-                    required
-                    className="form-control bg-light mb-3"
-                    id="oldPassword"
-                    name="oldPassword"
-                    placeholder="********"
-                />
-                <label htmlFor="oldPassword">Old password</label>
-            </div>
+        <>
+            <title>Password</title>
+            <Form ref={formRef} className="form-floating p-3 p-md-0" method="POST">
+                <div className="form-floating w-100">
+                    <input
+                        type="password"
+                        required
+                        className="form-control bg-light mb-3"
+                        id="oldPassword"
+                        name="oldPassword"
+                        placeholder="********"
+                    />
+                    <label htmlFor="oldPassword">Old password</label>
+                </div>
 
-            <div className="form-floating w-100">
-                <input
-                    type="password"
-                    required
-                    className="form-control bg-light mb-3"
-                    id="newPassword"
-                    name="password"
-                    placeholder="********"
-                />
-                <label htmlFor="newPassword">New password</label>
-            </div>
+                <div className="form-floating w-100">
+                    <input
+                        type="password"
+                        required
+                        className="form-control bg-light mb-3"
+                        id="newPassword"
+                        name="password"
+                        placeholder="********"
+                    />
+                    <label htmlFor="newPassword">New password</label>
+                </div>
 
-            <div className="form-floating w-100">
-                <input
-                    type="password"
-                    required
-                    className="form-control bg-light mb-3"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    placeholder="********"
-                />
-                <label htmlFor="confirmPassword">Confirm password</label>
-            </div>
+                <div className="form-floating w-100">
+                    <input
+                        type="password"
+                        required
+                        className="form-control bg-light mb-3"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="********"
+                    />
+                    <label htmlFor="confirmPassword">Confirm password</label>
+                </div>
 
-            <div className="d-flex justify-content-end">
-                <button type="submit" className="btn btn-primary text-light">
-                    Submit
-                </button>
-            </div>
-        </Form>
+                <div className="d-flex justify-content-end">
+                    <button type="submit" className="btn btn-primary text-light">
+                        Submit
+                    </button>
+                </div>
+            </Form>
+        </>
     );
 }
 
