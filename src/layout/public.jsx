@@ -4,6 +4,7 @@ import Main from './main';
 import Chat from '../components/main/chat/chat';
 import Filter from '../components/sidebar/filter';
 import FilterMobile from '../components/sidebar/filterMobile';
+import MobileFooter from './mobileFooter';
 import { useUserStore } from '../stores/useUserStore';
 
 function Public() {
@@ -31,7 +32,14 @@ function Public() {
                     </div>
                 </div>
             </div>
-            {user && <Chat />}
+            {user && (
+                <>
+                    <Chat />
+                    <div className="d-md-none ">
+                        <MobileFooter />
+                    </div>
+                </>
+            )}
         </>
     );
 }
