@@ -11,7 +11,7 @@ function MobileFooter() {
             <div className="container-fluid">
                 <div className="d-flex justify-content-evenly w-100">
                     <FooterIcon to="/" text="Home" Icon={HomeIcon} />
-                    <FooterIcon to="/me/myRecipes" text="Recipes" Icon={RecipeIcon} />
+                    <FooterIcon to="/me/recipes" text="Recipes" Icon={RecipeIcon} />
                     <FooterIcon to="/me/archives" text="Archives" Icon={ArchiveIcon} />
                     <FooterIcon to="/me/notifications" text="Notifications" Icon={NotificationIcon} />
                     <FooterIcon to="/me" text="Me" Icon={UserIcon} />
