@@ -16,7 +16,7 @@ function FilterMobile() {
         setCategories((categories) => {
             return categories.map((category) => {
                 if (category.name === selectedCategory) {
-                    return { ...category, isChecked: true };
+                    return { ...category, isChecked: !category.isChecked };
                 } else {
                     return category;
                 }
@@ -33,13 +33,6 @@ function FilterMobile() {
                 };
             });
         });
-    }
-
-    function handleApply() {
-        // do something here
-        // add selected filter to the localstorage and fetch it by default
-
-        categoriesRef.current.click();
     }
 
     return (
@@ -63,13 +56,13 @@ function FilterMobile() {
                             <div className="col-6 p-1" key={name}>
                                 <input
                                     type="checkbox"
-                                    onChange={() => handleCategoryClick(name)}
                                     checked={isChecked}
                                     className="btn-check"
                                     id={name}
                                     autoComplete="off"
                                 />
                                 <label
+                                    onClick={() => handleCategoryClick(name)}
                                     className="btn btn-outline-primary fs-7  py-1 w-100 text-capitalize"
                                     htmlFor={name}
                                 >
@@ -77,14 +70,9 @@ function FilterMobile() {
                                 </label>
                             </div>
                         ))}
-                        <div className="col-6 p-1">
+                        <div className="col-12 p-1">
                             <button className="btn w-100 btn-sm btn-gray-dark text-white" onClick={handleReset}>
                                 Reset
-                            </button>
-                        </div>
-                        <div className="col-6 p-1">
-                            <button className="btn w-100 btn-sm btn-gray-dark text-white" onClick={handleApply}>
-                                Apply
                             </button>
                         </div>
                     </div>
