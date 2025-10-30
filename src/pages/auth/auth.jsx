@@ -1,7 +1,5 @@
 import { memo } from 'react';
 import { Link, useActionData, useNavigate, useSearchParams } from 'react-router';
-import FacebookIcon from '../../assets/icons/facebookIcon';
-import GoogleIcon from '../../assets/icons/googleIcon';
 import AuthSubmitButton from '../../components/auth/authSubmitButton';
 import { useToastStore } from '../../stores/useToastStore';
 import { useEffect } from 'react';
@@ -125,20 +123,6 @@ function Auth() {
                                         <small> Forgot password</small>
                                     </Link>
                                 )}
-
-                                <div className="d-flex justify-content-center">
-                                    <div className="my-2 small text-muted">
-                                        <small>OR</small>
-                                    </div>
-                                </div>
-                                <div className="d-flex mb-3">
-                                    <button className="btn btn-sm w-50 border text-muted mx-1 d-flex justify-content-center align-items-center">
-                                        <GoogleIcon /> <span className="ms-1">Google</span>
-                                    </button>
-                                    <button className="btn btn-sm w-50 border text-muted mx-1 d-flex justify-content-center align-items-center">
-                                        <FacebookIcon /> <span className="ms-1">Facebook</span>
-                                    </button>
-                                </div>
                                 <Link
                                     onClick={handleLink}
                                     className="fs-6 d-flex justify-content-center link-underline link-underline-opacity-0"
