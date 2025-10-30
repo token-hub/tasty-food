@@ -144,6 +144,7 @@ function RecipeHeaders({ recipe }) {
                         </>
                     )}
                 </div>
+                {recipe?.isDummy && <span class="badge badge-secondary bg-primary mt-2">Dummy Recipe</span>}
             </div>
         </div>
     );
