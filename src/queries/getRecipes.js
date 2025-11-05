@@ -1,7 +1,7 @@
 import { SERVER_API_URL } from '../lib/constants';
 
 export async function getRecipes({ signal, pagination = {}, filters = { categories: [] }, query = '' }) {
-    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/recipes/getRecipes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

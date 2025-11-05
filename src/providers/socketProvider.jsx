@@ -17,7 +17,7 @@ export function SocketProvider({ children }) {
     const updateSelectedConvo = useChatStore((state) => state.updateSelectedConvo);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3001');
+        const newSocket = io(import.meta.env.VITE_SERVER_URL);
         setSocket(newSocket);
 
         newSocket.on('users', (data) => {

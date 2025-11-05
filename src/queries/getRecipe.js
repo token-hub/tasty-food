@@ -1,7 +1,7 @@
 import { SERVER_API_URL } from '../lib/constants';
 
 export async function getRecipe({ signal, recipeId }) {
-    const result = await fetch(`${SERVER_API_URL}/recipes/${recipeId}`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/recipes/${recipeId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

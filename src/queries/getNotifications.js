@@ -1,7 +1,7 @@
 import { SERVER_API_URL } from '../lib/constants';
 
 export async function getNotifications({ signal, userId, pagination = {} }) {
-    const result = await fetch(`${SERVER_API_URL}/notifications/getNotifications`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/notifications/getNotifications`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

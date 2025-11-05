@@ -67,7 +67,7 @@ export function removeSpacesFromText(text) {
 }
 
 export function customFetch({ url, data, method = 'POST' }) {
-    return fetch(`${SERVER_API_URL}/${url}`, {
+    return fetch(`${import.meta.env.VITE_SERVER_URL}/${url}`, {
         method: method,
         headers: {
             'Content-Type': 'application/json'

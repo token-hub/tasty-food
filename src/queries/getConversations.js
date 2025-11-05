@@ -1,7 +1,7 @@
 import { SERVER_API_URL } from '../lib/constants';
 
 export async function getConversations({ signal, userId, pagination = {} }) {
-    const result = await fetch(`${SERVER_API_URL}/conversations/getConversations`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/conversations/getConversations`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

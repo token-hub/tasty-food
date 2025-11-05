@@ -15,7 +15,7 @@ export async function getRecipesTotalCount({
         queries += `&query=${query}`;
     }
 
-    const result = await fetch(`${SERVER_API_URL}/recipes/getRecipes/totalCount${queries}`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/recipes/getRecipes/totalCount${queries}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

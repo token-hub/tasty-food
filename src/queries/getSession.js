@@ -1,7 +1,7 @@
 import { SERVER_API_URL } from '../lib/constants';
 
 export async function getSession(signal) {
-    const result = await fetch(`${SERVER_API_URL}/auth/getSession`, {
+    const result = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/getSession`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
