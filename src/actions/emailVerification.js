@@ -24,8 +24,7 @@ async function emailVerificationAction({ request }) {
         },
         () => {
             queryClient.invalidateQueries({ queryKey: ['session'] });
-        },
-        '/me/profile'
+        }
     );
 }
 

@@ -1,16 +1,17 @@
-import { useSubmit, Form, useActionData } from 'react-router';
+import { Form, useActionData } from 'react-router';
 import { useUserStore } from '../stores/useUserStore';
 import { useEffect } from 'react';
 import { useToastStore } from '../stores/useToastStore';
+import { useEmailFetcher } from '../hooks/useEmailFetcher';
 
 function Profile() {
-    const submit = useSubmit();
     const actionData = useActionData();
     const createToast = useToastStore((state) => state.createToast);
     const user = useUserStore((state) => state.user);
+    const { fetcher } = useEmailFetcher();
 
     function handleEmailVerification() {
-        submit({ email: user.email }, { method: 'POST', action: '/emailVerification' });
+        fetcher.submit({ email: user.email }, { method: 'POST', action: '/emailVerification' });
     }
 
     useEffect(() => {
@@ -59,7 +60,14 @@ function Profile() {
                 <div className={`d-flex ${user?.emailVerified ? 'justify-content-end' : 'justify-content-between'} `}>
                     {!user?.emailVerified && (
                         <button className="btn btn-primary text-white" type="button" onClick={handleEmailVerification}>
-                            Verify your email
+                            {fetcher.state === 'submitting' ? (
+                                <>
+                                    <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
+                                    <span role="status">Submitting ...</span>
+                                </>
+                            ) : (
+                                ' Verify your email'
+                            )}
                         </button>
                     )}
 
