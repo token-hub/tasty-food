@@ -43,7 +43,7 @@ export function useSocket() {
 
     useEffect(() => {
         if (user) {
-            const newSocket = io('http://localhost:3001', {
+            const newSocket = io(import.meta.env.VITE_SERVER_URL, {
                 auth: { userId: user.id }
             });
 
