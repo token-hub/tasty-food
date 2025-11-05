@@ -1,12 +1,48 @@
-# React + Vite
+# 🍔 Tasty Food
+A web application where people can look and share recipes they like, and have a fun conversation with the author of recipe in real time.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend part of the project. the backend part can be found [here](https://github.com/token-hub/tasty-food-api).
 
-Currently, two official plugins are available:
+![Tasty Food Screenshot](http://98.84.186.29/assets/tasty-food-mockup-all-lg-D2GJ0Yt0.webp)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## ✨ Features
+- User authentication
+- Update user account
+- Create and manage own recipes
+- Like, comment and rate other recipes
+- Search recipes
+- Rating notifications for your own recipes
+- Real time chat with other recipe authors
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+ ## 🧰 Tech Stack  
+**Frontend:** React, Bootstrap, Socket.io, Zustand  
+**Backend:** Node.js, Express.js, Socket.io, betterAuth  
+**Database:** MongoDB  
+**Deployment:** Nginx, AWS EC2  
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/tasty-food/tasty-food.git
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. create a .env file
+add the following:  
+SERVER_URL: http://localhost:3000 // must point to the tasty-food-api
+
+## 🚀 Usage
+
+Make sure that you have the tasty-food-api server up and running before running the following command:  
+
+```bash
+npm run dev
+```
+
+ENJOY! :D
