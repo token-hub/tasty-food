@@ -16,6 +16,11 @@ $utilities: map-merge(
             class: h,
             values: $position-values-percent
         ),
+        'width': (
+            property: width,
+            class: w,
+            values: $position-values-percent
+        ),
         'viewport-height': (
             property: height,
             class: vh,

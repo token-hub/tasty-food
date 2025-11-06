@@ -17,15 +17,14 @@ export function useProgress(show, recipeState) {
         3: { instructions }
     };
 
-    const progressStep = 25; // for 4 parts of the modal that will sum to 100
+    const progressStep = 35;
     const progressMax = 100;
     const [progress, setProgress] = useState(progressStep);
     const showPrevButton = progress !== progressStep;
     const hideNextButton = progress === progressMax;
     const firstPart = progress === progressStep;
     const secondPart = progress === progressStep * 2;
-    const thirdPart = progress === progressStep * 3;
-    const fourthPart = progress === progressStep * 4;
+    const thirdPart = progress === progressStep * 3 - 5;
 
     useEffect(() => {
         if (!show && progress !== progressStep) {
@@ -34,7 +33,7 @@ export function useProgress(show, recipeState) {
     }, [show, progress]);
 
     function handleErrors() {
-        const current = [firstPart, secondPart, thirdPart, fourthPart].findIndex((d) => d);
+        const current = [firstPart, secondPart, thirdPart].findIndex((d) => d);
         const errors = validateRecipeState(toValidate[current + 1]);
 
         if (errors.length) {
@@ -49,11 +48,28 @@ export function useProgress(show, recipeState) {
     function handleNext() {
         const hasError = handleErrors();
         if (hasError) return;
-        setProgress((prev) => prev + progressStep);
+        setProgress((prev) => {
+            const total = prev + progressStep;
+            if (total > 100) {
+                return 100;
+            } else {
+                return prev + progressStep;
+            }
+        });
     }
 
     function handlePrevious() {
-        setProgress((prev) => prev - progressStep);
+        setProgress((prev) => {
+            if (prev == 100) {
+                return progressStep * 2;
+            } else {
+                return prev - progressStep;
+            }
+        });
+    }
+
+    function handleResetProgress() {
+        setProgress(progressStep);
     }
 
     return {
@@ -65,6 +81,6 @@ export function useProgress(show, recipeState) {
         firstPart,
         secondPart,
         thirdPart,
-        fourthPart
+        handleResetProgress
     };
 }

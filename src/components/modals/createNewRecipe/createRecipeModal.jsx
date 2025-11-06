@@ -32,8 +32,8 @@ function CreateRecipeModal() {
         firstPart,
         secondPart,
         thirdPart,
-        fourthPart,
-        progress
+        progress,
+        handleResetProgress
     } = useProgress(show, recipeState);
     const isEditting = mode === MODAL_MODES[1];
 
@@ -127,6 +127,12 @@ function CreateRecipeModal() {
         fetcher.submit(objectToFormData(prepData), { method: 'POST', action: '/me/recipes/create' });
     }
 
+    function handleCloseModal() {
+        setRecipeState(initialState);
+        handleResetProgress();
+        reset();
+    }
+
     return (
         <>
             <div
@@ -145,7 +151,7 @@ function CreateRecipeModal() {
                             <button
                                 type="button"
                                 ref={closeRef}
-                                onClick={reset}
+                                onClick={handleCloseModal}
                                 className="btn-close"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
@@ -173,11 +179,11 @@ function CreateRecipeModal() {
                                             <Instructions recipe={recipeState} onChange={handleRecipeState} />
                                         </>
                                     )}
-                                    {fourthPart && (
+                                    {/* {fourthPart && (
                                         <>
                                             <UploadVideo recipe={recipeState} onChange={handleRecipeState} />
                                         </>
-                                    )}
+                                    )} */}
                                 </form>
                             )}
                         </div>
