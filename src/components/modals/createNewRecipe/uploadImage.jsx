@@ -43,11 +43,11 @@ function CreateModalUploadImage({ recipe, onChange }) {
                         src={recipeImage}
                         alt={recipe.name ?? 'image of new recipe'}
                         className=" rounded-circle"
-                        role="button"
-                        onClick={handleUploadClick}
+                        // role="button"
+                        // onClick={handleUploadClick}
                     />
 
-                    {recipeImage == defaultImage ? (
+                    {/* {recipeImage == defaultImage ? (
                         <div
                             className="position-absolute bottom-10 end-10 bg-light rounded-circle"
                             role="button"
@@ -63,7 +63,7 @@ function CreateModalUploadImage({ recipe, onChange }) {
                         >
                             <XIcon height="28" width="28" className="text-secondary p-1" />
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
             <div className="invisible" style={{ height: 0 }}>
