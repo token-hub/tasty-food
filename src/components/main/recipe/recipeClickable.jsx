@@ -28,17 +28,14 @@ function Recipe({ recipe, isArchived = false, fetcher }) {
                 <Link to={recipeLinkToUse} className="text-muted link-underline link-underline-opacity-0">
                     <img src={imageSource} className="card-img-top " alt="test image" />
                 </Link>
-                <div className="position-absolute bottom-5 end-5">
-                    <span class="badge badge-secondary bg-primary">Dummy</span>
-                </div>
+                {recipe?.isDummy && (
+                    <div className="position-absolute bottom-5 end-5">
+                        <span class="badge badge-secondary bg-primary">Dummy</span>
+                    </div>
+                )}
             </div>
             <div className="card-body">
                 <div className="row pe-2">
-                    {/* <div className="col-12">
-                        <div className="d-flex justify-content-end">
-                            <span class="badge badge-secondary bg-primary">Dummy</span>
-                        </div>
-                    </div> */}
                     <div className="col-11">
                         <Link to={recipeLinkToUse} className="text-muted link-underline link-underline-opacity-0">
                             <h5 className="card-title mb-3">{name}</h5>{' '}
