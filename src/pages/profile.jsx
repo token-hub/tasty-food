@@ -1,14 +1,21 @@
 import { Form, useActionData } from 'react-router';
-import { useUserStore } from '../stores/useUserStore';
 import { useEffect } from 'react';
 import { useToastStore } from '../stores/useToastStore';
 import { useEmailFetcher } from '../hooks/useEmailFetcher';
+import { getSession } from '../queries/getSession';
+import { useQuery } from '@tanstack/react-query';
 
 function Profile() {
     const actionData = useActionData();
     const createToast = useToastStore((state) => state.createToast);
-    const user = useUserStore((state) => state.user);
     const { fetcher } = useEmailFetcher();
+
+    const { data: session } = useQuery({
+        queryKey: ['session'],
+        queryFn: ({ signal }) => getSession(signal)
+    });
+
+    const user = session?.details?.user;
 
     function handleEmailVerification() {
         fetcher.submit({ email: user.email }, { method: 'POST', action: '/emailVerification' });
@@ -59,14 +66,19 @@ function Profile() {
 
                 <div className={`d-flex ${user?.emailVerified ? 'justify-content-end' : 'justify-content-between'} `}>
                     {!user?.emailVerified && (
-                        <button className="btn btn-primary text-white" type="button" onClick={handleEmailVerification}>
+                        <button
+                            disabled={fetcher.state === 'submitting'}
+                            className="btn btn-primary text-white"
+                            type="button"
+                            onClick={handleEmailVerification}
+                        >
                             {fetcher.state === 'submitting' ? (
                                 <>
                                     <span className="spinner-grow spinner-grow-sm me-2" aria-hidden="true" />
                                     <span role="status">Submitting ...</span>
                                 </>
                             ) : (
-                                ' Verify your email'
+                                'Verify your email'
                             )}
                         </button>
                     )}
