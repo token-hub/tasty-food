@@ -41,7 +41,7 @@ export function useRecipes(pagination) {
         };
     }
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: recipeQueryKey,
         queryFn: ({ signal }) =>
             queryFn({
@@ -59,5 +59,5 @@ export function useRecipes(pagination) {
             })
     });
 
-    return { data, dataCount };
+    return { data, dataCount, isLoading };
 }
