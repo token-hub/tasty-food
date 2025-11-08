@@ -129,7 +129,7 @@ function RecipeHeaders({ recipe }) {
                         </span>
                     </p>
 
-                    {!isAuthor && (
+                    {!isAuthor && user?.id && (
                         <>
                             <button type="button" className="btn border-0 p-0 d-none d-md-block" onClick={handleChat}>
                                 <ChatIcon className="mt-n1 text-secondary" />
