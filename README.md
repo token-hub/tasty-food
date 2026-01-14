@@ -3,7 +3,7 @@ A web application where people can look and share recipes they like, and have a 
 
 This is the frontend part of the project. the backend part can be found [here](https://github.com/token-hub/tasty-food-api).
 
-![Tasty Food Screenshot](http://98.84.186.29/assets/tasty-food-mockup-all-lg-D2GJ0Yt0.webp)
+![Tasty Food Screenshot](http://18.209.47.86/assets/tasty-food-mockup-all-lg-D2GJ0Yt0.webp)
 
 
 ## ✨ Features
